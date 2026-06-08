@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>记忆系统 × 多产品资产底座 · v2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #000;
+    --bg-soft: #0a0a0a;
+    --bg-elev: #111114;
+    --line: rgba(255,255,255,0.08);
+    --line-2: rgba(255,255,255,0.14);
+    --text: #f5f5f7;
+    --text-2: #a1a1a6;
+    --text-3: #6e6e73;
+    --blue: #2997ff;
+    --green: #30d158;
+    --orange: #ff9f0a;
+    --red: #ff453a;
+    --purple: #bf5af2;
+    --teal: #64d2ff;
+  }
+  html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    letter-spacing: -0.003em;
+    overflow-x: hidden;
+  }
+  code, pre, .mono { font-family: 'SF Mono', 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* ============= 苹果发布会版式 ============= */
+  .stage {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Hero / 开场 */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 0 80px;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--text-3));
+  }
+  .eyebrow {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--blue);
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 88px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+    background: linear-gradient(180deg, #fff 30%, #999 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .lead {
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--text-2);
+    font-weight: 400;
+    max-width: 780px;
+    line-height: 1.45;
+  }
+  .hero .meta {
+    margin-top: 48px;
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    color: var(--text-3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero .meta strong { color: var(--text-2); font-weight: 500; }
+
+  /* Section 标题 */
+  .chapter {
+    padding: 140px 0 40px;
+    text-align: center;
+  }
+  .chapter-num {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-3);
+    letter-spacing: 0.18em;
+    margin-bottom: 18px;
+  }
+  .chapter h2 {
+    font-size: clamp(34px, 5vw, 60px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .chapter h2 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--teal), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .chapter .desc {
+    font-size: 18px;
+    color: var(--text-2);
+    margin-top: 20px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+
+  /* Statement 大字陈述 */
+  .statement {
+    padding: 80px 0;
+    text-align: center;
+  }
+  .statement p {
+    font-size: clamp(24px, 3.5vw, 40px);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    max-width: 880px;
+    margin: 0 auto;
+    color: var(--text);
+  }
+  .statement p .accent {
+    color: var(--teal);
+  }
+  .statement p .muted {
+    color: var(--text-3);
+  }
+
+  /* 卡片网格 */
+  .grid {
+    display: grid;
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+  .panel {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 36px;
+    transition: border-color 0.3s ease;
+  }
+  .panel:hover { border-color: var(--line-2); }
+  .panel-mini {
+    padding: 24px;
+    border-radius: 16px;
+  }
+  .panel-key {
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .panel h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .panel-mini h3 { font-size: 17px; }
+  .panel p {
+    font-size: 15px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+  .panel p strong { color: var(--text); font-weight: 500; }
+
+  /* 数字大屏 */
+  .stat {
+    text-align: center;
+    padding: 28px 16px;
+  }
+  .stat .num {
+    font-size: clamp(44px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat .num.teal { background: linear-gradient(180deg, var(--teal), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .num.green { background: linear-gradient(180deg, var(--green), #1a8f3d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .num.orange { background: linear-gradient(180deg, var(--orange), #cc6600); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .label {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* 用户故事卡 */
+  .story {
+    background: linear-gradient(180deg, #0a0e1a 0%, #060810 100%);
+    border: 1px solid var(--line-2);
+    border-radius: 28px;
+    padding: 56px 48px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .story::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -10%;
+    width: 60%; height: 200%;
+    background: radial-gradient(circle, rgba(100,210,255,0.10), transparent 60%);
+    pointer-events: none;
+  }
+  .story-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .story-tag::before {
+    content: '✨';
+    font-size: 14px;
+  }
+  .story h3 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+  .story-flow {
+    display: grid;
+    gap: 14px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .story-step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.025);
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    align-items: center;
+  }
+  .story-product {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .story-step p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .story-step p .key {
+    color: var(--teal);
+    font-weight: 500;
+  }
+  .story-aha {
+    margin-top: 28px;
+    padding: 22px 24px;
+    background: linear-gradient(135deg, rgba(100,210,255,0.10), rgba(41,151,255,0.06));
+    border-left: 3px solid var(--teal);
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .story-aha strong { color: var(--teal); }
+
+  /* 矩阵架构图 */
+  .architecture {
+    margin: 60px 0;
+    padding: 56px 40px;
+    background: linear-gradient(180deg, #08080c 0%, #050507 100%);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    text-align: center;
+  }
+  .arch-engine {
+    display: inline-block;
+    padding: 28px 40px;
+    background: linear-gradient(135deg, rgba(191,90,242,0.15), rgba(100,210,255,0.10));
+    border: 1px solid rgba(191,90,242,0.3);
+    border-radius: 20px;
+    min-width: 480px;
+    margin-bottom: 32px;
+  }
+  .arch-engine-title { font-size: 18px; font-weight: 600; }
+  .arch-engine-desc { font-size: 13px; color: var(--text-3); margin-top: 8px; line-height: 1.5; }
+  .arch-arrows {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    margin: 0 0 32px;
+    color: var(--text-3);
+    font-size: 22px;
+  }
+  .arch-products {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .arch-prod {
+    padding: 18px 12px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .arch-prod.pro {
+    border-color: rgba(48,209,88,0.4);
+    background: linear-gradient(180deg, rgba(48,209,88,0.10), rgba(48,209,88,0.02));
+  }
+  .arch-prod-name { font-size: 14px; font-weight: 600; }
+  .arch-prod-tier {
+    font-size: 11px;
+    color: var(--text-3);
+    margin-top: 6px;
+    letter-spacing: 0.06em;
+  }
+  .arch-brain {
+    display: inline-block;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, rgba(255,159,10,0.15), rgba(255,69,58,0.08));
+    border: 1px solid rgba(255,159,10,0.35);
+    border-radius: 16px;
+    min-width: 240px;
+  }
+  .arch-brain-name { font-size: 16px; font-weight: 600; }
+  .arch-brain-tier { font-size: 11px; color: var(--orange); margin-top: 4px; letter-spacing: 0.06em; }
+
+  /* 表格 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  th {
+    text-align: left;
+    padding: 14px 16px;
+    color: var(--text-3);
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line-2);
+  }
+  td {
+    padding: 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-2);
+    font-size: 14px;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  td strong { color: var(--text); font-weight: 500; }
+  tr:last-child td { border-bottom: none; }
+
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .pill-blue { background: rgba(41,151,255,0.15); color: var(--blue); }
+  .pill-green { background: rgba(48,209,88,0.15); color: var(--green); }
+  .pill-orange { background: rgba(255,159,10,0.15); color: var(--orange); }
+  .pill-red { background: rgba(255,69,58,0.15); color: var(--red); }
+  .pill-purple { background: rgba(191,90,242,0.15); color: var(--purple); }
+  .pill-teal { background: rgba(100,210,255,0.15); color: var(--teal); }
+  .pill-gray { background: rgba(255,255,255,0.06); color: var(--text-2); }
+
+  /* L1-L6 */
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin: 32px 0;
+  }
+  .layer {
+    padding: 22px 14px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .layer-id {
+    display: inline-block;
+    font-family: 'SF Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .layer:nth-child(1) .layer-id { background: rgba(100,210,255,0.15); color: var(--teal); }
+  .layer:nth-child(2) .layer-id { background: rgba(48,209,88,0.15); color: var(--green); }
+  .layer:nth-child(3) .layer-id { background: rgba(255,69,58,0.18); color: var(--red); }
+  .layer:nth-child(4) .layer-id { background: rgba(41,151,255,0.15); color: var(--blue); }
+  .layer:nth-child(5) .layer-id { background: rgba(255,69,58,0.18); color: var(--red); }
+  .layer:nth-child(6) .layer-id { background: rgba(255,69,58,0.18); color: var(--red); }
+  .layer-name { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .layer-desc { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+  .layer-flag {
+    margin-top: 8px;
+    font-size: 10px;
+    color: var(--red);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* Roadmap */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 32px 0;
+  }
+  .phase {
+    padding: 28px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    border-top: 3px solid var(--teal);
+  }
+  .phase:nth-child(2) { border-top-color: var(--blue); }
+  .phase:nth-child(3) { border-top-color: var(--purple); }
+  .phase-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.12em;
+  }
+  .phase:nth-child(2) .phase-tag { color: var(--blue); }
+  .phase:nth-child(3) .phase-tag { color: var(--purple); }
+  .phase-title { font-size: 18px; font-weight: 600; margin: 6px 0 14px; }
+  .phase-list { list-style: none; }
+  .phase-list li {
+    font-size: 13.5px;
+    color: var(--text-2);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .phase-list li:last-child { border-bottom: none; }
+  .phase-list li::before {
+    content: '–';
+    color: var(--text-3);
+    margin-right: 10px;
+  }
+
+  /* Footer */
+  .closing {
+    padding: 160px 0 100px;
+    text-align: center;
+  }
+  .closing-quote {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    max-width: 880px;
+    margin: 0 auto 40px;
+    background: linear-gradient(180deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .closing-sub {
+    font-size: 17px;
+    color: var(--text-2);
+    max-width: 600px;
+    margin: 0 auto 60px;
+    line-height: 1.6;
+  }
+  .closing-meta {
+    font-size: 13px;
+    color: var(--text-3);
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  .closing-meta a { color: var(--text-2); text-decoration: none; margin: 0 8px; }
+  .closing-meta a:hover { color: var(--text); }
+
+  ul.bullet { list-style: none; }
+  ul.bullet li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+  ul.bullet li:last-child { border-bottom: none; }
+  ul.bullet li strong { color: var(--text); }
+
+  .divider {
+    height: 1px;
+    background: var(--line);
+    margin: 80px 0;
+  }
+
+  @media (max-width: 880px) {
+    .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr 1fr; }
+    .roadmap { grid-template-columns: 1fr; }
+    .layers { grid-template-columns: repeat(3, 1fr); }
+    .arch-products { grid-template-columns: repeat(3, 1fr); }
+    .arch-engine { min-width: auto; width: 100%; padding: 20px; }
+    .panel { padding: 24px; }
+    .story { padding: 32px 24px; }
+    .story-step { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">Memory System · Asset Hub · v2.0</div>
+    <h1>记忆，是矩阵的<br/>下一个共同语言。</h1>
+    <p class="lead">让六端用户痕迹被同一份记忆消费、不断演化——<br/>这是元宝产品矩阵从「联动」走向「共脑」的关键一步。</p>
+    <div class="meta">
+      <span><strong>讲解人</strong> Layna Wang</span>
+      <span><strong>日期</strong> 2026-06-08</span>
+      <span><strong>听众</strong> 业务 / 产品 / 技术</span>
+      <span><strong>时长</strong> 30 分钟</span>
+    </div>
+  </section>
+
+  <!-- TLDR -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 00 · 一图概览</div>
+    <h2>四个问题，一次说清。</h2>
+  </section>
+
+  <div class="grid grid-4">
+    <div class="panel panel-mini">
+      <div class="panel-key">是什么</div>
+      <h3>记忆系统</h3>
+      <p>让 AI 在多次会话、多产品、多设备之间「<strong>记得住、调得出、改得动</strong>」的长期存储与演化引擎。</p>
+    </div>
+    <div class="panel panel-mini">
+      <div class="panel-key">为什么</div>
+      <h3>矩阵的共同语言</h3>
+      <p>没有它，矩阵资产是各端的死库；有了它，资产成为<strong>跨端流动的活网</strong>。</p>
+    </div>
+    <div class="panel panel-mini">
+      <div class="panel-key">怎么做</div>
+      <h3>引擎 + 产品双层</h3>
+      <p>引擎层接 Hy-Memory，少做一层；产品层<strong>自研形态</strong>——5 类资产、跨端规则、用户掌控。</p>
+    </div>
+    <div class="panel panel-mini">
+      <div class="panel-key">能拿到</div>
+      <h3>三个真实提升</h3>
+      <p>① 越用越懂我　② 资产<strong>跨六端流动</strong>　③ 历史时间线可见可控</p>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 01 ============ -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 01</div>
+    <h2>从对话到长期陪伴。<br/>记忆系统是<em>Agent 的海马体</em>。</h2>
+    <p class="desc">把零散的、瞬时的、跨会话的用户痕迹，沉淀成可检索、可演化、可调用的长期记忆，让 AI 不再"金鱼"。</p>
+  </section>
+
+  <div class="grid grid-2">
+    <div class="panel">
+      <div class="panel-key">没有记忆系统时</div>
+      <h3>用户的真实抱怨</h3>
+      <ul class="bullet">
+        <li>上周告诉 AI"我吃素"，这周还在推荐红烧肉</li>
+        <li>输入法输了 5 次"南京游玩"，浏览器搜索零感知</li>
+        <li>收藏了 30 篇文章，一个月后翻不出来、AI 不主动用</li>
+        <li>会议笔记改了 3 版，旧版被覆盖，决策因果链丢了</li>
+      </ul>
+      <p style="margin-top: 16px;"><strong>本质：</strong>AI 看似聪明，但每次启动都是"白板"，长期使用价值<strong>持续衰减</strong>。</p>
+    </div>
+    <div class="panel">
+      <div class="panel-key">三步原理</div>
+      <h3>写入 → 加工 → 调用</h3>
+      <table>
+        <tr><th>步骤</th><th>关键挑战</th></tr>
+        <tr><td><strong>写入</strong></td><td>写得快、写得轻、不阻塞主链路</td></tr>
+        <tr><td><strong>加工</strong></td><td>新旧冲突如何处理，不能简单覆盖</td></tr>
+        <tr><td><strong>调用</strong></td><td>不止靠向量，要带演化历史</td></tr>
+      </table>
+      <p style="margin-top: 16px;">三步看似朴素，行业常见方案<strong>仅做到了写和读，没做好"演化"</strong>。</p>
+    </div>
+  </div>
+
+  <div class="statement">
+    <p>但行业方案普遍存在三个隐疾——<br/><span class="muted">长期使用之后，才会暴露。</span></p>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="panel">
+      <div class="panel-key">隐疾 1</div>
+      <h3>覆盖式遗忘</h3>
+      <p><strong>改了就丢，没历史版本。</strong>用户半年内对某事的态度变了 4 次，AI 还在推第一次否决的方案。</p>
+    </div>
+    <div class="panel">
+      <div class="panel-key">隐疾 2</div>
+      <h3>堆积式噪声</h3>
+      <p><strong>新旧记忆打架，没合并。</strong>越用越乱，记忆有效性随时长持续衰减。</p>
+    </div>
+    <div class="panel">
+      <div class="panel-key">隐疾 3</div>
+      <h3>相似度错位</h3>
+      <p><strong>只靠向量检索。</strong>关键决策历史压根召回不到。</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 16px; background: rgba(255,159,10,0.04); border-color: rgba(255,159,10,0.18);">
+    <p style="font-size: 15px; color: var(--text);">
+      ⚠️ <strong>这三个隐疾，是矩阵长期演进过程中需要提前规避的风险点。</strong>
+      <span style="color: var(--text-3);">底座规划期识别出来，比上线后再补救成本低一个数量级。</span>
+    </p>
+  </div>
+
+  <!-- ============ SECTION 02 ============ -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 02</div>
+    <h2>底座之所以离不开记忆系统，<br/>是因为<em>矩阵协同的终态不是产品互链，而是共脑</em>。</h2>
+  </section>
+
+  <div class="statement">
+    <p>多产品矩阵的资产自然流动 = 输入法 / 翻译 / 录音笔 / 浏览器 / 文件管家 / 日历 六端的用户数据，<br/>能否被 <span class="accent">同一份记忆消费、并不断演化</span>？</p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="panel">
+      <div class="panel-key">当前状态</div>
+      <h3>"伪流动"——形似而神不似</h3>
+      <table>
+        <tr><th>现状</th><th>后果</th></tr>
+        <tr><td>各端各存</td><td>数据孤岛，<strong>协同口号大于实质</strong></td></tr>
+        <tr><td>缺统一画像</td><td>A 产品的偏好 B 产品不知道</td></tr>
+        <tr><td>资产即文件</td><td>存得住，<strong>用不起来</strong></td></tr>
+        <tr><td>没有演化</td><td>偏好被覆盖，矩阵越用越笨</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <div class="panel-key">目标状态</div>
+      <h3>"真流动"——记忆系统加持后</h3>
+      <ul class="bullet">
+        <li><strong>业务间默认隔离</strong> · 保护各产品独立性与隐私边界</li>
+        <li><strong>按需跨业务共享</strong> · 用户授权下，记忆在矩阵内流动</li>
+        <li><strong>统一演化</strong> · 所有端写入的记忆，演化链统一管理</li>
+      </ul>
+      <p style="margin-top: 16px; color: var(--text);">💡 矩阵协同的终态<strong>不是产品互链，而是"同一份记忆被多个产品消费"</strong>。</p>
+    </div>
+  </div>
+
+  <!-- 矩阵架构 -->
+  <div class="architecture">
+    <div class="arch-engine">
+      <div class="arch-engine-title">统一记忆引擎（Hy-Memory）</div>
+      <div class="arch-engine-desc">L1 原文 · L2 事实 · L3 画像 · L4 摘要 · L5 心智 · L6 前瞻意图 ＋ 演化链 supersedes</div>
+    </div>
+    <div class="arch-arrows">
+      <span>↕</span><span>↕</span><span>↕</span><span>↕</span><span>↕</span><span>↕</span>
+    </div>
+    <div class="arch-products">
+      <div class="arch-prod pro">
+        <div class="arch-prod-name">浏览器</div>
+        <div class="arch-prod-tier">Pro</div>
+      </div>
+      <div class="arch-prod">
+        <div class="arch-prod-name">输入法</div>
+        <div class="arch-prod-tier">Lite</div>
+      </div>
+      <div class="arch-prod">
+        <div class="arch-prod-name">录音笔</div>
+        <div class="arch-prod-tier">Lite → Pro</div>
+      </div>
+      <div class="arch-prod">
+        <div class="arch-prod-name">翻译</div>
+        <div class="arch-prod-tier">Lite</div>
+      </div>
+      <div class="arch-prod">
+        <div class="arch-prod-name">文件管家</div>
+        <div class="arch-prod-tier">Lite</div>
+      </div>
+      <div class="arch-prod">
+        <div class="arch-prod-name">日历</div>
+        <div class="arch-prod-tier">Lite → Pro</div>
+      </div>
+    </div>
+    <div class="arch-arrows" style="margin: 8px 0 16px;">
+      <span>↑</span>
+    </div>
+    <div class="arch-brain">
+      <div class="arch-brain-name">元宝主脑 Chatbox</div>
+      <div class="arch-brain-tier">Ultra · 入口与大脑</div>
+    </div>
+  </div>
+
+  <!-- ============ AHA 用户故事 ============ -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 02 · 用户故事</div>
+    <h2>记忆系统带来的<em> Aha Moment</em>，<br/>是六端资产<em>自然串起来</em>。</h2>
+    <p class="desc">不是硬把产品互相调用，而是同一份记忆在背后默默工作——用户感觉到的是「这个矩阵真的懂我」。</p>
+  </section>
+
+  <!-- 故事 1 -->
+  <div class="story">
+    <div class="story-tag">Story 01 · 一次南京周末旅行</div>
+    <h3>一次普通的输入，触发了三端默契。</h3>
+    <p style="font-size: 16px; color: var(--text-2); line-height: 1.7;">小王周三晚上想去南京玩。他没刻意做规划，只是用了几个产品。</p>
+
+    <div class="story-flow">
+      <div class="story-step">
+        <div class="story-product">输入法</div>
+        <p>给老婆发微信打了三次"<span class="key">南京</span>"——拼音候选浮起、聊天里聊到"周末"和"夫子庙"。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">日历</div>
+        <p>周六周日两天没有日程标记 — 系统记下：<span class="key">周末有空 + 高频词南京</span>。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">浏览器</div>
+        <p>第二天打开浏览器，主页直接弹"<span class="key">想要整理一份南京周末攻略吗？</span>" — 提取了昨天的三次输入痕迹。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">文件管家</div>
+        <p>主动浮出去年九月那张南京美食推荐截图，"<span class="key">您之前存过这个，要不要一起看？</span>"</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">翻译</div>
+        <p>晚上小王翻译几个景点英文介绍，<span class="key">自动收进同一个"南京 Memo"</span>。</p>
+      </div>
+    </div>
+
+    <div class="story-aha">
+      <strong>Aha Moment：</strong>整个过程小王没有 "整理"、没有跨产品操作、没有点击任何"导出/同步"按钮。
+      他只是在<strong>正常使用</strong>，但矩阵已经把跨五端的痕迹凝聚成一份完整的旅行记忆。
+      这就是「同一份记忆被多个产品消费」的力量。
+    </div>
+  </div>
+
+  <!-- 故事 2 -->
+  <div class="story">
+    <div class="story-tag">Story 02 · 一场被自动整理的会议</div>
+    <h3>会开完了，资产已经在等他。</h3>
+    <p style="font-size: 16px; color: var(--text-2); line-height: 1.7;">产品经理小李做完一场需求评审会，回到工位甚至还没动手。</p>
+
+    <div class="story-flow">
+      <div class="story-step">
+        <div class="story-product">日历</div>
+        <p>当天 10:00–11:30 标记的"<span class="key">需求评审会</span>"刚刚结束。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">录音笔</div>
+        <p>1.5 小时录音自动转录成纪要，<span class="key">关联到日历这个会</span>。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">文件管家</div>
+        <p>会上提到的"上次的设计稿"——文件管家从历史记录里把那张图<span class="key">主动挂回来</span>。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">浏览器</div>
+        <p>会上聊到的几个友商案例链接，<span class="key">浏览器历史里抓出来挂在纪要旁</span>。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">输入法</div>
+        <p>下次小李打字写 PRD 时，关于这个项目的<span class="key">关键术语自动浮出</span>——记忆里 L2 原子事实在工作。</p>
+      </div>
+    </div>
+
+    <div class="story-aha">
+      <strong>Aha Moment：</strong>过去整理一场会议要用 4 个工具来回切换 30 分钟。
+      现在他<strong>什么都没做</strong>，纪要、设计稿、参考链接、术语库已经按"同一场会"的语义自然汇拢——这就是 L4 会话摘要 + 演化链在背后跑。
+    </div>
+  </div>
+
+  <!-- 故事 3 -->
+  <div class="story">
+    <div class="story-tag">Story 03 · 半年后还认识我的 AI</div>
+    <h3>不是因为它聪明，是因为它<em style="font-style:normal;color:var(--teal);">记得</em>。</h3>
+    <p style="font-size: 16px; color: var(--text-2); line-height: 1.7;">三月份小张说过"我最近在戒甜"。半年后他打开元宝主脑，问"<span style="color:var(--text);">附近有什么好吃的</span>"。</p>
+
+    <div class="story-flow">
+      <div class="story-step">
+        <div class="story-product">三月</div>
+        <p>翻译产品里和外国朋友聊天，他打过一句"<span class="key">I'm cutting sugar lately</span>"——L2 写入"用户偏好：低糖"。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">五月</div>
+        <p>录音笔记下他和医生的体检对话提到"<span class="key">血糖偏高</span>"——L2 升级为 L3 画像"健康关注：血糖管理"。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">八月</div>
+        <p>浏览器里他多次搜索"<span class="key">无糖 / 代糖</span>"相关内容——L5 心智沉淀"决策习惯：饮食偏低 GI"。</p>
+      </div>
+      <div class="story-step">
+        <div class="story-product">现在</div>
+        <p>主脑回答："给你筛了 3 家附近的，全部<span class="key">标了含糖量信息</span>，自动排除了甜品店。"</p>
+      </div>
+    </div>
+
+    <div class="story-aha">
+      <strong>Aha Moment：</strong>小张从来没有主动告诉主脑"我在戒糖"——
+      但矩阵通过半年内三个不同产品的痕迹，<strong>自然演化出了他的健康画像</strong>。
+      演化链让它知道这是一个<strong>持续的偏好</strong>，不是一次性的随口说说。
+    </div>
+  </div>
+
+  <!-- ============ SECTION 03 ============ -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 03</div>
+    <h2>Hy-Memory，<br/>腾讯自研的<em>业内最优解</em>。</h2>
+    <p class="desc">memory.hunyuan.woa.com · 业内首个搭载演化链机制的 Agent 长期记忆框架。</p>
+  </section>
+
+  <div class="grid grid-4">
+    <div class="stat">
+      <div class="num teal">85.20</div>
+      <div class="label">LongMemEval 得分<br/>vs mem0 47.00 / Graphiti 68.32</div>
+    </div>
+    <div class="stat">
+      <div class="num green">8×</div>
+      <div class="label">写入速度优势<br/>对标 Graphiti</div>
+    </div>
+    <div class="stat">
+      <div class="num orange">+2.98%</div>
+      <div class="label">Marvis 任务完成分数<br/>实际落地数据</div>
+    </div>
+    <div class="stat">
+      <div class="num">+300ms</div>
+      <div class="label">首 Token 延迟增加<br/>用户感知不到</div>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top: 60px;">
+    <div class="panel">
+      <div class="panel-key">差异化 ①</div>
+      <h3>演化链 · supersedes</h3>
+      <p>新旧冲突时<strong>不覆盖、不删除</strong>，加指针指向旧节点 → 形成单向链。检索命中链上任意节点 → <strong>自动展开整条链</strong>。</p>
+      <p style="margin-top: 12px; color: var(--text-3);">案例：完整追踪用户半年内对内容发行态度的 4 次转折，避免推荐已被否决的方案。</p>
+    </div>
+    <div class="panel">
+      <div class="panel-key">差异化 ②</div>
+      <h3>System 1 / System 2 双系统</h3>
+      <p><strong>System 1：</strong>实时直觉，用户操作瞬间响应；<strong>System 2：</strong>异步反思，后台慢做归类、合并、画像。</p>
+      <p style="margin-top: 12px; color: var(--text-3);">主链路不阻塞，用户感知不卡，但记忆在后台越用越懂。</p>
+    </div>
+  </div>
+
+  <!-- L1-L6 -->
+  <h3 style="font-size: 22px; font-weight: 600; text-align: center; margin: 60px 0 0;">六层记忆框架</h3>
+  <p style="text-align: center; color: var(--text-3); margin-top: 8px;">把"记忆"按形态分层，写入与检索路径解耦，各层独立演进。</p>
+
+  <div class="layers">
+    <div class="layer">
+      <span class="layer-id">L1</span>
+      <div class="layer-name">原始痕迹</div>
+      <div class="layer-desc">原始对话<br/>浏览历史<br/>原文</div>
+    </div>
+    <div class="layer">
+      <span class="layer-id">L2</span>
+      <div class="layer-name">原子事实</div>
+      <div class="layer-desc">口语 → 事实<br/>"用户偏好红色"</div>
+    </div>
+    <div class="layer">
+      <span class="layer-id">L3</span>
+      <div class="layer-name">身份画像</div>
+      <div class="layer-desc">长期偏好<br/>年龄/兴趣/职业</div>
+    </div>
+    <div class="layer">
+      <span class="layer-id">L4</span>
+      <div class="layer-name">会话摘要</div>
+      <div class="layer-desc">长会话精华<br/>笔记 / 文件摘要</div>
+    </div>
+    <div class="layer">
+      <span class="layer-id">L5</span>
+      <div class="layer-name">心智模型</div>
+      <div class="layer-desc">行为 → 认知<br/>决策习惯</div>
+    </div>
+    <div class="layer">
+      <span class="layer-id">L6</span>
+      <div class="layer-name">前瞻意图</div>
+      <div class="layer-desc">异步沉淀<br/>下一步预测</div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 24px;">
+    <div class="panel-key">三档部署</div>
+    <h3>Lite / Pro / Ultra · 共用 SDK + REST API</h3>
+    <table>
+      <tr><th>档位</th><th>特性</th><th>适用</th></tr>
+      <tr><td><span class="pill pill-teal">Lite</span></td><td>零 LLM 成本，仅基础读写</td><td>快速接入 / 验证</td></tr>
+      <tr><td><span class="pill pill-blue">Pro</span></td><td>同步整理去重，自动优化</td><td>业务正式上量</td></tr>
+      <tr><td><span class="pill pill-purple">Ultra</span></td><td>完整双系统，越用越贴合</td><td>深度个性化产品</td></tr>
+    </table>
+    <p style="margin-top: 16px; color: var(--text);">✨ <strong>开关切档、无需迁移</strong> — 解了我们最大的工程焦虑。</p>
+  </div>
+
+  <!-- ============ SECTION 04 ============ -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 04</div>
+    <h2>我们的方案是<em>引擎层接入 + 产品层自研</em>。</h2>
+  </section>
+
+  <div class="statement">
+    <p><span class="accent">Hy-Memory 解决了引擎，</span><br/>我们解决产品形态。</p>
+  </div>
+
+  <div class="panel" style="margin-top: 40px;">
+    <div class="panel-key">4.1 矩阵接入档位</div>
+    <h3>不是一刀切，而是按场景分层接入</h3>
+    <table>
+      <tr><th>产品</th><th>档位</th><th>理由</th></tr>
+      <tr><td>输入法</td><td><span class="pill pill-teal">Lite</span></td><td>数据量大、写入侧为主，不需深度个性化</td></tr>
+      <tr><td>翻译</td><td><span class="pill pill-teal">Lite</span></td><td>偏功能侧，画像价值低</td></tr>
+      <tr><td>录音笔</td><td><span class="pill pill-teal">Lite</span> → <span class="pill pill-blue">Pro</span></td><td>起步轻，待会议摘要场景成熟升 Pro</td></tr>
+      <tr><td><strong>浏览器（资产底座主消费侧）</strong></td><td><span class="pill pill-blue">Pro</span></td><td>需要语义合并 + 画像，<strong>矩阵主力消费侧</strong></td></tr>
+      <tr><td><strong>文件管家</strong></td><td><span class="pill pill-teal">Lite</span></td><td>偏存储，但需提取属性事实接入 L2</td></tr>
+      <tr><td><strong>日历</strong></td><td><span class="pill pill-teal">Lite</span> → <span class="pill pill-blue">Pro</span></td><td>时序场景，演化链价值大</td></tr>
+      <tr><td><strong>元宝主脑 Chatbox</strong></td><td><span class="pill pill-purple">Ultra</span></td><td>入口 + 大脑，<strong>必须越用越懂</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="panel" style="margin-top: 16px;">
+    <div class="panel-key">4.2 资产分层升级</div>
+    <h3>5 类资产 → 对齐 L1–L6</h3>
+    <table>
+      <tr><th>Hy 层</th><th>Hy 内容</th><th>我方现状</th><th>升级动作</th></tr>
+      <tr><td>L1 原始痕迹</td><td>原始对话</td><td><span class="pill pill-green">已有</span> 浏览历史、Chat 原文</td><td>接入 Hy 写入 API</td></tr>
+      <tr><td>L2 原子事实</td><td>可检索事实</td><td><span class="pill pill-orange">部分</span> 笔记/文件元数据</td><td>加结构化抽取</td></tr>
+      <tr><td><strong>L3 身份画像</strong></td><td>长期偏好</td><td><span class="pill pill-red">缺</span></td><td><strong>必补：跨端画像统一收口</strong></td></tr>
+      <tr><td>L4 会话摘要</td><td>长会话精华</td><td><span class="pill pill-green">已有</span> 笔记摘要</td><td>升级为 Hy L4 格式</td></tr>
+      <tr><td><strong>L5 心智模型</strong></td><td>决策习惯</td><td><span class="pill pill-red">缺</span></td><td><strong>必补：从行为日志抽取</strong></td></tr>
+      <tr><td><strong>L6 前瞻意图</strong></td><td>下一步预测</td><td><span class="pill pill-red">缺</span></td><td><strong>必补：驱动主动推荐</strong></td></tr>
+    </table>
+    <p style="margin-top: 16px;"><strong>结论：</strong>5 类资产仅覆盖 L1+L4，画像 / 心智 / 前瞻是空白——这就是为什么资产「<strong>存得住但流不动</strong>」，没有 L3-L6，资产就只是一座静态仓库。</p>
+  </div>
+
+  <div class="panel" style="margin-top: 16px;">
+    <div class="panel-key">4.3 不可让渡的差异化</div>
+    <h3>Hy 不解决的，必须我们自己做</h3>
+    <table>
+      <tr><th>模块</th><th>为什么 Hy 不解决</th><th>我方必须做</th></tr>
+      <tr><td><strong>资产可见 / 可编辑</strong></td><td>Hy 是后台引擎黑盒</td><td>前台资产 UI、5 类资产卡片</td></tr>
+      <tr><td><strong>跨设备同步规则</strong></td><td>Hy 管语义不管协议</td><td>本地 5W + 云端 1000 + 30 天</td></tr>
+      <tr><td><strong>资产间跳转图</strong></td><td>Hy 图谱内部用</td><td>笔记 ↔ 原文 ↔ 对话出处 三跳 UI</td></tr>
+      <tr><td><strong>用户掌控 / 隐私感</strong></td><td>Hy 不暴露</td><td>删除二次确认、关闭弹窗、状态跟随</td></tr>
+      <tr><td><strong>演化链可视化</strong></td><td>Hy 内部用 supersedes</td><td>翻译成 C 端「<strong>资产时间线</strong>」</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size: 22px; font-weight: 600; text-align: center; margin: 80px 0 0;">三阶段路线图（建议）</h3>
+
+  <div class="roadmap">
+    <div class="phase">
+      <div class="phase-tag">PHASE 1 · 1.5 月</div>
+      <div class="phase-title">浏览器试点</div>
+      <ul class="phase-list">
+        <li>浏览器 Pro 接入</li>
+        <li>L1 + L4 跑通</li>
+        <li>5 类资产存通</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="phase-tag">PHASE 2 · 2 月</div>
+      <div class="phase-title">矩阵共享</div>
+      <ul class="phase-list">
+        <li>输入法 / 文件管家 / 日历 Lite 接入</li>
+        <li>矩阵共享授权机制</li>
+        <li>L3 画像统一打通</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <div class="phase-tag">PHASE 3 · 3 月+</div>
+      <div class="phase-title">主脑 + 全矩阵</div>
+      <ul class="phase-list">
+        <li>元宝主脑 Ultra</li>
+        <li>演化链时间线 UI</li>
+        <li>L6 前瞻推荐上线</li>
+        <li>全矩阵 6 端联动</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 05 ============ -->
+  <section class="chapter">
+    <div class="chapter-num">SECTION 05</div>
+    <h2>国内外是怎么做的？<br/><em>三种路线，我们走第三条。</em></h2>
+  </section>
+
+  <div class="grid grid-2">
+    <div class="panel">
+      <div class="panel-key">国外标杆</div>
+      <h3>从单产品到系统级</h3>
+      <table>
+        <tr><th>产品</th><th>评价</th></tr>
+        <tr><td>ChatGPT (OpenAI)</td><td>跨会话记忆，但<strong>不跨产品</strong></td></tr>
+        <tr><td>Claude (Anthropic)</td><td>Projects 共享上下文，无矩阵协同</td></tr>
+        <tr><td>Notion AI</td><td>偏知识库，不偏 Agent</td></tr>
+        <tr><td><strong>Google Gemini</strong></td><td>Workspace 全家桶，<strong>路径接近我方</strong></td></tr>
+        <tr><td><strong>Apple Intelligence</strong></td><td>端侧 + Personal Context，<strong>理念接近</strong></td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <div class="panel-key">国内标杆</div>
+      <h3>多产品矩阵竞速</h3>
+      <table>
+        <tr><th>产品</th><th>评价</th></tr>
+        <tr><td><strong>元宝（腾讯）</strong></td><td>多端入口 + Hy-Memory，<strong>我方主场</strong></td></tr>
+        <tr><td>豆包（字节）</td><td>跨端账号 + 个人画像，矩阵协同较强</td></tr>
+        <tr><td>通义（阿里云百炼）</td><td>PersonaMem 评测落后 Hy 24.82 分</td></tr>
+        <tr><td>Kimi（月之暗面）</td><td>偏单点 Chat，矩阵能力较弱</td></tr>
+        <tr><td>文心（百度）</td><td>工具属性强，演化能力较弱</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top: 16px;">
+    <div class="panel-key">三种路线对比</div>
+    <h3>我们的位置</h3>
+    <table>
+      <tr><th>路线</th><th>代表</th><th>核心思路</th><th>适配性</th></tr>
+      <tr><td>单产品深耕</td><td>ChatGPT、Kimi</td><td>一个产品做深</td><td>体验闭环但不跨矩阵</td></tr>
+      <tr><td>全家桶联动</td><td>Gemini、Apple</td><td>系统级记忆</td><td>自然流动但依赖生态闭合</td></tr>
+      <tr><td><span class="pill pill-green">矩阵 + 引擎型</span></td><td><strong>元宝 + Hy-Memory</strong></td><td>引擎统一 + 产品差异化</td><td><strong>可灵活组合、可持续演进</strong></td></tr>
+    </table>
+    <p style="margin-top: 16px; color: var(--text);">💡 <strong>第三条路</strong>——用统一引擎托底（向 Apple/Gemini 看齐），但产品形态各自打磨（避免一刀切）。这是腾讯矩阵特性下的合适解。</p>
+  </div>
+
+  <!-- ============ CLOSING ============ -->
+  <div class="closing">
+    <div class="chapter-num" style="margin-bottom: 24px;">CLOSING</div>
+    <p class="closing-quote">
+      底座不是仓库，是网络；<br/>
+      记忆不是存储，是大脑。
+    </p>
+    <p class="closing-sub">
+      Hy-Memory 给了我们引擎，剩下的产品形态、用户掌控感、跨端流动 UI——<br/>
+      是我们的战场，也是我们的护城河。
+    </p>
+
+    <div class="closing-meta">
+      作者 Layna Wang · 2026-06-08 · v2.0
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
