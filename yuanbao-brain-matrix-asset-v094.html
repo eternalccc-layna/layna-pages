@@ -314,7 +314,12 @@ table.t td{
 }
 table.t tr:last-child td{border-bottom:none;}
 table.t td b{color:var(--ink);font-weight:600;}
+/* 保护表格首列的行首小标题（以 <b> 开头的短粗体），避免中文字符级断行造成竖排逐字显示 */
+table.t td b:first-child{white-space:nowrap;word-break:keep-all;}
 table.t .num{font-feature-settings:"tnum";text-align:right;font-weight:500;color:var(--ink);}
+/* 上下行关键步骤高亮：上行（端→元宝）= 蓝色 / 下行（元宝→端）= 金色 */
+.hl-up{background:linear-gradient(transparent 60%,#dceaff 60%);font-weight:600;color:#1d4f91;padding:0 2px;border-radius:2px;white-space:nowrap;}
+.hl-down{background:linear-gradient(transparent 60%,#fbe7b3 60%);font-weight:600;color:#8a5a0a;padding:0 2px;border-radius:2px;white-space:nowrap;}
 table.t .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;background:var(--bg-soft);color:var(--ink-3);font-weight:500;}
 .pill.p0{background:#fff0ef;color:#c0392b;}
 .pill.p1{background:#fff8e0;color:#a37018;}
@@ -512,6 +517,7 @@ ul.dot li b{color:var(--ink);font-weight:600;}
         <li><a href="#s4-3">4.3 六个魔法时刻</a></li>
         <li><a href="#s4-4">4.4 资产中转站 Asset Hub</a></li>
         <li><a href="#s4-5">4.5 七层 + L0 合规</a></li>
+        <li><a href="#s4-7">4.7 首期范围收敛</a></li>
       </ul>
     </li>
     <li>
@@ -654,41 +660,47 @@ ul.dot li b{color:var(--ink);font-weight:600;}
     <div class="svg-cap">图 · 元宝主脑 + 七层底座 + L0 合规贯穿（L6 资产中转站为核心叙事层）</div>
   </div>
 
-  <h3 class="sub-title" id="s0-concept">概念比喻 · Google「ID + Drive → Workspace」的中文升级版</h3>
-  <p class="body">比 ChatGPT × Connectors 更深 —— 不止读取，还能反向调度六端。</p>
+  <h3 class="sub-title" id="s0-concept">概念比喻 · 把对标拆开，逐层说我们做什么</h3>
   <div class="callout gold">
     <span class="callout-icon">💡</span>
-    <b>一句话总结：</b> 把 Google「账号 + 网盘 + Workspace」和 ChatGPT「主脑 + Memory」在中文场景用一套体系重做；再叠加 ChatGPT Connectors 没有的「反向调度」 —— 这是元宝矩阵的关键增量。
+    <b>一句话总结：</b> 把 Google「账号 + 网盘 + Workspace」三件事 + ChatGPT「主脑 + Memory」两件事在中文世界用一套体系重做；在执行链路上比 ChatGPT Connectors <b>路径更短：自家端原生执行 + C 端默认可达 + 无需第三方 API/管理员审批</b> —— 这是元宝相对国外方案的关键增量。
   </div>
 
   <div class="tbl-wrap"><table class="t">
-    <thead><tr><th>层</th><th>国外对标</th><th>我们需要做</th><th>核心目标</th></tr></thead>
+    <thead><tr><th>层</th><th>国外对标</th><th>元宝对应物</th><th>一句话作用</th></tr></thead>
     <tbody>
       <tr><td><b>① 统一账号</b></td><td>Google Account</td><td>元宝通行证（Passport）<br>（复用腾讯账号）</td><td>一次登录贯通六端，权限/订阅/积分/资产全部挂这把钥匙</td></tr>
       <tr><td><b>② 统一存储</b></td><td>Google Drive</td><td>资产仓库（Object Store）</td><td>文件 / 截图 / 录音 / 网页快照原件统一存放，跨端可取</td></tr>
-      <tr><td><b>③ 资产中台</b></td><td>Microsoft Graph + ChatGPT Memory</td><td>资产服务底座（Asset Hub）<br>= 资产关系图 + 仓库 + 检索库 三库合一</td><td>把「原件 + 关系 + 语义」打通，AI 既知道"有什么"也知道"它们之间什么关系"</td></tr>
+      <tr><td><b>③ 资产中台</b></td><td>Microsoft Graph + ChatGPT Memory</td><td>资产服务底座（Asset Hub）<br>= 资产关系图 + 资产仓库 + 语义检索库 <b>三种存储介质统一服务</b>¹</td><td>把"原件 + 关系 + 语义"的存储打通，给 AI 中枢提供一致的资产读取面</td></tr>
       <tr><td><b>④ 主脑大模型</b></td><td>ChatGPT / Gemini</td><td>元宝 Chatbox 主脑</td><td>决策中枢，理解意图、编排任务、调用六端</td></tr>
       <tr><td><b>⑤ 产品矩阵</b></td><td>Workspace<br>（Docs/Sheets/Gmail/Calendar/Meet/Drive）</td><td>六端产品矩阵<br>浏览器/输入法/翻译/录音笔/文件管家/日历</td><td>主脑的"手脚和感官"，每端既是资产入口也是任务出口</td></tr>
-      <tr><td><b>⑥ 双向调度</b> ⭐</td><td>ChatGPT Connectors（只能读取第三方）</td><td>元宝主脑 ↔ 六端双向链路<br>上行送上下文 + 下行反向调度</td><td>我们比 Connectors 多了"下行" —— 主脑能直接驱动六端干活，不只是问答</td></tr>
+      <tr><td><b>⑥ 双向调度</b> ⭐</td><td>ChatGPT Connectors（2026.3 起企业 Workspace 可写，C 端默认仍受限，链路要走第三方 API）</td><td>元宝主脑 ↔ 六端双向链路<br>上行送上下文 + <b>下行端原生调度六端能力</b></td><td>同样的写动作，元宝走自家端 API 闭环；OpenAI 走第三方 API 且 C 端默认拿不到</td></tr>
     </tbody>
   </table></div>
 
-  <h4 class="minor-title">📎 ChatGPT Connectors 是什么？为什么我们要比它多做一步？</h4>
-  <p class="body"><b>是什么 ——</b> OpenAI 在 2025 年推出的官方连接器，把 ChatGPT 接到 Google Drive / Gmail / Calendar / GitHub / Notion / Slack / SharePoint / OneDrive 等第三方系统上，让 ChatGPT 能读取这些系统里的文件、邮件、日程、代码、文档作为对话上下文。授权模型是用户用 OAuth 主动授权某个 Connector，ChatGPT 在对话中按需检索。 <b>—— 同样的事 OpenAI 依赖生态，元宝可以在矩阵产品中闭环。</b></p>
+  <p class="body" style="color:var(--ink-4);font-size:13px;margin-top:6px;">¹ 「三种存储介质统一服务」指<b>底层存储形态</b>——关系图、对象仓库、向量索引三类介质统一接入 Asset Hub 协议层。<b>不等于</b> Asset Hub 包办语义理解或业务打标——平台层、领域层、AI 中枢层的三方职责切分见 4.4.1。</p>
+
+  <h4 class="minor-title">📎 名词补充：ChatGPT Connectors 是什么？为什么我们要比它路径更短？</h4>
+  <p class="body"><b>是什么 ——</b> OpenAI 在 2025 年推出的官方连接器，把 ChatGPT 接到 Google Drive / Gmail / Calendar / GitHub / Notion / Slack / SharePoint / OneDrive 等第三方系统上。<b>早期（2025 年）只支持上行读取</b>；<b>2026 年 3 月 OpenAI 正式发布 Google / Microsoft Apps 写入操作</b>（Gmail 发邮件、Calendar 建日程、Drive/SharePoint 写文档等），但<b>默认关闭</b>，需要 Workspace 管理员在 <code>Apps &gt; Manage actions</code> 主动开启，Microsoft 端还需 Entra 管理员批准更新后的 OAuth scope。授权方式仍是用户 OAuth + 管理员控制台双层。</p>
 
   <div class="tbl-wrap"><table class="t">
-    <thead><tr><th>维度</th><th>ChatGPT Connectors</th><th>元宝主脑 ↔ 六端</th></tr></thead>
+    <thead><tr><th>维度</th><th>ChatGPT Connectors（2026.3 后）</th><th>元宝主脑 ↔ 六端</th></tr></thead>
     <tbody>
-      <tr><td><b>接的是谁</b></td><td>第三方系统（Google / Microsoft / GitHub / Notion / Slack…）</td><td>自己的产品（浏览器 / 输入法 / 翻译 / 录音笔 / 文件管家 / 日历）</td></tr>
-      <tr><td><b>授权方式</b></td><td>用户对每个 Connector 单独 OAuth 授权</td><td>元宝通行证（Passport）一次登录贯通六端</td></tr>
-      <tr><td><b>上行（读上下文）</b></td><td>✅ 支持 —— 看文件、邮件、日程、代码</td><td>✅ 支持 —— 六端资产实时进主脑</td></tr>
-      <tr><td><b>下行（驱动写）</b></td><td>❌ 只读不写 —— 不能新建文件 / 发邮件 / 建日程 / 改文档</td><td>✅ 可写可调度 —— 主脑直接指挥六端干活</td></tr>
-      <tr><td><b>要写怎么办</b></td><td>切到 Operator / Agent Mode 走浏览器自动化</td><td>走六端内部 API，端原生执行</td></tr>
-      <tr><td><b>稳定性</b></td><td>浏览器自动化路径长、易断</td><td>内部 API 直连，端原生能力可控</td></tr>
-      <tr><td><b>典型下行场景</b></td><td>（无，需切 Agent）</td><td>浏览器开页 / 输入法补全 / 翻译做术语 / 录音笔生纪要 / 文件管家归档 / 日历建日程</td></tr>
-      <tr><td><b>生态主导权</b></td><td>OpenAI 必须迁就第三方生态</td><td>元宝在自家主场闭环做深</td></tr>
+      <tr><td><b>接的是谁</b></td><td>第三方系统（Google / Microsoft / GitHub / Notion / Slack…）</td><td>腾讯自家产品（浏览器 / 输入法 / 翻译 / 录音笔 / 文件管家 / 日历）</td></tr>
+      <tr><td><b>授权方式</b></td><td>用户 OAuth + Workspace/Entra 管理员后台开关 + scope 升级</td><td>元宝通行证（Passport）一次登录贯通六端</td></tr>
+      <tr><td><b>上行（读取上下文）</b></td><td>✅ 支持 —— 看文件、邮件、日程、代码</td><td>✅ 支持 —— 六端资产实时进主脑</td></tr>
+      <tr><td><b>下行（写动作）</b></td><td>⚠️ <b>管理员开启后可写</b> —— 发邮件 / 建日程 / 写文档；C 端个人账号默认仍受限</td><td>✅ <b>端原生可写可调度</b> —— 主脑直接指挥六端干活</td></tr>
+      <tr><td><b>执行链路</b></td><td>OpenAI 服务端 → 第三方 API（Google/Microsoft），跨域跨厂商</td><td>元宝主脑 → 自家端原生 API，闭环单链路</td></tr>
+      <tr><td><b>延迟与稳定性</b></td><td>受第三方 API 限流 / scope 变更 / 管理员策略影响</td><td>端原生 API 自家可控，延迟与失败率自家定</td></tr>
+      <tr><td><b>C 端可达性</b></td><td>B 端 Workspace/Enterprise 优先，C 端个人账号要等 OpenAI 与 Google/MS 单独打通</td><td>C 端用户默认即开即用，无需企业管理员</td></tr>
+      <tr><td><b>生态主导权</b></td><td>OpenAI 受第三方 OAuth scope / 管理员策略约束</td><td>元宝在自家产品矩阵主场闭环做深</td></tr>
     </tbody>
   </table></div>
+
+  <div class="callout gold" style="margin-top:14px;">
+    <span class="callout-icon">🎯</span>
+    <b>战略含义（重新定位）：</b> Connectors 写入能力已不是元宝的差异点，<b>元宝的真正增量是「自家端原生执行 + C 端默认可达 + 低延迟单链路 + 腾讯生态闭环」</b>——同一个"建日程 / 发消息 / 写文档"的动作，OpenAI 要走第三方 API 且默认要管理员批准、C 端个人用户拿不到，元宝直接走自家端 API、C 端用户默认可用、链路更短更稳。这是路径选择差异，不是"做不做"差异。
+  </div>
 </section>
 
 <!-- ============ 1. 用户痛点 ============ -->
@@ -773,13 +785,13 @@ ul.dot li b{color:var(--ink);font-weight:600;}
   <div class="tbl-wrap"><table class="t">
     <thead><tr><th>#</th><th>痛点</th><th>⬆️ 上行（六端→元宝）</th><th>⬇️ 下行（元宝→六端）</th><th>资产底座解决方案</th><th>链路</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><b>P-1</b> 跨渠道信息散落</td><td>浏览器：在看什么<br>录音笔：会上说过<br>文件管家：手上有什么<br>翻译/输入法：语言习惯<br>日历：接下来做什么</td><td>"帮我搜一下" → 浏览器开搜<br>"在我自己资料里查" → 文件管家全局检索</td><td>账号统一 → 六端资产自动汇入 Asset Graph</td><td>账号通 → 资产收 → 主脑认得"我的全集"</td></tr>
-      <tr><td>2</td><td><b>P-4</b> 文件归档 + 检索</td><td>文件管家：散落文件+历史归档<br>浏览器：下载/收藏页<br>翻译/输入法：命名偏好</td><td>"找上次那个 PPT" → 所思即所得检索<br>"按项目归档一下" → 自动分类</td><td>Asset Graph 任务索引 + 主脑跨源聚合 + 日历端落地</td><td>多端任务汇入图 → 主脑生看板 → 日历端原生提醒</td></tr>
-      <tr><td>3</td><td><b>P-2</b> 多渠道任务 / DDL 看板</td><td>日历：接下来做什么<br>浏览器：订单/邮件/通知页<br>录音笔：口头任务承诺</td><td>"下周二提醒我" → 调日历建日程<br>"把这周待办列出来" → 调日历汇总</td><td>浏览器端代为监测 → 主脑判优先级 → 端原生通道回写</td><td>端代监测 → 主脑分级 → 跨端弹窗回写</td></tr>
-      <tr><td>4</td><td><b>P-6</b> 跨端接力</td><td>浏览器：阅读位置+标签页<br>录音笔：手机录稿 PC 接改<br>文件管家：最近编辑+光标位置</td><td>"在 PC 上接着看" → 同步标签页和位置<br>"把手机里那篇拉到平板" → 跨端同步</td><td>Asset Hub 记原件 + Asset Graph 记上下文 → 语义检索</td><td>资产沉淀 → 关系图记上下文 → 跨端语义召回</td></tr>
-      <tr><td>5</td><td><b>P-5</b> 文件去重 + 版本</td><td>文件管家：重复文件+版本谱系<br>翻译/输入法：多语版本同源</td><td>"清一下重复的" → 去重<br>"把这版同步到所有端" → 版本归一</td><td>Asset Hub 版本中枢 + 跨端协议保格式一致</td><td>多端版本聚合 → 去重比对 → 格式互转</td></tr>
-      <tr><td>6</td><td><b>P-3</b> 审批 / 状态感知</td><td>浏览器：审批/订单/物流/航班页<br>日历：关联截止时间<br>文件管家：审批附件/凭证</td><td>"状态有变就告诉我" → 订阅状态变化<br>"提醒我催一下" → 建跟进提醒</td><td>账号统一是先决条件 + Asset Hub 做接力中枢</td><td>账号通 → 端外产出回流 → PC AI 可处理</td></tr>
-      <tr><td>7</td><td><b>P-7</b> 资产可见可撤（合规底座）</td><td>六端：每次调用都登记"哪端、什么资产、用在哪、留多久"到元宝通行证<br>浏览器：敏感页主动打码</td><td>"看看 AI 都存了我什么" → 调通行证全景<br>"把这条删掉" → 同步撤回</td><td>L3 同意中心 + 资产可见可撤 + 端侧脱敏</td><td>用户对资产生命周期完全可控</td></tr>
+      <tr><td>1</td><td><b>P-1</b> 跨渠道信息散落</td><td>浏览器：<span class="hl-up">在看什么</span><br>录音笔：<span class="hl-up">会上说过</span><br>文件管家：<span class="hl-up">手上有什么</span><br>翻译/输入法：<span class="hl-up">语言习惯</span><br>日历：<span class="hl-up">接下来做什么</span></td><td>"帮我搜一下" → <span class="hl-down">浏览器开搜</span><br>"在我自己资料里查" → <span class="hl-down">文件管家全局检索</span></td><td>账号统一 → 六端资产自动汇入 Asset Graph</td><td>账号通 → 资产收 → 主脑认得"我的全集"</td></tr>
+      <tr><td>2</td><td><b>P-4</b> 文件归档 + 检索</td><td>文件管家：<span class="hl-up">散落文件+历史归档</span><br>浏览器：<span class="hl-up">下载/收藏页</span><br>翻译/输入法：<span class="hl-up">命名偏好</span></td><td>"找上次那个 PPT" → <span class="hl-down">所思即所得检索</span><br>"按项目归档一下" → <span class="hl-down">自动分类</span></td><td>Asset Graph 任务索引 + 主脑跨源聚合 + 日历端落地</td><td>多端任务汇入图 → 主脑生看板 → 日历端原生提醒</td></tr>
+      <tr><td>3</td><td><b>P-2</b> 多渠道任务 / DDL 看板</td><td>日历：<span class="hl-up">接下来做什么</span><br>浏览器：<span class="hl-up">订单/邮件/通知页</span><br>录音笔：<span class="hl-up">口头任务承诺</span></td><td>"下周二提醒我" → <span class="hl-down">调日历建日程</span><br>"把这周待办列出来" → <span class="hl-down">调日历汇总</span></td><td>浏览器端代为监测 → 主脑判优先级 → 端原生通道回写</td><td>端代监测 → 主脑分级 → 跨端弹窗回写</td></tr>
+      <tr><td>4</td><td><b>P-6</b> 跨端接力</td><td>浏览器：<span class="hl-up">阅读位置+标签页</span><br>录音笔：<span class="hl-up">手机录稿 PC 接改</span><br>文件管家：<span class="hl-up">最近编辑+光标位置</span></td><td>"在 PC 上接着看" → <span class="hl-down">同步标签页和位置</span><br>"把手机里那篇拉到平板" → <span class="hl-down">跨端同步</span></td><td>Asset Hub 记原件 + Asset Graph 记上下文 → 语义检索</td><td>资产沉淀 → 关系图记上下文 → 跨端语义召回</td></tr>
+      <tr><td>5</td><td><b>P-5</b> 文件去重 + 版本</td><td>文件管家：<span class="hl-up">重复文件+版本谱系</span><br>翻译/输入法：<span class="hl-up">多语版本同源</span></td><td>"清一下重复的" → <span class="hl-down">去重</span><br>"把这版同步到所有端" → <span class="hl-down">版本归一</span></td><td>Asset Hub 版本中枢 + 跨端协议保格式一致</td><td>多端版本聚合 → 去重比对 → 格式互转</td></tr>
+      <tr><td>6</td><td><b>P-3</b> 审批 / 状态感知</td><td>浏览器：<span class="hl-up">审批/订单/物流/航班页</span><br>日历：<span class="hl-up">关联截止时间</span><br>文件管家：<span class="hl-up">审批附件/凭证</span></td><td>"状态有变就告诉我" → <span class="hl-down">订阅状态变化</span><br>"提醒我催一下" → <span class="hl-down">建跟进提醒</span></td><td>账号统一是先决条件 + Asset Hub 做接力中枢</td><td>账号通 → 端外产出回流 → PC AI 可处理</td></tr>
+      <tr><td>7</td><td><b>P-7</b> 资产可见可撤（合规底座）</td><td>六端：每次调用都登记<span class="hl-up">"哪端、什么资产、用在哪、留多久"</span>到元宝通行证<br>浏览器：<span class="hl-up">敏感页主动打码</span></td><td>"看看 AI 都存了我什么" → <span class="hl-down">调通行证全景</span><br>"把这条删掉" → <span class="hl-down">同步撤回</span></td><td>L3 同意中心 + 资产可见可撤 + 端侧脱敏</td><td>用户对资产生命周期完全可控</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -838,10 +850,21 @@ ul.dot li b{color:var(--ink);font-weight:600;}
     </tbody>
   </table></div>
 
+  <div class="callout gold" style="margin-top:14px;">
+    <span class="callout-icon">🪜</span>
+    <b>登录引导原则（不强行登录前置）——</b> 工具型矩阵产品（输入法 25% / 翻译 20% / QB 35%）的低登录率是结构性事实，强行登录前置会反伤端原生留存。本规划采用<b>三段式登录引导</b>：
+    <ul class="dot" style="margin-top:8px;">
+      <li><b>第一段·未登录可见本端价值</b>：用户未登录也能用本端核心能力（搜索、翻译、输入），不强行卡登录墙；</li>
+      <li><b>第二段·跨端动作时强引导</b>：用户触发"跨端接力 / 调用其他端资产 / 主脑回忆历史"等动作时，UI 给出"登录后可同步到其他端"的明确价值锚点 + 登录入口（一次登录贯通六端）；</li>
+      <li><b>第三段·端侧本地试用兜底</b>：未登录用户的资产（如本地文件、近期搜索）走端侧轻量索引，<b>不进 Asset Hub</b>——既保留端原生价值，又把"上云权"明确握在用户登录意愿手里。</li>
+    </ul>
+    这个分段决定了"未登录用户进不了资产底座"是<b>自然结果而非强制门槛</b>——用户在跨端价值充分被感知到的瞬间登录，比首次启动卡墙登录的留存高一个数量级。
+  </div>
+
   <h3 class="sub-title" id="s2-1">2.1 我方矩阵盘子｜端级 DAU & 登录态盘子</h3>
-  <div class="callout gold">
-    <span class="callout-icon">🌟</span>
-    <b>核心因素 ——</b> 矩阵产品的登录规模，是账号统一 + 资产底座的有效盘子上限。各端产品设计中必须保证账号登录作为前提条件，未登录用户进不了资产底座，也享受不到跨端协同价值。
+  <div class="callout red">
+    <span class="callout-icon">🎯</span>
+    <b>核心因素 ——</b> 矩阵产品的<b>登录规模</b>，是账号统一 + 资产底座的有效盘子上限。各端<b>不采用强行登录前置</b>（会反伤本端留存），改用 2.0 节的「登录引导三段式」——本端价值未登录可用，跨端动作触发时强引导登录，端侧本地索引兜底。<b>登录率提升 = 战役真正 KPI</b>（QB 35%→50%、输入法 25%→40% 是 12 个月战役目标）。
   </div>
   <div class="tbl-wrap"><table class="t">
     <thead><tr><th>产品</th><th>当前 DAU</th><th>当前 MAU</th><th>登录率</th><th>登录 DAU</th><th>与浏览器重叠</th><th>与元宝重叠</th><th>备注</th></tr></thead>
@@ -957,7 +980,7 @@ ul.dot li b{color:var(--ink);font-weight:600;}
   <div class="tbl-wrap"><table class="t">
     <thead><tr><th>玩家</th><th>强</th><th>弱</th><th>启发</th></tr></thead>
     <tbody>
-      <tr><td><b>OpenAI</b><br>ChatGPT + Connectors + Memory + Operator/Agent</td><td>模型口碑第一、Memory + Connector 是主脑标准件</td><td>没有自己的"双手"（无矩阵产品）、合规无法进中国 C 端</td><td>我们比它多六个产品端，做"主脑 + 双手"完整体</td></tr>
+      <tr><td><b>OpenAI</b><br>ChatGPT + Connectors + Memory + Operator/Agent</td><td>模型口碑第一、Memory + Connector 是主脑标准件、2026.3 起企业版 Connectors 已支持写入 Google/Microsoft Apps</td><td>写入需 Workspace/Entra 管理员开启 + scope 升级，C 端个人账号默认仍受限；执行链路要走第三方 API；合规无法进中国 C 端</td><td><b>我们的差异点不是"做不做写入"，而是「自家端原生执行 + C 端默认可达 + 链路更短」</b></td></tr>
       <tr><td><b>Anthropic</b><br>Claude + Artifacts + MCP</td><td>MCP 协议正在成为 Agent 标准、Artifacts 体验领先</td><td>同样无矩阵、无中国市场</td><td>MCP 协议层我们可以兼容/借鉴，避免重造轮子</td></tr>
     </tbody>
   </table></div>
@@ -1204,11 +1227,35 @@ ul.dot li b{color:var(--ink);font-weight:600;}
 
   <h3 class="sub-title" id="s4-4">4.4 资产服务中转站（Asset Hub）</h3>
 
-  <h4 class="minor-title">4.4.1 定位与核心能力</h4>
+  <h4 class="minor-title">4.4.1 定位与核心能力（职责三分，避免"什么都做"误读）</h4>
+
+  <div class="callout gold">
+    <span class="callout-icon">🎯</span>
+    <b>核心澄清 ——</b> Asset Hub 是<b>容器与协议层，不是 AI 智能层，也不是业务打标层</b>。本节用一张表把"三方职责"切干净，避免和 0 章"三库合一"等比喻产生职责越权误读——0 章的"三库合一"指的是<b>底层存储形态</b>（关系图 + 仓库 + 语义检索三种存储介质统一服务），<b>不是说 Asset Hub 包办语义理解和业务标签</b>。
+  </div>
+
+  <div class="tbl-wrap"><table class="t">
+    <thead><tr><th>层</th><th>谁来做</th><th>职责</th><th>不做什么</th></tr></thead>
+    <tbody>
+      <tr><td><b>平台层<br>（Asset Hub）</b></td><td>平台团队<br>（本规划负责）</td><td>① 资产元数据存储与索引<br>② 跨端引用 ID（统一资产 URI）<br>③ 权限与生命周期（保留期 / 撤回 / 删除）<br>④ Schema 注册与版本治理<br>⑤ 统一鉴权 / 审计 / 透传 Proxy</td><td><b>不解析业务字段</b>、<b>不做业务打标</b>、<b>不做意图理解</b>、<b>不做召回排序</b></td></tr>
+      <tr><td><b>领域层<br>（业务 Tag）</b></td><td>矩阵各端业务方<br>（QB / 输入法 / 翻译 / 录音笔 / 文件管家 / 日历）</td><td>① 定义本端资产 Schema 和字段语义<br>② 业务标签（如"会议纪要 / 学习笔记 / 工作日程"）<br>③ 端内的资产采集与清洗<br>④ 业务规则（如去重、归一、合并）</td><td><b>不重复存储</b>（共用 Asset Hub 容器）、<b>不直连其他端</b>（走 Asset Hub 协议）</td></tr>
+      <tr><td><b>AI 中枢层</b></td><td>元宝主脑团队</td><td>① 意图理解（用户问"上周那篇论文"是哪个资产）<br>② 召回策略（图谱 + 语义 + 业务 Tag 综合排序）<br>③ 跨端推理（基于多端资产图谱编排任务）<br>④ Memory / 长期画像</td><td><b>不重写资产</b>（只读 Asset Hub）、<b>不替业务方定 Tag</b>、<b>不替平台层做权限决策</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="body" style="margin-top:14px;"><b>一句话切边</b>：</p>
   <ul class="dot">
-    <li><b>统一 API</b> —— 六端用一套接口读写资产，避免 N×N 集成</li>
-    <li><b>统一权限</b> —— 用户在同意中心一处可见可撤</li>
-    <li><b>统一资产视图</b> —— 一份资产同时服务于元宝主脑 与 矩阵六端</li>
+    <li>平台层 = "谁有什么、放哪、谁能看、何时清"</li>
+    <li>领域层 = "这是什么业务对象、归到哪个业务标签下"</li>
+    <li>AI 中枢层 = "用户这句话指的是哪些东西、按什么顺序拿"</li>
+  </ul>
+
+  <p class="body" style="margin-top:14px;"><b>对外承诺</b>（首期 MVP 范围）：</p>
+  <ul class="dot">
+    <li>✅ <b>统一 API</b>：六端用一套接口读写资产，避免 N×N 集成</li>
+    <li>✅ <b>统一权限</b>：用户在资产控制台（4.4.5）一处可见可撤</li>
+    <li>✅ <b>统一资产引用</b>：一份资产同时被主脑与六端引用（不重复存储）</li>
+    <li>❌ <b>不承诺</b>：不在平台层做语义召回 / 业务打标 / 跨端智能推理（这些在 AI 中枢层）</li>
   </ul>
 
   <div class="svg-card">
@@ -1316,6 +1363,37 @@ ul.dot li b{color:var(--ink);font-weight:600;}
     <b>决策建议 ——</b> 方案一为推荐方向 —— 以"复用 QB 稳定账号体系 + 老产品通过 open ID 打通"作为最低成本起点，把工程资源集中在资产层（中转站）与协同层（跨端 Handoff），账号层不重复造轮子。后续若个别产品确需拆分独立，再走专项独立部署评估。
   </div>
 
+  <h4 class="minor-title">4.4.5 资产控制台（My Assets · 用户可见层 · <span class="pill p0">P0</span>）</h4>
+
+  <p class="body" style="margin-top:14px;"><b>用户可见的四件事</b>（一个页面四个 Tab）：</p>
+
+  <div class="tbl-wrap"><table class="t">
+    <thead><tr><th>Tab</th><th>用户问题</th><th>控制台呈现</th><th>操作入口</th></tr></thead>
+    <tbody>
+      <tr><td><b>① 读了什么</b></td><td>"AI 看了我的什么？"</td><td>按端按时间倒序的资产清单（书签 / 历史 / 录音 / 文件 / 日程…）</td><td>单条「不进资产库」/ 批量「按端清空」</td></tr>
+      <tr><td><b>② 为什么读</b></td><td>"AI 为什么要读这条？"</td><td>每条资产关联的"使用过的场景"（如：上周三主脑回答 X 时引用过这条）</td><td>链接跳到对应对话上下文，可"撤回此引用"</td></tr>
+      <tr><td><b>③ 保存多久</b></td><td>"这些数据存到什么时候？"</td><td>按资产类型显示保留期（历史 30 天 / 录音永久 / 输入法击键 7 天…）+ 倒计时</td><td>单类「立即清除」/「修改默认保留期」</td></tr>
+      <tr><td><b>④ 如何撤回</b></td><td>"我不想让 AI 用了怎么办？"</td><td>三档撤回：撤回单条引用 / 暂停某端入库 / 全量删除并解绑</td><td>二次确认 + 影响预告（如"删除后元宝将无法回忆这部分"）</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="body" style="margin-top:14px;"><b>首期范围（M6 上线）</b>：</p>
+  <ul class="dot">
+    <li>✅ <b>必做</b>：四个 Tab 全部上线、覆盖 5 类首期资产（书签/历史/录音/文档/日程）、撤回链路全程审计</li>
+    <li>✅ <b>必做</b>：在元宝主脑「设置 - 我的资产」入口，<b>所有矩阵端跳转到此处</b>（不在各端各做一套）</li>
+    <li>🟡 <b>跟进</b>：与端原生设置项打通（M9）、家庭账号 / 共享资产隔离（M12）</li>
+    <li>❌ <b>不做</b>：企业级权限管理（不在 12 个月范围）、资产可见性的二级账号细分（学生/家长模式归独立项目）</li>
+  </ul>
+
+  <p class="body" style="margin-top:14px;"><b>端侧首期约束</b>：</p>
+  <ul class="dot">
+    <li><b>输入法首期只做主动收藏</b>：用户长按候选词「保存为语料」才入库，<b>击键流首期不进 Asset Hub</b>——这是隐私敏感度最高的资产，等控制台四件事跑通、用户信任建立后再开放（建议 M9+）。</li>
+    <li><b>录音笔默认本地优先</b>：上云需用户主动勾选，控制台保留"撤回到仅本地"开关。</li>
+    <li><b>跨设备删除二次确认</b>：复用 QB History v1.0 的删除确认逻辑（核心结论已在团队内沉淀）。</li>
+  </ul>
+
+  <p class="body" style="margin-top:14px;"><b>和 Asset Hub 的边界</b>：资产控制台是<b>用户层的 UI</b>，调用的全部是 Asset Hub 平台层暴露的"读取 / 撤回 / 删除 / 保留期查询" API，<b>不重复实现资产存储逻辑</b>——遵循 4.4.1 三层切分原则。</p>
+
   <h3 class="sub-title" id="s4-5">4.5 底座七层 + L0 合规底线</h3>
   <ul class="dot">
     <li><b>L1 产品入口</b> —— 六端既是采集源也是元宝的工具集 / 感官面</li>
@@ -1327,6 +1405,44 @@ ul.dot li b{color:var(--ink);font-weight:600;}
     <li><b>L7 跨端协同</b> —— 资产看板 / 跨端 Handoff / 主动推荐 / 通知 Inbox（由元宝主脑统一调度）</li>
     <li><b>L0 合规底线</b>（贯穿全层） —— 数据安全影响评估（DPIA） / 数据分级 / 用户主权 / 审计熔断 / 未成年模式</li>
   </ul>
+
+  <h3 class="sub-title" id="s4-7">4.7 首期范围收敛（资源约束下的克制）</h3>
+
+  <p class="body" style="margin-top:14px;"><b>收敛原则</b>：在 11.9 FTE（5 后端 + 6 前端 + 0.9 设计）下，宁可少做一端做透、不要 6 端各 50%；宁可 2 个魔法时刻闭环、不要 6 个时刻都半成品。<b>首期 MVP（M1–M6 / 12 周）只承诺以下范围</b>：</p>
+
+  <div class="tbl-wrap"><table class="t">
+    <thead><tr><th>维度</th><th>全景（4.6 章给出）</th><th>首期实际交付</th><th>后置到</th></tr></thead>
+    <tbody>
+      <tr><td><b>端的数量</b></td><td>6 端：浏览器 / 输入法 / 翻译 / 录音笔 / 文件管家 / 日历</td><td><b>4 端</b>：元宝主脑 + 录音笔 + 日历 + 文件管家（<b>轻量上行</b>：浏览器仅做"历史/书签上行"，不做下行调度）</td><td>输入法 / 翻译完整接入 → M9–M12</td></tr>
+      <tr><td><b>魔法时刻</b></td><td>6 个全景时刻</td><td><b>2 个主场景</b>：① 跨设备会议接力（录音笔→主脑→日历→文件管家） ② 跨端学习/写作接力（浏览器历史→主脑→文件管家归档）</td><td>翻译/输入法/MCP 等场景 → M9+</td></tr>
+      <tr><td><b>资产类型</b></td><td>14 类（4.4.2 全景）</td><td><b>5 类</b>：书签 / 历史 / 录音 / 文档（文件管家文件 metadata，不含云盘原文）/ 日程</td><td>击键流 / 操作日志 / 长期记忆 / 语料库 → P1（建议 M9+）</td></tr>
+      <tr><td><b>资产控制台</b></td><td>M6 上线四个 Tab</td><td><b>M6 上线四个 Tab，覆盖以上 5 类资产</b>（与 Asset Hub 平台层同期）</td><td>—</td></tr>
+      <tr><td><b>接入云盘 / COS</b></td><td>长期目标接入</td><td><b>首期不接入</b>（4.4.4 风险 #1 已识别），文件管家只走 metadata，不走原文</td><td>云盘可达性方案明确后再排期</td></tr>
+      <tr><td><b>MCP / Agent 调度</b></td><td>L5 AI 中枢长期能力</td><td><b>首期不做</b>对外 MCP 协议，只做内部六端 RPC</td><td>M9+ 评估对外</td></tr>
+      <tr><td><b>输入法</b></td><td>主输入端 + 击键流入库</td><td><b>首期只做主动收藏</b>（长按候选词「保存为语料」入库），击键流不进 Asset Hub</td><td>控制台四件事跑通后开放 → M9+</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="body" style="margin-top:14px;"><b>为什么先收敛到这 4 端 + 2 时刻</b>：</p>
+  <ol class="dot" style="padding-left:20px;">
+    <li><b>录音笔 + 日历 + 文件管家</b>是"会议接力"链路上承上启下的 3 个端，主脑串起来即闭环——评审认可的"价值密度最高"路径。</li>
+    <li><b>浏览器轻量接入</b>保住"账号 + 资产"基本盘（QB 的 35% 登录率是矩阵里登录率最高的端，资产沉淀基础盘最大），但<b>不做下行调度</b>——节省前端工作量。</li>
+    <li><b>输入法 / 翻译延后</b>：输入法击键流是隐私敏感度最高的资产，待资产控制台跑通信任建立后再开；翻译的术语库属于 P1 价值密度。</li>
+    <li><b>资产控制台与 Asset Hub 同期上线</b>：合规与底座<b>捆绑发布</b>，避免"先有底座没控制台"导致的隐私质疑。</li>
+  </ol>
+
+  <p class="body" style="margin-top:14px;"><b>首期不在范围内的事</b>（不公示在战略文档，但内部周会需对账）：</p>
+  <ul class="dot">
+    <li>输入法击键流入库 / 操作日志全量入库 / 长期记忆向量化 / 语料库召回</li>
+    <li>MCP 协议层对外开放</li>
+    <li>云盘原文档接入</li>
+    <li>B 端 / 企业 / 未成年模式</li>
+  </ul>
+
+  <div class="callout gold" style="margin-top:14px;">
+    <span class="callout-icon">📌</span>
+    <b>跟评审的承诺 ——</b> 12 周首期不追求"全景一次到位"，追求"4 端 2 时刻 5 类资产 + 资产控制台"四件事<b>全部交付到可灰度的程度</b>。全景是方向，首期是版本——版本兑现才能换全景的发布权。
+  </div>
 </section>
 
 <!-- ============ 5. 质量锚点 ============ -->
@@ -1385,11 +1501,7 @@ ul.dot li b{color:var(--ink);font-weight:600;}
     </tbody>
   </table></div>
 
-  <h3 class="sub-title" id="s5-4">5.4 失败标志 · 红线（出现即停 / 回滚 / 升级会议）</h3>
-  <div class="callout red">
-    <span class="callout-icon">🚨</span>
-    <b>规则 ——</b> 以下任何一条触发，自动停推 + 升级到核心决策组 24 小时内会议，不走常规迭代节奏。
-  </div>
+  <h3 class="sub-title" id="s5-4">5.4 失败标志 · 红线（任一触发即停推 + 24h 内升级核心决策组）</h3>
   <div class="tbl-wrap"><table class="t">
     <thead><tr><th>#</th><th>红线指标</th><th>触发条件</th><th>应急动作</th></tr></thead>
     <tbody>
@@ -1440,11 +1552,12 @@ ul.dot li b{color:var(--ink);font-weight:600;}
     </tbody>
   </table></div>
 
-  <h3 class="sub-title" id="s6-3">6.3 市场抢占估算</h3>
+  <h3 class="sub-title" id="s6-3">6.3 市场抢占估算 · 复刻三档</h3>
   <div class="callout blue">
     <span class="callout-icon">🔑</span>
     <b>口径统一 ——</b> 所有数字均按登录 CADU（Cross-end Active DAU，跨端登录活跃用户）估算，分母 = 9000 万登录 MAU。<span class="stamp assume">假设·待验证</span>
   </div>
+  <p class="body" style="margin-top:8px;color:#A8341F;"><b>口径：</b>本节三档为<b>战略口径的市场容量参照</b>，产品口径 KPI 见 6.4 / 6.5。</p>
   <div class="tier-grid">
     <div class="tier bao">
       <div class="tier-lbl">🛡️ 保底 · 复刻夸克路线</div>
@@ -1495,6 +1608,21 @@ ul.dot li b{color:var(--ink);font-weight:600;}
       </g>
     </svg>
     <div class="svg-cap">图 · 三段式优势分层：入场券 / 承重梁 / 放大器</div>
+  </div>
+
+  <h4 class="minor-title">6.3.1 真实基线参照（行业实测水位 · 三档数字的现实参考）</h4>
+  <p class="body">三档数字看起来很"复刻"，但要扛住"凭什么是这个比例"的追问，下面三类真实基线是元宝在中文 C 端要超越/对齐的现实水位。</p>
+  <div class="tbl-wrap"><table class="t">
+    <thead><tr><th>类别</th><th>基线维度</th><th>行业参考水位</th><th>元宝当前位置</th><th>一句话读法</th></tr></thead>
+    <tbody>
+      <tr><td><b>A. 同账号跨端活跃</b></td><td>同账号在矩阵 ≥2 端 30 天有行为</td><td>字节豆包系 ~30% / 百度系 ~25% / 阿里夸克 ~20%</td><td>QQ 浏览器+元宝当前估算 ~15%</td><td><b>目标档 20% = 把字节/百度的中位水位复刻到自家</b></td></tr>
+      <tr><td><b>B. 跨端资产调用率</b></td><td>同账号在 A 端产生的资产 30 天内被 B 端调用</td><td>M365 Graph 内部口径 ~25-30%（B 端） / iCloud Continuity 单 OS 内 ~40%</td><td>元宝矩阵当前 &lt; 5% <span class="stamp assume">假设</span></td><td><b>首期魔法时刻成功的关键指标，这个数字是从 0 起步</b></td></tr>
+      <tr><td><b>C. AI 读资产授权接受率</b></td><td>用户对"允许 AI 读取我的某类资产"的授权同意率</td><td>ChatGPT Memory 默认开启接受率 ~70% / Google Workspace AI 整合接受率 ~55%</td><td>待 4.4.5 控制台上线后埋点</td><td><b>资产控制台四件事是否被信任的最直接读数</b></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">
+    <span class="callout-icon">📊</span>
+    <b>三类基线为什么重要 ——</b> A 是"账号统一战役"的水位读数；B 是"资产底座是否被使用"的读数；C 是"隐私心智是否过关"的读数 —— 三件事都在行业基线 + 30% 以内，1800 万的目标档就是<b>可达的而非画饼的</b>。
   </div>
 
   <h3 class="sub-title" id="s6-4">6.4 双北极星指标</h3>
