@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gemini 2026 Google Apps 协同绑定关系图</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #59657a;
+      --line: rgba(38, 52, 82, 0.18);
+      --blue: #4285f4;
+      --red: #ea4335;
+      --yellow: #fbbc04;
+      --green: #34a853;
+      --violet: #7c4dff;
+      --cyan: #00acc1;
+      --paper: #fbfcff;
+      --panel: rgba(255, 255, 255, 0.86);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 11% 8%, rgba(66, 133, 244, 0.14), transparent 28%),
+        radial-gradient(circle at 88% 18%, rgba(251, 188, 4, 0.16), transparent 24%),
+        linear-gradient(135deg, #f6f9ff 0%, #ffffff 44%, #f7fbf7 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    .sheet {
+      width: 1600px;
+      min-height: 1000px;
+      margin: 0 auto;
+      padding: 44px 52px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 28px;
+      margin-bottom: 26px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 12px 0 0;
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .legend {
+      display: grid;
+      gap: 8px;
+      min-width: 340px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(38, 52, 82, 0.08);
+    }
+
+    .legend-title {
+      font-weight: 760;
+      font-size: 14px;
+      color: #263652;
+      margin-bottom: 2px;
+    }
+
+    .legend-row {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #4c596e;
+    }
+
+    .swatch {
+      height: 3px;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .swatch.context { background: var(--blue); }
+    .swatch.embed { background: var(--green); }
+    .swatch.action { background: var(--red); }
+    .swatch.create { background: var(--violet); }
+
+    .map {
+      position: relative;
+      height: 1080px;
+    }
+
+    svg.links {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .link {
+      fill: none;
+      stroke-width: 3.2;
+      stroke-linecap: round;
+      opacity: 0.75;
+    }
+
+    .link.context { stroke: var(--blue); }
+    .link.embed { stroke: var(--green); }
+    .link.action { stroke: var(--red); }
+    .link.create { stroke: var(--violet); }
+
+    .node {
+      position: absolute;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      border-radius: 8px;
+      box-shadow: 0 20px 52px rgba(42, 52, 77, 0.12);
+      overflow: hidden;
+    }
+
+    .node::before {
+      content: "";
+      display: block;
+      height: 6px;
+      background: var(--bar, var(--blue));
+    }
+
+    .node-inner {
+      padding: 16px 18px 18px;
+    }
+
+    .node-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .badge {
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--bar, var(--blue));
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .node-desc {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13.2px;
+      line-height: 1.45;
+    }
+
+    .bullets {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #263652;
+      font-size: 13.3px;
+      line-height: 1.38;
+    }
+
+    .bullets li {
+      display: grid;
+      grid-template-columns: 10px 1fr;
+      gap: 8px;
+    }
+
+    .bullets li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--bar, var(--blue));
+    }
+
+    .center {
+      left: 553px;
+      top: 315px;
+      width: 392px;
+      min-height: 278px;
+      --bar: linear-gradient(90deg, var(--blue), var(--red), var(--yellow), var(--green));
+      z-index: 4;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 28px 80px rgba(30, 64, 128, 0.2);
+    }
+
+    .gemini-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(from 35deg, var(--blue), var(--violet), var(--red), var(--yellow), var(--green), var(--blue));
+      color: white;
+      font-size: 25px;
+      font-weight: 900;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.44);
+    }
+
+    .center h2 {
+      margin: 0;
+      font-size: 29px;
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+
+    .center .node-inner {
+      padding: 24px 26px 26px;
+    }
+
+    .pillgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 9px 10px;
+      border-radius: 8px;
+      background: #f2f6ff;
+      color: #263652;
+      font-size: 12.8px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .node.gemini-app { left: 44px; top: 42px; width: 335px; --bar: var(--blue); }
+    .node.notebooklm { left: 54px; top: 402px; width: 330px; --bar: var(--cyan); }
+    .node.search { left: 516px; top: 36px; width: 350px; --bar: var(--green); }
+    .node.workspace { left: 1102px; top: 40px; width: 356px; --bar: var(--yellow); }
+    .node.chrome { left: 1164px; top: 404px; width: 332px; --bar: var(--red); }
+    .node.android { left: 736px; top: 796px; width: 370px; --bar: #00acc1; }
+    .node.shopping { left: 408px; top: 798px; width: 302px; --bar: #fbbc04; }
+    .node.youtube { left: 1144px; top: 788px; width: 330px; --bar: #ea4335; }
+    .node.flow { left: 56px; top: 776px; width: 315px; --bar: #7c4dff; }
+
+    .layer-label {
+      position: absolute;
+      z-index: 1;
+      color: rgba(28, 41, 64, 0.48);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .layer-label.left { left: 80px; top: 12px; }
+    .layer-label.right { right: 58px; top: 12px; }
+    .layer-label.bottom { left: 604px; bottom: 0; }
+
+    .callout {
+      position: absolute;
+      left: 464px;
+      top: 642px;
+      width: 610px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      z-index: 5;
+    }
+
+    .metric {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 10px 28px rgba(42, 52, 77, 0.08);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+      color: #1d2b45;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .foot {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      margin-top: 18px;
+      color: #657186;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .sources {
+      max-width: 1110px;
+    }
+
+    .sources a {
+      color: #315fb8;
+      text-decoration: none;
+      font-weight: 650;
+    }
+
+    .date {
+      white-space: nowrap;
+      color: #263652;
+      font-weight: 760;
+    }
+
+    @media (max-width: 900px) {
+      .sheet {
+        width: 100%;
+        padding: 28px 16px;
+      }
+
+      .topbar,
+      .foot {
+        grid-template-columns: 1fr;
+      }
+
+      .map {
+        height: auto;
+        display: grid;
+        gap: 14px;
+      }
+
+      svg.links,
+      .layer-label,
+      .callout {
+        display: none;
+      }
+
+      .node,
+      .center {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <section class="topbar">
+      <div>
+        <h1>Gemini 2026：Google 全家桶的协同绑定关系</h1>
+        <p class="subtitle">从 2026 I/O 的发布节奏看，Gemini 已从“单一聊天 App”升级为 Google 生态的智能中枢：一边吸收 Search、Workspace、Photos、Gmail、Calendar 等个人上下文，另一边通过 Spark、AI Mode、Universal Cart、auto browse、Omni 与 Android/XR 把回答变成行动。</p>
+      </div>
+      <aside class="legend" aria-label="关系类型图例">
+        <div class="legend-title">连接线含义</div>
+        <div class="legend-row"><span class="swatch context"></span><span>上下文供给：个人数据、文件、网页、照片、邮件</span></div>
+        <div class="legend-row"><span class="swatch embed"></span><span>应用内入口：在原 Google App 中直接召唤 Gemini</span></div>
+        <div class="legend-row"><span class="swatch action"></span><span>代理执行：跨 App、浏览器、商家与本机的任务流</span></div>
+        <div class="legend-row"><span class="swatch create"></span><span>创作生成：文本、图片、视频、音乐、可交互 UI</span></div>
+      </aside>
+    </section>
+
+    <section class="map" aria-label="Gemini 与 Google 应用关系图">
+      <div class="layer-label left">Knowledge & Projects</div>
+      <div class="layer-label right">Work, Web & Devices</div>
+      <div class="layer-label bottom">Commerce, Creation & Ambient Computing</div>
+
+      <svg class="links" viewBox="0 0 1496 1080" role="img" aria-label="各应用与 Gemini 中枢的连接线">
+        <path class="link context" d="M380 192 C480 226, 520 318, 554 425"></path>
+        <path class="link context" d="M384 525 C470 514, 512 485, 554 480"></path>
+        <path class="link embed" d="M866 178 C890 238, 910 298, 918 336"></path>
+        <path class="link embed" d="M1102 208 C1038 252, 982 296, 944 378"></path>
+        <path class="link action" d="M1164 522 C1074 518, 1006 494, 945 470"></path>
+        <path class="link action" d="M896 796 C874 724, 846 690, 826 653"></path>
+        <path class="link action" d="M560 798 C592 736, 626 690, 664 653"></path>
+        <path class="link create" d="M1144 884 C1018 820, 890 748, 824 653"></path>
+        <path class="link create" d="M371 882 C486 802, 556 728, 620 653"></path>
+        <path class="link action" d="M710 930 C820 888, 1015 856, 1144 900"></path>
+        <path class="link context" d="M248 402 C334 356, 456 386, 554 446"></path>
+        <path class="link embed" d="M1280 404 C1188 334, 1044 338, 944 420"></path>
+      </svg>
+
+      <article class="node center">
+        <div class="node-inner">
+          <div class="node-title">
+            <div class="gemini-mark">G</div>
+            <h2>Gemini 2026 智能中枢</h2>
+          </div>
+          <p class="node-desc">核心角色从“回答”转向“带上下文的代理行动”：个人、工作、浏览、设备、购物、创作统一被 Gemini 模型和代理框架调度。</p>
+          <div class="pillgrid">
+            <div class="pill">Gemini 3.5 Flash</div>
+            <div class="pill">Gemini Omni</div>
+            <div class="pill">Gemini Spark</div>
+            <div class="pill">Personal Intelligence</div>
+            <div class="pill">Antigravity harness</div>
+            <div class="pill">SynthID / C2PA</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="node gemini-app">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">APP</span>Gemini App</div>
+          <p class="node-desc">总入口：左侧侧边栏不只放聊天历史，也开始承载项目、NotebookLM、Daily Brief 和 Spark。</p>
+          <ul class="bullets">
+            <li>Neural Expressive 新 UI，Gemini Live 直接融入输入体验</li>
+            <li>Daily Brief 从 Gmail、Calendar 等连接 App 生成晨间简报</li>
+            <li>Spark 作为 24/7 云端个人代理，衔接 Gmail、Docs、Slides 与更多 MCP 伙伴</li>
+            <li>macOS App 将接入本地文件、桌面自动化与语音改写</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node notebooklm">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">NLM</span>NotebookLM</div>
+          <p class="node-desc">项目知识层：Notebooks 在 Gemini 与 NotebookLM 之间同步，变成跨产品的个人知识库。</p>
+          <ul class="bullets">
+            <li>Gemini 侧边栏可新建 notebook、迁移旧聊天、加文件和自定义指令</li>
+            <li>任一侧添加的 sources 会自动出现在另一侧</li>
+            <li>NotebookLM 提供 Video Overviews、Infographics 等研究产物，再回流给 Gemini 写作和规划</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node search">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">S</span>Search / AI Mode</div>
+          <p class="node-desc">公共信息与实时事实层：Search 变成可对话、可监控、可生成 mini app 的 Gemini 前台。</p>
+          <ul class="bullets">
+            <li>AI Mode 全球默认升级为 Gemini 3.5 Flash</li>
+            <li>搜索框支持文本、图片、文件、视频、Chrome tabs 等多模态输入</li>
+            <li>Information agents 可 24/7 监控网页、新闻、社交、金融、购物与体育变化</li>
+            <li>Antigravity 能在 Search 里生成交互工具、模拟器与持续使用的任务仪表盘</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node workspace">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">W</span>Workspace</div>
+          <p class="node-desc">生产力上下文层：Gmail、Docs、Drive、Chat、Slides、Keep 与 Calendar 既提供资料，也成为 Spark 执行动作的场地。</p>
+          <ul class="bullets">
+            <li>Gmail Live 用语音搜索邮箱并合成答案；AI Inbox 给待办排序、草拟回复、浮出文件</li>
+            <li>Docs Live 可用语音生成初稿，并经许可拉取 Gmail、Drive、Chat、Web 资料</li>
+            <li>Keep 支持语音脑暴转结构化 notes/lists</li>
+            <li>Google Pics 进入 Slides 与 Drive，支持精细图片编辑与协作画布</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node chrome">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">C</span>Chrome / Web</div>
+          <p class="node-desc">网页行动层：Gemini in Chrome 把浏览器变成可总结、可点选、可自动操作、可保存技能的代理界面。</p>
+          <ul class="bullets">
+            <li>Android 版 Gemini in Chrome 可总结文章、问页面、连接 Calendar/Keep/Gmail</li>
+            <li>auto browse 处理预约、停车、找库存等网页任务；桌面版将接 Spark</li>
+            <li>Skills in Chrome 保存多标签工作流，一键复用</li>
+            <li>WebMCP 让网站暴露结构化工具给浏览器代理调用</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node android">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">A</span>Android / XR / Wear</div>
+          <p class="node-desc">环境计算层：Gemini Intelligence 把手机、手表、车、眼镜和笔记本变成可感知、可自动化的入口。</p>
+          <ul class="bullets">
+            <li>跨 App 多步自动化：外卖、打车、购物车、从 Gmail 找信息再行动</li>
+            <li>结合屏幕或照片上下文，把看见的内容转成即时任务</li>
+            <li>Autofill 结合 Personal Intelligence 填复杂表单；Rambler 把口语变成成稿</li>
+            <li>智能眼镜支持看见即问、导航、发短信、拍摄编辑、实时翻译和任务处理</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node shopping">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">BUY</span>Shopping</div>
+          <p class="node-desc">交易代理层：Universal Cart 把 Search、Gemini、YouTube、Gmail 的购物意图汇入一个智能购物车。</p>
+          <ul class="bullets">
+            <li>跨商家、跨服务添加商品；后台跟踪价格、库存、历史价与兼容性</li>
+            <li>Google Wallet 提供支付方式权益、会员与商家优惠理解</li>
+            <li>UCP/AP2 为代理结账提供边界、授权与可验证记录</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node youtube">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">YT</span>YouTube</div>
+          <p class="node-desc">内容发现与视频再创作层：用户可问 YouTube，也可用 Omni 参与 Shorts Remix。</p>
+          <ul class="bullets">
+            <li>Ask YouTube 以对话方式检索长视频与 Shorts，并生成结构化结果</li>
+            <li>Gemini Omni 进入 Shorts Remix 和 YouTube Create，可用提示和参考图改造视频</li>
+            <li>Remix 保留原视频链接、元数据与水印，创作者可选择退出</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="node flow">
+        <div class="node-inner">
+          <div class="node-title"><span class="badge">FX</span>Flow / Pics / Omni</div>
+          <p class="node-desc">创作工作室层：Gemini Omni、Nano Banana 与 Flow Agent 让图像、视频、音乐和设计工具进入可对话生产。</p>
+          <ul class="bullets">
+            <li>Omni 可从文本、图像、视频等输入生成和编辑高质量视频</li>
+            <li>Flow Agent 可多步规划、批量变体、整理素材、重命名 collections</li>
+            <li>Pics 支持对象分割、图片内文字编辑/翻译，并从 Slides/Drive 接入</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="callout" aria-label="关键判断">
+        <div class="metric"><strong>入口绑定</strong><span>Gemini App、Search、Chrome、Android 均成为一线入口</span></div>
+        <div class="metric"><strong>上下文绑定</strong><span>Gmail、Photos、Calendar、Drive、NotebookLM 形成个人知识层</span></div>
+        <div class="metric"><strong>行动绑定</strong><span>Spark、Search agents、auto browse、Universal Cart 承接执行</span></div>
+        <div class="metric"><strong>创作绑定</strong><span>Omni、Flow、Pics、YouTube Remix 将多媒体生产纳入 Gemini</span></div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div class="sources">
+        依据 Google 官方 2026 年资料整理：
+        <a href="https://blog.google/innovation-and-ai/products/gemini-app/next-evolution-gemini-app/">Gemini App / Spark / Daily Brief</a>、
+        <a href="https://blog.google/innovation-and-ai/products/gemini-app/notebooks-gemini-notebooklm/">Notebooks + NotebookLM</a>、
+        <a href="https://blog.google/products-and-platforms/products/search/search-io-2026/">Search / AI Mode</a>、
+        <a href="https://blog.google/products-and-platforms/products/workspace/workspace-updates/">Workspace</a>、
+        <a href="https://developer.chrome.com/blog/chrome-at-io26?hl=en">Chrome</a>、
+        <a href="https://blog.google/products-and-platforms/platforms/android/gemini-intelligence/">Android Gemini Intelligence</a>、
+        <a href="https://blog.google/products-and-platforms/products/shopping/google-shopping-cart/">Universal Cart</a>、
+        <a href="https://blog.youtube/news-and-events/youtube-news-google-io-2026/">YouTube</a>。
+      </div>
+      <div class="date">更新校准：2026-06-09</div>
+    </footer>
+  </main>
+</body>
+</html>
