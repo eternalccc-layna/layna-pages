@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元宝架构与核心体验蓝图：一重一轻双核驱动</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animation for tab switching */
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out forwards; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* UI Flow Specific Styles */
+        .phone-mockup {
+            width: 260px; height: 540px; border: 6px solid #1e293b; border-radius: 2.5rem; 
+            background: #f8fafc; overflow: hidden; position: relative; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); flex-shrink: 0; display: flex; flex-direction: column;
+        }
+        .dynamic-island {
+            position: absolute; top: 8px; left: 50%; transform: translateX(-50%); 
+            width: 80px; height: 24px; background: #000; border-radius: 12px; z-index: 50;
+        }
+        .wave-bar {
+            width: 4px; background-color: #a855f7; border-radius: 2px; 
+            animation: wave 1s ease-in-out infinite;
+        }
+        @keyframes wave { 0%, 100% { height: 8px; } 50% { height: 24px; } }
+        
+        .tag-episodic { color: #34d399; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); }
+        .tag-semantic { color: #f472b6; background: rgba(244, 114, 182, 0.1); border: 1px solid rgba(244, 114, 182, 0.2); }
+        .tag-working { color: #60a5fa; background: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.2); }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500/30">
+
+    <!-- 顶部导航条 -->
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-slate-700/50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-teal-400 flex items-center justify-center text-white font-bold"><i class="fa-solid fa-cube"></i></div>
+                <span class="font-bold tracking-widest text-lg">元宝架构演进 <span class="text-slate-500 font-normal text-sm ml-2">蓝图与UX落地</span></span>
+            </div>
+            <div class="flex gap-4 text-sm font-medium">
+                <a href="#vision" class="text-slate-300 hover:text-white transition">架构愿景</a>
+                <a href="#pc-mobile" class="text-slate-300 hover:text-white transition">端侧定位</a>
+                <a href="#ui-flows" class="text-blue-400 hover:text-blue-300 transition font-bold">核心 UX 流程</a>
+                <a href="#value" class="text-slate-300 hover:text-white transition">商业价值</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 愿景部分 -->
+    <section id="vision" class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center max-w-4xl mx-auto mb-16">
+            <h1 class="text-5xl font-bold mb-6 leading-tight">从“离散应用”到“生态底座”<br><span class="gradient-text">一重一轻，双核驱动</span></h1>
+            <p class="text-xl text-slate-400 leading-relaxed">
+                我们将日历、录音、翻译降维为**底层技能(Skills)**，重构出以「轻量探针」负责全域采集、「重度浏览器」负责资产加工的全新一代 AI 记忆矩阵。
+            </p>
+        </div>
+
+        <!-- 架构全景图 -->
+        <div class="glass-panel rounded-3xl p-8 relative overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none"></div>
+            
+            <h3 class="text-center text-sm font-bold text-slate-500 tracking-widest uppercase mb-10">产品架构全景映射图</h3>
+            
+            <div class="flex flex-col md:flex-row justify-between items-stretch gap-6 relative z-10">
+                
+                <!-- 左：轻探针 -->
+                <div class="flex-1 bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-blue-500/50 transition duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl"><i class="fa-solid fa-satellite-dish"></i></div>
+                        <h2 class="text-2xl font-bold text-white">一轻：全局探针与调度</h2>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6">接管用户碎片化输入，无处不在的隐形助手。<span class="tag-working px-1.5 py-0.5 rounded text-[10px] ml-1">工作记忆</span>与<span class="tag-episodic px-1.5 py-0.5 rounded text-[10px] ml-1">情景记忆</span>的捕获器。</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm"><i class="fa-solid fa-check text-green-400"></i> PC端：全局悬浮窗 / 快捷键呼出</li>
+                        <li class="flex items-center gap-3 text-sm"><i class="fa-solid fa-check text-green-400"></i> 移动端：输入法拦截 / 系统分享面板</li>
+                        <li class="flex items-center gap-3 text-sm"><i class="fa-solid fa-check text-green-400"></i> 微信域：服务号 Agent 寄生引流</li>
+                    </ul>
+                </div>
+
+                <!-- 中：资产底座 -->
+                <div class="flex flex-col justify-center items-center px-4 shrink-0">
+                    <div class="text-teal-400 mb-2 text-xs font-bold tracking-widest"><i class="fa-solid fa-angles-right"></i> 实时捕获</div>
+                    <div class="w-24 h-24 rounded-full bg-slate-800 border-2 border-teal-500/50 flex items-center justify-center shadow-[0_0_30px_rgba(20,184,166,0.3)] relative">
+                        <i class="fa-solid fa-database text-3xl text-teal-400"></i>
+                        <div class="absolute -bottom-8 w-max text-center">
+                            <div class="font-bold text-white">Asset Hub</div>
+                            <div class="text-xs text-slate-500">云端记忆中枢</div>
+                        </div>
+                    </div>
+                    <div class="text-blue-400 mt-14 text-xs font-bold tracking-widest"><i class="fa-solid fa-angles-right"></i> 同步消费</div>
+                </div>
+
+                <!-- 右：重浏览器 -->
+                <div class="flex-1 bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-teal-500/50 transition duration-300">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl"><i class="fa-solid fa-window-restore"></i></div>
+                        <h2 class="text-2xl font-bold text-white">一重：元宝浏览器</h2>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6">沉浸式的生产力容器。<span class="tag-semantic px-1.5 py-0.5 rounded text-[10px] ml-1">语义记忆</span>的可视化展现。负责执行巩固（Consolidation）。</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-sm"><i class="fa-solid fa-check text-green-400"></i> 沉浸消费：长文阅读 / 视频总结沉淀</li>
+                        <li class="flex items-center gap-3 text-sm"><i class="fa-solid fa-check text-green-400"></i> 资产大盘：全局记忆可视化看板</li>
+                        <li class="flex items-center gap-3 text-sm"><i class="fa-solid fa-check text-green-400"></i> 深度加工：多标签分屏对照 / 长图文重组</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 端侧定位 -->
+    <section id="pc-mobile" class="py-20 px-6 max-w-7xl mx-auto border-t border-slate-800">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4">多端形态落地指导 (原则)</h2>
+            <p class="text-slate-400">针对 PC 与移动端 OS 限制的不同，我们在设计表达上采用差异化的战术。</p>
+        </div>
+
+        <div class="flex justify-center mb-10">
+            <div class="bg-slate-800 p-1 rounded-xl inline-flex gap-1">
+                <button onclick="switchTab('pc')" id="tab-pc" class="px-8 py-3 rounded-lg font-bold transition-all text-white bg-blue-600 shadow-lg">💻 PC & Mac 端方案</button>
+                <button onclick="switchTab('mobile')" id="tab-mobile" class="px-8 py-3 rounded-lg font-bold transition-all text-slate-400 hover:text-white">📱 Mobile (iOS/Android)</button>
+            </div>
+        </div>
+
+        <div id="content-pc" class="tab-content active glass-panel rounded-3xl p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fa-brands fa-windows text-blue-400"></i> 桌面级的绝对接管</h3>
+                    <div class="space-y-6">
+                        <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                            <h4 class="text-lg font-bold text-blue-400 mb-2">1. 全局轻助理 (悬浮 Spotlight)</h4>
+                            <p class="text-sm text-slate-300">用户按下 `Alt+Space`，在任何软件界面上方弹出极简输入框。<br><b>设计心智：</b> 极客感、磨砂玻璃质感、支持拖拽文件直接入库。</p>
+                        </div>
+                        <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                            <h4 class="text-lg font-bold text-teal-400 mb-2">2. 侧边栏资产大盘 (浏览器内嵌)</h4>
+                            <p class="text-sm text-slate-300">浏览器取代了操作系统的“资源管理器”。左侧常驻“我的资产”面板。<br><b>设计心智：</b> 时间轴视图、智能分类文件夹、重分屏交互。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative bg-slate-900 rounded-2xl border border-slate-700 p-4 h-[300px] overflow-hidden flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614332287897-cdc485fa562d?q=80&w=800&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>
+                    <div class="relative z-10 w-3/4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl p-4">
+                        <div class="flex items-center gap-3 border-b border-white/10 pb-3 mb-3">
+                            <i class="fa-solid fa-sparkles text-blue-400"></i>
+                            <input type="text" placeholder="语音速记，或丢入任何文件..." class="bg-transparent border-none outline-none text-white w-full placeholder-slate-400">
+                            <div class="px-2 py-1 bg-white/10 rounded text-xs text-slate-300">Alt+Space</div>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="px-3 py-1.5 bg-blue-500/20 text-blue-300 rounded text-xs"><i class="fa-solid fa-microphone mr-1"></i> 开始会议录音</div>
+                            <div class="px-3 py-1.5 bg-teal-500/20 text-teal-300 rounded text-xs"><i class="fa-solid fa-crop-simple mr-1"></i> 截屏并提炼</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-mobile" class="tab-content glass-panel rounded-3xl p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div class="flex justify-center">
+                    <div class="w-[260px] h-[500px] bg-slate-900 rounded-[2.5rem] border-[6px] border-slate-800 shadow-2xl relative overflow-hidden flex flex-col">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-50"></div>
+                        <div class="flex-1 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center pt-16 px-4">
+                            <div class="bg-white/20 backdrop-blur-md rounded-2xl p-4 border border-white/30 text-white shadow-xl mb-auto mt-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-bold opacity-80"><i class="fa-solid fa-calendar-day mr-1"></i> 资产底座行程</span>
+                                </div>
+                                <h3 class="text-lg font-bold">下午 2:00 方案评审会</h3>
+                                <div class="mt-3 flex gap-2">
+                                    <button class="flex-1 bg-blue-500 text-white text-xs py-1.5 rounded-full font-bold">开启录音纪要</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fa-brands fa-apple text-slate-300"></i> <i class="fa-brands fa-android text-green-500"></i> 移动端的“化整为零”</h3>
+                    <p class="text-slate-400 mb-8">面对严苛的沙盒隔离，我们不做单一笨重的APP，而是将触手散布到系统的各个角落。</p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-800/40 rounded-xl border-l-4 border-blue-500">
+                            <h4 class="font-bold text-white mb-1">触点一：Share Extension (系统分享面板)</h4>
+                            <p class="text-sm text-slate-400">用户在小红书截图后点分享，直接呼出底部半屏卡片。端侧瞬间识别意图并打标。</p>
+                        </div>
+                        <div class="p-4 bg-slate-800/40 rounded-xl border-l-4 border-teal-500">
+                            <h4 class="font-bold text-white mb-1">触点二：键盘/输入法拦截器</h4>
+                            <p class="text-sm text-slate-400">在微信聊天中，直接通过键盘工具栏一键唤起“后台录音”或“日程创建”。</p>
+                        </div>
+                        <div class="p-4 bg-slate-800/40 rounded-xl border-l-4 border-purple-500">
+                            <h4 class="font-bold text-white mb-1">触点三：负一屏 Widgets & 动态岛</h4>
+                            <p class="text-sm text-slate-400">将日历/行程服务外显为小组件，桌面直接展示行动建议卡片。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心 UX 流程图解 (新增的融合部分) -->
+    <section id="ui-flows" class="pt-16 pb-24 px-6 max-w-7xl mx-auto border-t border-slate-800">
+        <div class="mb-12">
+            <h2 class="text-4xl font-bold mb-4">核心交互与体验流详设 (3-Step Delivery)</h2>
+            <p class="text-slate-400 text-lg max-w-3xl">这是底层记忆机制在前端界面的具体投射。展示了数据如何从 <span class="text-cyan-400">轻探针</span> 收集，并流入 <span class="text-indigo-400">重浏览器</span> 进行加工，最终形成闭环。</p>
+        </div>
+
+        <!-- ==========================================
+             Flow 1: Mobile Share Extension
+             ========================================== -->
+        <div class="mb-24">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xl">1</div>
+                <h3 class="text-2xl font-bold">移动端 Share Extension：截屏归档入库 <span class="text-slate-500 text-lg font-normal">（轻探针·资产捕获）</span></h3>
+            </div>
+            <p class="text-sm text-slate-400 mb-8 pl-14 max-w-4xl">用户在外部 App 截屏了一张“报表图”或“发票”，希望快速丢入元宝资产底座，不打断当前浏览。</p>
+
+            <div class="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 overflow-x-auto">
+                <div class="flex gap-10 min-w-max">
+                    
+                    <!-- Flow 1 - Step 1 -->
+                    <div class="flex flex-col items-center w-[260px]">
+                        <div class="text-left w-full mb-4 h-16">
+                            <h4 class="font-bold text-white"><span class="text-cyan-500 mr-2">Step 1</span>呼出分享面板</h4>
+                            <p class="text-xs text-slate-500 mt-1">系统原生分享面板，点击元宝图标触发收集。</p>
+                        </div>
+                        <div class="phone-mockup">
+                            <div class="dynamic-island"></div>
+                            <!-- Background App Mock -->
+                            <div class="flex-1 bg-slate-800 pt-16 px-4">
+                                <div class="w-full h-48 bg-slate-700 rounded-xl mb-4 flex items-center justify-center text-slate-500">[行业报表截图]</div>
+                                <div class="w-3/4 h-3 bg-slate-700 rounded mb-2"></div>
+                            </div>
+                            <!-- Native Share Sheet Mock -->
+                            <div class="absolute bottom-0 w-full h-64 bg-slate-100 rounded-t-3xl p-4 shadow-[0_-10px_20px_rgba(0,0,0,0.5)]">
+                                <div class="w-10 h-1.5 bg-slate-300 rounded-full mx-auto mb-6"></div>
+                                <div class="flex gap-4 overflow-x-hidden mb-6 px-2">
+                                    <div class="flex flex-col items-center gap-1"><div class="w-14 h-14 bg-slate-200 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-comment text-green-500 text-2xl"></i></div><span class="text-[10px] text-slate-600">微信</span></div>
+                                    
+                                    <!-- Yuanbao Target -->
+                                    <div class="flex flex-col items-center gap-1 relative">
+                                        <div class="absolute -inset-1 bg-cyan-400 rounded-[1.2rem] blur-sm opacity-50 animate-pulse"></div>
+                                        <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-cyan-400 rounded-2xl flex items-center justify-center relative z-10 shadow-lg"><i class="fa-solid fa-cube text-white text-2xl"></i></div>
+                                        <span class="text-[10px] text-slate-900 font-bold relative z-10">存入元宝</span>
+                                    </div>
+
+                                    <div class="flex flex-col items-center gap-1"><div class="w-14 h-14 bg-slate-200 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-envelope text-blue-500 text-2xl"></i></div><span class="text-[10px] text-slate-600">邮件</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center pt-[100px]"><i class="fa-solid fa-chevron-right text-slate-700 text-2xl"></i></div>
+
+                    <!-- Flow 1 - Step 2 -->
+                    <div class="flex flex-col items-center w-[260px]">
+                        <div class="text-left w-full mb-4 h-16">
+                            <h4 class="font-bold text-white"><span class="text-cyan-500 mr-2">Step 2</span>轻助理半屏解析</h4>
+                            <p class="text-xs text-slate-500 mt-1">转化为<span class="tag-episodic px-1 rounded text-[10px] ml-1">情景记忆</span>并自动端侧打标。</p>
+                        </div>
+                        <div class="phone-mockup">
+                            <div class="dynamic-island"></div>
+                            <!-- Background Blurred -->
+                            <div class="flex-1 bg-slate-800 pt-16 px-4 blur-sm opacity-50">
+                                <div class="w-full h-48 bg-slate-700 rounded-xl mb-4"></div>
+                            </div>
+                            <!-- Yuanbao Extension Card -->
+                            <div class="absolute bottom-0 w-full bg-slate-900 rounded-t-3xl p-5 shadow-[0_-20px_40px_rgba(0,0,0,0.8)] border-t border-slate-700">
+                                <div class="w-10 h-1 bg-slate-700 rounded-full mx-auto mb-4"></div>
+                                <div class="flex gap-4 mb-4">
+                                    <div class="w-16 h-20 bg-slate-800 rounded flex items-center justify-center text-slate-600 relative overflow-hidden">
+                                        <i class="fa-regular fa-image"></i>
+                                        <div class="absolute top-0 left-0 w-full h-1 bg-cyan-400 shadow-[0_0_10px_#22d3ee] animate-[bounce_2s_infinite]"></div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-sm font-bold text-white">截图_1024.png</div>
+                                        <div class="text-[10px] text-cyan-400 mt-1.5 flex items-center gap-1"><i class="fa-solid fa-sparkles"></i> 提取关键信息中...</div>
+                                        <div class="w-full h-1.5 bg-slate-800 rounded mt-2"><div class="w-2/3 h-full bg-cyan-500/50 rounded animate-pulse"></div></div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-[10px] text-slate-400">#财务报表</div>
+                                    <div class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-[10px] text-slate-400">#Q3数据</div>
+                                </div>
+                                <button class="w-full bg-white text-black font-bold py-3 rounded-xl mt-5 text-sm flex justify-center items-center gap-2">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> 存入资产底座
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center pt-[100px]"><i class="fa-solid fa-chevron-right text-slate-700 text-2xl"></i></div>
+
+                    <!-- Flow 1 - Step 3 -->
+                    <div class="flex flex-col items-center w-[260px]">
+                        <div class="text-left w-full mb-4 h-16">
+                            <h4 class="font-bold text-white"><span class="text-cyan-500 mr-2">Step 3</span>归档完成退场</h4>
+                            <p class="text-xs text-slate-500 mt-1">顶部轻提示成功，迅速消失，不打断原心流。</p>
+                        </div>
+                        <div class="phone-mockup">
+                            <div class="dynamic-island"></div>
+                            <!-- Toast Notification -->
+                            <div class="absolute top-12 left-1/2 -translate-x-1/2 w-[90%] bg-slate-800 border border-slate-700 shadow-2xl rounded-2xl p-3 flex items-center gap-3 z-50">
+                                <div class="w-8 h-8 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center"><i class="fa-solid fa-check text-sm"></i></div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">已保存至 Asset Hub</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">可在浏览器「资产大盘」查看</div>
+                                </div>
+                            </div>
+                            <!-- Background Normal Again -->
+                            <div class="flex-1 bg-slate-800 pt-16 px-4">
+                                <div class="w-full h-48 bg-slate-700 rounded-xl mb-4 flex items-center justify-center text-slate-500">[行业报表截图]</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             Flow 2: PC Browser Dashboard
+             ========================================== -->
+        <div class="mb-24">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-10 h-10 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xl">2</div>
+                <h3 class="text-2xl font-bold">PC端 浏览器：“资产大盘”分屏结构页 <span class="text-slate-500 text-lg font-normal">（重端·深度加工）</span></h3>
+            </div>
+            <p class="text-sm text-slate-400 mb-8 pl-14 max-w-4xl">用户回到电脑前，大模型将手机收集的碎片（情景记忆）提炼总结为结构化报告（语义记忆），并保留反向追溯跳转图谱。</p>
+
+            <div class="space-y-6 pl-14">
+                <!-- Flow 2 - S1 -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-700 relative">
+                    <div class="absolute -left-12 top-8 w-8 text-right font-bold text-indigo-500">S1</div>
+                    <h4 class="font-bold text-white mb-2">侧边栏资产溯源 <span class="tag-episodic px-2 py-0.5 rounded text-[10px] ml-2 font-normal">情景记忆聚合</span></h4>
+                    <p class="text-xs text-slate-400 mb-4">左侧栏集中展示跨端收集的原始素材（图、文、音）。</p>
+                    
+                    <div class="w-full h-40 bg-[#0c0c0e] border border-slate-700 rounded-xl flex overflow-hidden">
+                        <div class="w-64 bg-slate-900 border-r border-slate-800 p-3 flex flex-col">
+                            <div class="text-xs font-bold text-slate-400 mb-3 uppercase">项目夹: 竞品调研</div>
+                            <div class="bg-slate-800 p-2 rounded-lg border border-indigo-500/50 shadow-[0_0_10px_rgba(99,102,241,0.1)] mb-2 flex gap-2 items-center cursor-pointer">
+                                <i class="fa-regular fa-image text-green-400 text-sm"></i>
+                                <div class="truncate text-xs text-white">Q3 财务报表截图.png</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-2 rounded-lg border border-transparent flex gap-2 items-center opacity-60">
+                                <i class="fa-solid fa-microphone text-purple-400 text-sm"></i>
+                                <div class="truncate text-xs text-slate-400">暗访录音纪要</div>
+                            </div>
+                        </div>
+                        <div class="flex-1 bg-slate-950 flex items-center justify-center">
+                            <div class="text-slate-600 text-sm"><i class="fa-solid fa-arrow-left mr-2"></i> 选择左侧资产进行大模型提炼</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flow 2 - S2 -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-700 relative">
+                    <div class="absolute -left-12 top-8 w-8 text-right font-bold text-indigo-500">S2</div>
+                    <h4 class="font-bold text-white mb-2">AI 加工提炼舱 <span class="tag-working px-2 py-0.5 rounded text-[10px] ml-2 font-normal">工作记忆推理</span></h4>
+                    <p class="text-xs text-slate-400 mb-4">大模型读取选中的资产，执行 Consolidation（巩固），生成洞察。</p>
+                    
+                    <div class="w-full h-40 bg-[#0c0c0e] border border-slate-700 rounded-xl flex overflow-hidden">
+                        <div class="w-16 bg-slate-900 border-r border-slate-800 flex flex-col items-center py-4 gap-4 opacity-50">
+                            <div class="w-8 h-8 rounded bg-slate-800 flex items-center justify-center"><i class="fa-regular fa-image text-green-400"></i></div>
+                        </div>
+                        <div class="flex-1 bg-slate-950 p-6 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-4">
+                                <i class="fa-solid fa-sparkles text-indigo-500"></i>
+                                <span class="text-sm font-bold text-white">元宝大模型正在提炼...</span>
+                            </div>
+                            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 w-2/3">
+                                <div class="h-2 bg-slate-800 rounded mb-3 w-3/4"><div class="h-full bg-indigo-500/50 rounded w-1/2 animate-pulse"></div></div>
+                                <div class="h-2 bg-slate-800 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flow 2 - S3 -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-700 relative">
+                    <div class="absolute -left-12 top-8 w-8 text-right font-bold text-indigo-500">S3</div>
+                    <h4 class="font-bold text-white mb-2">带有双向引用的语义沉淀 <span class="tag-semantic px-2 py-0.5 rounded text-[10px] ml-2 font-normal">语义记忆生成</span></h4>
+                    <p class="text-xs text-slate-400 mb-4">生成的报告结论可以 Hover 回溯到原始的截屏或录音时间戳（资产间跳转图谱）。</p>
+                    
+                    <div class="w-full h-56 bg-[#0c0c0e] border border-slate-700 rounded-xl flex overflow-hidden relative">
+                        <div class="flex-1 bg-slate-950 p-6 flex justify-center">
+                            <div class="w-[600px] bg-white rounded-t-xl p-6 shadow-2xl relative mt-4">
+                                <h1 class="text-black font-bold text-lg mb-3 border-b pb-2">竞品 Q3 市场分析报告</h1>
+                                <p class="text-slate-700 text-sm leading-relaxed">
+                                    综合近期市场数据，竞品在三季度的毛利率出现了明显下滑
+                                    <span class="inline-flex items-center justify-center w-4 h-4 bg-indigo-100 text-indigo-700 rounded-sm text-[10px] font-bold mx-1 cursor-pointer hover:ring-2 ring-indigo-400">[1]</span>。
+                                </p>
+                                <!-- Mockup of Hover Popover -->
+                                <div class="absolute top-16 left-52 bg-slate-900 border border-slate-700 shadow-2xl rounded-xl w-64 p-3 z-10">
+                                    <div class="text-[10px] text-slate-400 mb-2 uppercase tracking-wider">溯源至情景记忆</div>
+                                    <div class="flex gap-3">
+                                        <div class="w-12 h-12 bg-slate-800 rounded border border-slate-700 flex items-center justify-center text-slate-600 text-[10px]">截图</div>
+                                        <div class="flex-1">
+                                            <div class="text-xs text-white font-bold mb-1">Q3 财务报表.png</div>
+                                            <div class="text-[10px] text-cyan-400">"毛利率下降至 12.4%"</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             Flow 3: Keyboard Voice & Action
+             ========================================== -->
+        <div class="mb-10">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl">3</div>
+                <h3 class="text-2xl font-bold">移动端 键盘：录音唤起与闭环 <span class="text-slate-500 text-lg font-normal">（跨端联动与调用）</span></h3>
+            </div>
+            <p class="text-sm text-slate-400 mb-8 pl-14 max-w-4xl">用户在微信沟通中，利用元宝键盘截流，无需跳出聊天即可完成录音并自动安排日程（Action 调度）。</p>
+
+            <div class="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 overflow-x-auto">
+                <div class="flex gap-10 min-w-max">
+                    
+                    <!-- Flow 3 - Step 1 -->
+                    <div class="flex flex-col items-center w-[260px]">
+                        <div class="text-left w-full mb-4 h-16">
+                            <h4 class="font-bold text-white"><span class="text-purple-500 mr-2">Step 1</span>键盘截流唤起</h4>
+                            <p class="text-xs text-slate-500 mt-1">第三方聊天窗口内，点击键盘麦克风按钮触发录音。</p>
+                        </div>
+                        <div class="phone-mockup">
+                            <div class="dynamic-island"></div>
+                            <div class="flex-1 bg-slate-100 p-4 pt-16 flex flex-col justify-end">
+                                <div class="bg-white text-slate-800 p-3 rounded-lg rounded-tl-none text-sm self-start max-w-[80%] mb-4 shadow-sm border border-slate-200">碰一下明天的安排？</div>
+                            </div>
+                            <!-- Yuanbao Keyboard Mock -->
+                            <div class="h-64 bg-slate-200/90 backdrop-blur-md pb-6 flex flex-col">
+                                <div class="h-10 border-b border-slate-300 flex items-center justify-between px-3 bg-slate-100">
+                                    <div class="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 flex items-center justify-center"><i class="fa-solid fa-cube text-white text-[10px]"></i></div>
+                                    <div class="flex gap-4 text-slate-500">
+                                        <div class="relative w-8 h-8 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 shadow-sm"><i class="fa-solid fa-microphone"></i></div>
+                                        <div class="w-8 h-8 flex items-center justify-center"><i class="fa-solid fa-language"></i></div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 p-2 grid grid-cols-10 gap-1.5 opacity-60">
+                                    <div class="col-span-1 h-10 bg-white rounded shadow-sm"></div><div class="col-span-1 h-10 bg-white rounded shadow-sm"></div><div class="col-span-1 h-10 bg-white rounded shadow-sm"></div><div class="col-span-1 h-10 bg-white rounded shadow-sm"></div><div class="col-span-1 h-10 bg-white rounded shadow-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center pt-[100px]"><i class="fa-solid fa-chevron-right text-slate-700 text-2xl"></i></div>
+
+                    <!-- Flow 3 - Step 2 -->
+                    <div class="flex flex-col items-center w-[260px]">
+                        <div class="text-left w-full mb-4 h-16">
+                            <h4 class="font-bold text-white"><span class="text-purple-500 mr-2">Step 2</span>工作记忆实时捕获</h4>
+                            <p class="text-xs text-slate-500 mt-1">键盘变为录音板，实时送入中转站的<span class="tag-working px-1 rounded text-[10px] ml-1">工作记忆</span>。</p>
+                        </div>
+                        <div class="phone-mockup">
+                            <div class="dynamic-island"></div>
+                            <div class="flex-1 bg-slate-100 p-4 pt-16 flex flex-col justify-end opacity-50 blur-[1px]">
+                                <div class="bg-white text-slate-800 p-3 rounded-lg rounded-tl-none text-sm self-start max-w-[80%] mb-4">碰一下明天的安排？</div>
+                            </div>
+                            <div class="h-64 bg-slate-900 pb-6 flex flex-col items-center justify-center relative">
+                                <div class="absolute top-3 right-4 text-xs text-red-400 flex items-center gap-1"><div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div> 00:08</div>
+                                <div class="text-center px-6">
+                                    <div class="flex items-end justify-center gap-1 h-12 mb-6">
+                                        <div class="wave-bar"></div><div class="wave-bar" style="animation-delay: 0.1s"></div><div class="wave-bar" style="animation-delay: 0.2s"></div><div class="wave-bar" style="animation-delay: 0.3s"></div><div class="wave-bar" style="animation-delay: 0.1s"></div>
+                                    </div>
+                                    <p class="text-white text-base font-medium tracking-wide">"明天下午三点，我们碰..."</p>
+                                </div>
+                                <div class="absolute bottom-6 flex gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></div>
+                                    <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg shadow-purple-500/50"><i class="fa-solid fa-check"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center pt-[100px]"><i class="fa-solid fa-chevron-right text-slate-700 text-2xl"></i></div>
+
+                    <!-- Flow 3 - Step 3 -->
+                    <div class="flex flex-col items-center w-[260px]">
+                        <div class="text-left w-full mb-4 h-16">
+                            <h4 class="font-bold text-white"><span class="text-purple-500 mr-2">Step 3</span>Action 调度闭环</h4>
+                            <p class="text-xs text-slate-500 mt-1">识别结束，底层大模型直接调度「日历」技能建任务。</p>
+                        </div>
+                        <div class="phone-mockup relative">
+                            <div class="dynamic-island"></div>
+                            <div class="flex-1 bg-slate-100 p-4 pt-16 flex flex-col justify-end opacity-40 blur-sm">
+                                <div class="bg-white text-slate-800 p-3 rounded-lg rounded-tl-none text-sm self-start max-w-[80%] mb-4">碰一下明天的安排？</div>
+                                <div class="bg-green-500 text-white p-3 rounded-lg rounded-tr-none text-sm self-end max-w-[80%] mb-4">好的，明天下午三点碰方案</div>
+                            </div>
+                            <div class="absolute bottom-0 w-full bg-slate-900 rounded-t-3xl p-5 shadow-[0_-20px_40px_rgba(0,0,0,0.5)] border-t border-slate-700">
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="text-xs text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1"><i class="fa-solid fa-robot text-purple-400"></i> 已处理</span>
+                                </div>
+                                <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 mb-4">
+                                    <div class="text-sm text-white mb-3">录音已存入文件管家</div>
+                                    <div class="bg-purple-500/10 border border-purple-500/30 p-2 rounded-lg flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-calendar-check text-purple-400"></i>
+                                            <div>
+                                                <div class="text-xs text-purple-300 font-bold">创建日程：碰方案</div>
+                                                <div class="text-[10px] text-purple-400/70">明天 15:00</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="w-full text-slate-400 text-sm font-bold py-2 bg-slate-800 rounded-lg">完成</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 为什么这样做 (商业与体验价值) -->
+    <section id="value" class="py-20 px-6 max-w-7xl mx-auto border-t border-slate-800 mb-20">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">这种架构能带来什么决定性优势？</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-slate-800/30 p-8 rounded-2xl border border-slate-700/50">
+                <div class="w-14 h-14 bg-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3">获客阻力降维打击</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">不必再花天文数字的预算去推广“独立工具”。核心推主浏览器和输入法，助手作为插件搭载。大大降低获客成本 (CAC)。</p>
+            </div>
+            
+            <div class="bg-slate-800/30 p-8 rounded-2xl border border-slate-700/50">
+                <div class="w-14 h-14 bg-teal-500/20 text-teal-400 rounded-xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-ghost"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3">寄生式全域截流</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">突破生态隔离墙。即使在竞争对手（如飞书、微信）的APP里，我们的输入法和悬浮探针依然能为底座源源不断地“吸血”收集资产。</p>
+            </div>
+            
+            <div class="bg-slate-800/30 p-8 rounded-2xl border border-slate-700/50">
+                <div class="w-14 h-14 bg-purple-500/20 text-purple-400 rounded-xl flex items-center justify-center text-2xl mb-6"><i class="fa-solid fa-layer-group"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3">无缝的 Context 体验</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">超越传统文件夹管理。手机端轻度收集（扫发票、录音频），回到PC端浏览器打开直接就是一份排版好的报销单/纪要文档。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-slate-500 text-sm border-t border-slate-800">
+        <p>元宝产品矩阵架构演进方案 & UX蓝图 &copy; 2026. Internal Confidential.</p>
+    </footer>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById('tab-pc').className = tab === 'pc' 
+                ? 'px-8 py-3 rounded-lg font-bold transition-all text-white bg-blue-600 shadow-lg' 
+                : 'px-8 py-3 rounded-lg font-bold transition-all text-slate-400 hover:text-white';
+            
+            document.getElementById('tab-mobile').className = tab === 'mobile' 
+                ? 'px-8 py-3 rounded-lg font-bold transition-all text-white bg-blue-600 shadow-lg' 
+                : 'px-8 py-3 rounded-lg font-bold transition-all text-slate-400 hover:text-white';
+
+            document.getElementById('content-pc').classList.remove('active');
+            document.getElementById('content-mobile').classList.remove('active');
+            
+            document.getElementById(`content-${tab}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
