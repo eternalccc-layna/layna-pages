@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元宝矩阵登录流程脑图 · v1.0</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+    background: #fafafa;
+    color: #1d1d1f;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 56px 40px 96px; }
+
+  /* Hero */
+  .hero { margin-bottom: 48px; }
+  .eyebrow {
+    color: #0071e3; font-size: 13px; letter-spacing: 1.2px; font-weight: 600;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 42px; font-weight: 700; letter-spacing: -1px;
+    line-height: 1.18; margin-bottom: 14px;
+  }
+  .subtitle { font-size: 18px; color: #6e6e73; max-width: 880px; }
+  .meta { margin-top: 16px; font-size: 12.5px; color: #86868b; }
+
+  /* Section */
+  section { margin-bottom: 56px; }
+  .sec-head { margin-bottom: 24px; }
+  .sec-eyebrow {
+    font-size: 11.5px; color: #0071e3; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .sec-title { font-size: 28px; font-weight: 700; letter-spacing: -0.4px; }
+  .sec-desc { font-size: 15px; color: #6e6e73; margin-top: 6px; max-width: 880px; }
+
+  /* 卡片 */
+  .card {
+    background: #fff; border-radius: 18px; padding: 28px 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+  }
+
+  /* 登录方式表 */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; }
+  th, td { padding: 14px 16px; text-align: left; vertical-align: top; font-size: 13.5px; }
+  th { background: #f5f5f7; font-weight: 600; color: #1d1d1f; font-size: 12.5px; letter-spacing: 0.3px; }
+  tr + tr td { border-top: 1px solid #f0f0f2; }
+  .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 11.5px; font-weight: 600; white-space: nowrap;
+  }
+  .tag.p0 { background: rgba(255,59,48,0.1); color: #ff3b30; }
+  .tag.p1 { background: rgba(255,159,10,0.12); color: #d97a00; }
+  .tag.p2 { background: rgba(48,209,88,0.12); color: #1f8a3c; }
+  .tag.def { background: rgba(0,113,227,0.1); color: #0071e3; }
+
+  /* 脑图卡 */
+  .mindmap-card {
+    background: #fff; border-radius: 22px; padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    overflow-x: auto;
+  }
+  svg.mindmap { display: block; width: 100%; height: auto; min-width: 1200px; }
+  .legend { display: flex; gap: 22px; margin-top: 16px; flex-wrap: wrap; font-size: 12.5px; color: #6e6e73; }
+  .legend .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+
+  /* 场景卡 */
+  .scenes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .scene {
+    background: #fff; border-radius: 16px; padding: 22px 22px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+  }
+  .scene .sid { font-size: 11.5px; color: #0071e3; font-weight: 600; letter-spacing: 0.5px; }
+  .scene h3 { font-size: 16px; font-weight: 600; margin: 4px 0 12px; }
+  .scene .row { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13.5px; }
+  .scene .row .k { width: 70px; color: #86868b; flex-shrink: 0; }
+  .scene .row .v { color: #1d1d1f; }
+  .scene .v b { color: #0071e3; font-weight: 600; }
+
+  /* 状态机 */
+  .states { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .state {
+    background: #fff; border-radius: 16px; padding: 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    position: relative;
+  }
+  .state .icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 12px;
+  }
+  .state.success .icon { background: rgba(48,209,88,0.12); color: #1f8a3c; }
+  .state.fail .icon { background: rgba(255,59,48,0.1); color: #ff3b30; }
+  .state.pending .icon { background: rgba(255,159,10,0.12); color: #d97a00; }
+  .state h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .state ul { list-style: none; padding: 0; margin: 0; }
+  .state li {
+    font-size: 13px; color: #1d1d1f; padding: 6px 0; padding-left: 16px;
+    position: relative; line-height: 1.5;
+  }
+  .state li::before {
+    content: ""; position: absolute; left: 0; top: 11px;
+    width: 6px; height: 6px; border-radius: 50%; background: #c7c7cc;
+  }
+
+  /* dark callout */
+  .callout {
+    background: linear-gradient(135deg, #1d1d1f 0%, #2c2c2e 100%);
+    color: #f5f5f7; border-radius: 22px; padding: 36px 40px;
+  }
+  .callout h2 {
+    font-size: 12px; color: #0a84ff; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .callout h3 { font-size: 22px; font-weight: 700; margin-bottom: 22px; letter-spacing: -0.3px; }
+  .callout .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .callout .item .k { font-size: 12px; color: #ff9f0a; font-weight: 600; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .callout .item .t { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .callout .item .d { font-size: 13px; color: #d2d2d7; line-height: 1.55; }
+
+  footer { margin-top: 56px; text-align: center; color: #86868b; font-size: 12.5px; }
+
+  @media (max-width: 900px) {
+    .wrap { padding: 28px 18px 56px; }
+    h1 { font-size: 30px; }
+    .scenes, .states, .callout .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="eyebrow">Login Flow · User-Perceivable Layer</div>
+    <h1>元宝矩阵登录流程脑图<br>用户可感知的全流程拆解</h1>
+    <p class="subtitle">从「点登录按钮」到「登录成功 / 失败」的每一个分支：登录方式 × 用户身份 × 成功失败 × 新老用户。</p>
+    <div class="meta">v1.0 · 2026-06-10 · Layna · 仅覆盖前端可感知层</div>
+  </header>
+
+  <!-- 1. 登录方式定义 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">01 · Login Methods</div>
+      <h2 class="sec-title">登录方式定义</h2>
+      <p class="sec-desc">P0 上线 3 种 + 兜底 1 种；P1/P2 逐步开放。"默认推荐"决定登录页第一屏长什么样。</p>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:90px;">阶段</th>
+            <th style="width:140px;">登录方式</th>
+            <th style="width:110px;">默认推荐</th>
+            <th>触发体验</th>
+            <th style="width:200px;">前置条件 / 失败回落</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag p0">P0</span></td>
+            <td>一键登录</td>
+            <td><span class="tag def">主推</span></td>
+            <td>识别 SIM 卡号 → 用户点"本机号码登录" → 0 秒完成</td>
+            <td>需 4G/5G + SIM 卡。失败 → 落短信</td>
+          </tr>
+          <tr>
+            <td><span class="tag p0">P0</span></td>
+            <td>微信授权</td>
+            <td><span class="tag def">次推</span></td>
+            <td>跳微信确认页 → 返回 App 即登录</td>
+            <td>需安装微信。失败 → 落短信</td>
+          </tr>
+          <tr>
+            <td><span class="tag p0">P0</span></td>
+            <td>短信验证码</td>
+            <td>—</td>
+            <td>填手机号 → 收短信 → 输入 6 位</td>
+            <td>所有方式的兜底</td>
+          </tr>
+          <tr>
+            <td><span class="tag p1">P1</span></td>
+            <td>扫码登录</td>
+            <td>—</td>
+            <td>已登录端展示二维码 → 新端扫码确认</td>
+            <td>需主端在线。仅"端 → 端"，不替代首登</td>
+          </tr>
+          <tr>
+            <td><span class="tag p1">P1</span></td>
+            <td>QQ 授权</td>
+            <td>—</td>
+            <td>跳 QQ → 返回 App 即登录</td>
+            <td>需安装 QQ</td>
+          </tr>
+          <tr>
+            <td><span class="tag p1">P1</span></td>
+            <td>Apple ID</td>
+            <td><span class="tag def">iOS 必接</span></td>
+            <td>系统弹窗 → Face ID 确认</td>
+            <td>iOS 合规要求，App Store 必须提供</td>
+          </tr>
+          <tr>
+            <td><span class="tag p2">P2</span></td>
+            <td>厂商账号<br><span style="color:#86868b;font-size:12px;">华为/小米/OPPO/vivo</span></td>
+            <td>—</td>
+            <td>系统级一键，体感同 Apple ID</td>
+            <td>仅厂商定制版默认开启</td>
+          </tr>
+          <tr>
+            <td><span class="tag p2">P2</span></td>
+            <td>邮箱 / Google</td>
+            <td>—</td>
+            <td>邮箱 + 密码 / Google OAuth</td>
+            <td>出海版才开放</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 2. 主流程脑图 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">02 · Master Flow</div>
+      <h2 class="sec-title">主流程脑图（用户可感知层）</h2>
+      <p class="sec-desc">从"触发登录"到"完成 / 失败"的全部分支，含新老用户判定与首登补充信息环节。</p>
+    </div>
+
+    <div class="mindmap-card">
+      <svg class="mindmap" viewBox="0 0 1280 1480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0071e3"/>
+            <stop offset="100%" stop-color="#003a7a"/>
+          </linearGradient>
+          <linearGradient id="successG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#34c759"/><stop offset="100%" stop-color="#1f8a3c"/>
+          </linearGradient>
+          <linearGradient id="failG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff453a"/><stop offset="100%" stop-color="#c8281f"/>
+          </linearGradient>
+          <filter id="ds" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
+            <feOffset dx="0" dy="2" result="offset"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.16"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#86868b"/>
+          </marker>
+          <marker id="arrowG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1f8a3c"/>
+          </marker>
+          <marker id="arrowR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#ff453a"/>
+          </marker>
+        </defs>
+
+        <!-- ===== L1：触发登录 ===== -->
+        <g filter="url(#ds)">
+          <rect x="520" y="30" width="240" height="64" rx="14" fill="url(#rg)"/>
+          <text x="640" y="58" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">触发登录</text>
+          <text x="640" y="80" text-anchor="middle" fill="#cfe3ff" font-size="11">游客点付费/跨端/资产场景</text>
+        </g>
+
+        <!-- 触发场景 4 个小标签（环绕） -->
+        <g font-size="10.5" fill="#6e6e73">
+          <rect x="270" y="10" width="120" height="22" rx="11" fill="#f5f5f7"/>
+          <text x="330" y="25" text-anchor="middle">主动点"登录"</text>
+          <rect x="400" y="10" width="120" height="22" rx="11" fill="#f5f5f7"/>
+          <text x="460" y="25" text-anchor="middle">付费/会员场景</text>
+          <rect x="760" y="10" width="120" height="22" rx="11" fill="#f5f5f7"/>
+          <text x="820" y="25" text-anchor="middle">跨端同步触发</text>
+          <rect x="890" y="10" width="120" height="22" rx="11" fill="#f5f5f7"/>
+          <text x="950" y="25" text-anchor="middle">资产收藏/AI对话</text>
+          <line x1="390" y1="30" x2="520" y2="50" stroke="#d2d2d7" stroke-dasharray="3,3"/>
+          <line x1="520" y1="30" x2="520" y2="50" stroke="#d2d2d7" stroke-dasharray="3,3"/>
+          <line x1="760" y1="50" x2="760" y2="30" stroke="#d2d2d7" stroke-dasharray="3,3"/>
+          <line x1="760" y1="50" x2="890" y2="30" stroke="#d2d2d7" stroke-dasharray="3,3"/>
+        </g>
+
+        <!-- 主线 → 选择登录方式 -->
+        <line x1="640" y1="94" x2="640" y2="138" stroke="#86868b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- ===== L2：登录方式选择面板 ===== -->
+        <g filter="url(#ds)">
+          <rect x="440" y="140" width="400" height="84" rx="14" fill="#1d1d1f"/>
+          <text x="640" y="168" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">登录方式选择面板</text>
+          <text x="640" y="190" text-anchor="middle" fill="#a1a1a6" font-size="11">主按钮：一键登录　次按钮：微信　底部链接：其他方式</text>
+          <text x="640" y="210" text-anchor="middle" fill="#a1a1a6" font-size="11">底部勾选《用户协议》《隐私政策》（默认未勾）</text>
+        </g>
+
+        <!-- 4 路分叉 -->
+        <g stroke="#86868b" stroke-width="1.5" fill="none">
+          <path d="M 540 224 C 540 250, 200 250, 180 280" marker-end="url(#arrow)"/>
+          <path d="M 600 224 C 600 250, 480 250, 480 280" marker-end="url(#arrow)"/>
+          <path d="M 680 224 C 680 250, 800 250, 800 280" marker-end="url(#arrow)"/>
+          <path d="M 740 224 C 740 250, 1080 250, 1100 280" marker-end="url(#arrow)"/>
+        </g>
+
+        <!-- ===== L3：4 种入口 ===== -->
+        <!-- 一键登录 -->
+        <g filter="url(#ds)">
+          <rect x="60" y="280" width="240" height="64" rx="12" fill="#fff" stroke="#0071e3" stroke-width="2"/>
+          <text x="180" y="305" text-anchor="middle" fill="#0071e3" font-size="13" font-weight="700">A · 一键登录</text>
+          <text x="180" y="324" text-anchor="middle" fill="#6e6e73" font-size="11">点本机号码 → 运营商网关</text>
+          <text x="180" y="338" text-anchor="middle" fill="#6e6e73" font-size="11">无需输入，最快路径</text>
+        </g>
+        <!-- 微信 -->
+        <g filter="url(#ds)">
+          <rect x="360" y="280" width="240" height="64" rx="12" fill="#fff" stroke="#0071e3" stroke-width="2"/>
+          <text x="480" y="305" text-anchor="middle" fill="#0071e3" font-size="13" font-weight="700">B · 微信授权</text>
+          <text x="480" y="324" text-anchor="middle" fill="#6e6e73" font-size="11">跳微信 → 用户确认</text>
+          <text x="480" y="338" text-anchor="middle" fill="#6e6e73" font-size="11">需已安装微信</text>
+        </g>
+        <!-- 短信 -->
+        <g filter="url(#ds)">
+          <rect x="680" y="280" width="240" height="64" rx="12" fill="#fff" stroke="#0071e3" stroke-width="2"/>
+          <text x="800" y="305" text-anchor="middle" fill="#0071e3" font-size="13" font-weight="700">C · 短信验证码</text>
+          <text x="800" y="324" text-anchor="middle" fill="#6e6e73" font-size="11">手机号 + 6 位验证码</text>
+          <text x="800" y="338" text-anchor="middle" fill="#6e6e73" font-size="11">兜底路径</text>
+        </g>
+        <!-- 其他 -->
+        <g filter="url(#ds)">
+          <rect x="980" y="280" width="240" height="64" rx="12" fill="#fff" stroke="#86868b" stroke-width="1.5"/>
+          <text x="1100" y="305" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="700">D · 其他方式</text>
+          <text x="1100" y="324" text-anchor="middle" fill="#6e6e73" font-size="11">QQ / Apple / 扫码</text>
+          <text x="1100" y="338" text-anchor="middle" fill="#6e6e73" font-size="11">收在二级面板</text>
+        </g>
+
+        <!-- L3 → L4 汇聚 -->
+        <g stroke="#86868b" stroke-width="1.5" fill="none">
+          <path d="M 180 344 C 180 400, 540 400, 540 430" marker-end="url(#arrow)"/>
+          <path d="M 480 344 C 480 400, 580 400, 580 430" marker-end="url(#arrow)"/>
+          <path d="M 800 344 C 800 400, 700 400, 700 430" marker-end="url(#arrow)"/>
+          <path d="M 1100 344 C 1100 400, 740 400, 740 430" marker-end="url(#arrow)"/>
+        </g>
+
+        <!-- ===== L4：协议勾选检查 ===== -->
+        <g filter="url(#ds)">
+          <rect x="500" y="430" width="280" height="60" rx="12" fill="#fff8ec" stroke="#ff9f0a"/>
+          <text x="640" y="455" text-anchor="middle" fill="#d97a00" font-size="13" font-weight="700">⚠ 协议勾选检查</text>
+          <text x="640" y="476" text-anchor="middle" fill="#6e6e73" font-size="11">未勾选 → 弹窗"请先阅读并同意"</text>
+        </g>
+        <line x1="640" y1="490" x2="640" y2="530" stroke="#86868b" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- ===== L5：身份验证 ===== -->
+        <g filter="url(#ds)">
+          <rect x="490" y="530" width="300" height="64" rx="12" fill="#1d1d1f"/>
+          <text x="640" y="558" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">身份验证 · 服务端</text>
+          <text x="640" y="580" text-anchor="middle" fill="#a1a1a6" font-size="11">校验凭证 → 查 YuanbaoID 是否存在</text>
+        </g>
+
+        <!-- 验证分叉：失败 / 成功 -->
+        <g fill="none">
+          <path d="M 540 594 C 540 640, 220 640, 220 690" stroke="#ff453a" stroke-width="2" marker-end="url(#arrowR)"/>
+          <path d="M 740 594 C 740 640, 1060 640, 1060 690" stroke="#1f8a3c" stroke-width="2" marker-end="url(#arrowG)"/>
+        </g>
+        <text x="380" y="635" fill="#ff453a" font-size="12" font-weight="600">失败</text>
+        <text x="900" y="635" fill="#1f8a3c" font-size="12" font-weight="600">成功</text>
+
+        <!-- ===== L6 失败侧 ===== -->
+        <g filter="url(#ds)">
+          <rect x="60" y="690" width="320" height="74" rx="12" fill="url(#failG)"/>
+          <text x="220" y="717" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">❌ 验证失败</text>
+          <text x="220" y="738" text-anchor="middle" fill="#ffd1ce" font-size="11">网络异常 / 验证码错 / 拒绝授权</text>
+          <text x="220" y="754" text-anchor="middle" fill="#ffd1ce" font-size="11">/ 风控拦截 / 频率超限</text>
+        </g>
+
+        <!-- 失败子节点 -->
+        <g font-size="11.5">
+          <rect x="60" y="800" width="155" height="46" rx="8" fill="#fff" stroke="#ffd1ce"/>
+          <text x="138" y="820" text-anchor="middle" fill="#1d1d1f" font-weight="600">网络异常</text>
+          <text x="138" y="836" text-anchor="middle" fill="#6e6e73" font-size="10.5">Toast + 重试</text>
+
+          <rect x="225" y="800" width="155" height="46" rx="8" fill="#fff" stroke="#ffd1ce"/>
+          <text x="303" y="820" text-anchor="middle" fill="#1d1d1f" font-weight="600">验证码错误</text>
+          <text x="303" y="836" text-anchor="middle" fill="#6e6e73" font-size="10.5">高亮提示 + 留输入</text>
+
+          <rect x="60" y="858" width="155" height="46" rx="8" fill="#fff" stroke="#ffd1ce"/>
+          <text x="138" y="878" text-anchor="middle" fill="#1d1d1f" font-weight="600">拒绝授权</text>
+          <text x="138" y="894" text-anchor="middle" fill="#6e6e73" font-size="10.5">回到方式选择页</text>
+
+          <rect x="225" y="858" width="155" height="46" rx="8" fill="#fff" stroke="#ffd1ce"/>
+          <text x="303" y="878" text-anchor="middle" fill="#1d1d1f" font-weight="600">风控拦截</text>
+          <text x="303" y="894" text-anchor="middle" fill="#6e6e73" font-size="10.5">人机验证 / 客服</text>
+
+          <rect x="60" y="916" width="320" height="46" rx="8" fill="#fff" stroke="#ffd1ce"/>
+          <text x="220" y="936" text-anchor="middle" fill="#1d1d1f" font-weight="600">频率超限</text>
+          <text x="220" y="952" text-anchor="middle" fill="#6e6e73" font-size="10.5">60 秒倒计时锁，超 5 次 24h 锁</text>
+        </g>
+
+        <!-- 失败兜底 -->
+        <g filter="url(#ds)">
+          <rect x="60" y="990" width="320" height="58" rx="10" fill="#fff5f5" stroke="#ff453a"/>
+          <text x="220" y="1014" text-anchor="middle" fill="#ff453a" font-size="13" font-weight="700">兜底：换一种方式</text>
+          <text x="220" y="1034" text-anchor="middle" fill="#6e6e73" font-size="11">回到 L2 面板，主按钮变"短信验证码"</text>
+        </g>
+
+        <!-- ===== L6 成功侧：判断新/老用户 ===== -->
+        <g filter="url(#ds)">
+          <rect x="900" y="690" width="320" height="74" rx="12" fill="url(#successG)"/>
+          <text x="1060" y="717" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">✓ 验证通过</text>
+          <text x="1060" y="738" text-anchor="middle" fill="#d6f5dc" font-size="11">查 YuanbaoID 是否已存在</text>
+          <text x="1060" y="754" text-anchor="middle" fill="#d6f5dc" font-size="11">→ 分流：新用户 / 老用户</text>
+        </g>
+
+        <!-- 成功分叉 -->
+        <g fill="none">
+          <path d="M 980 764 C 980 810, 800 810, 800 850" stroke="#86868b" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <path d="M 1140 764 C 1140 810, 1140 810, 1140 850" stroke="#86868b" stroke-width="1.5" marker-end="url(#arrow)"/>
+        </g>
+        <text x="820" y="800" fill="#0071e3" font-size="12" font-weight="600">新用户</text>
+        <text x="1100" y="800" fill="#0071e3" font-size="12" font-weight="600">老用户</text>
+
+        <!-- 新用户子流程 -->
+        <g filter="url(#ds)">
+          <rect x="640" y="850" width="320" height="74" rx="12" fill="#fff" stroke="#0071e3"/>
+          <text x="800" y="876" text-anchor="middle" fill="#0071e3" font-size="13" font-weight="700">新用户首登流程</text>
+          <text x="800" y="896" text-anchor="middle" fill="#6e6e73" font-size="11">① 创建 YuanbaoID（自动）</text>
+          <text x="800" y="912" text-anchor="middle" fill="#6e6e73" font-size="11">② 昵称/头像（可跳过）→ ③ 偏好引导</text>
+        </g>
+
+        <!-- 老用户子流程 -->
+        <g filter="url(#ds)">
+          <rect x="980" y="850" width="240" height="74" rx="12" fill="#fff" stroke="#0071e3"/>
+          <text x="1100" y="876" text-anchor="middle" fill="#0071e3" font-size="13" font-weight="700">老用户再次登录</text>
+          <text x="1100" y="896" text-anchor="middle" fill="#6e6e73" font-size="11">① 直接进入主场景</text>
+          <text x="1100" y="912" text-anchor="middle" fill="#6e6e73" font-size="11">② 资产同步走后台</text>
+        </g>
+
+        <!-- 合流到登录成功 -->
+        <g stroke="#1f8a3c" stroke-width="2" fill="none">
+          <path d="M 800 924 C 800 970, 950 970, 950 1010" marker-end="url(#arrowG)"/>
+          <path d="M 1100 924 C 1100 970, 950 970, 950 1010" marker-end="url(#arrowG)"/>
+        </g>
+
+        <!-- ===== L8：登录成功 ===== -->
+        <g filter="url(#ds)">
+          <rect x="790" y="1010" width="320" height="80" rx="14" fill="url(#successG)"/>
+          <text x="950" y="1040" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">🎉 登录成功</text>
+          <text x="950" y="1062" text-anchor="middle" fill="#d6f5dc" font-size="11">下发 access + refresh Token</text>
+          <text x="950" y="1078" text-anchor="middle" fill="#d6f5dc" font-size="11">本端登录态保存 30 天</text>
+        </g>
+
+        <!-- 成功后续：4 个并行动作 -->
+        <g stroke="#1f8a3c" stroke-width="1.5" fill="none">
+          <path d="M 850 1090 C 850 1140, 220 1140, 220 1170" marker-end="url(#arrowG)"/>
+          <path d="M 900 1090 C 900 1140, 530 1140, 530 1170" marker-end="url(#arrowG)"/>
+          <path d="M 1000 1090 C 1000 1140, 850 1140, 850 1170" marker-end="url(#arrowG)"/>
+          <path d="M 1050 1090 C 1050 1140, 1140 1140, 1140 1170" marker-end="url(#arrowG)"/>
+        </g>
+
+        <g font-size="11.5">
+          <rect x="60" y="1170" width="320" height="60" rx="10" fill="#f0fff4" stroke="#bce8c9"/>
+          <text x="220" y="1192" text-anchor="middle" fill="#1f8a3c" font-weight="700">回到登录前场景</text>
+          <text x="220" y="1212" text-anchor="middle" fill="#6e6e73">无缝继续之前打断的操作</text>
+
+          <rect x="400" y="1170" width="260" height="60" rx="10" fill="#f0fff4" stroke="#bce8c9"/>
+          <text x="530" y="1192" text-anchor="middle" fill="#1f8a3c" font-weight="700">头像 / 昵称下发</text>
+          <text x="530" y="1212" text-anchor="middle" fill="#6e6e73">右上角刷新</text>
+
+          <rect x="690" y="1170" width="320" height="60" rx="10" fill="#f0fff4" stroke="#bce8c9"/>
+          <text x="850" y="1192" text-anchor="middle" fill="#1f8a3c" font-weight="700">资产后台同步</text>
+          <text x="850" y="1212" text-anchor="middle" fill="#6e6e73">AI 对话 / 收藏 / 笔记 拉回本端</text>
+
+          <rect x="1030" y="1170" width="220" height="60" rx="10" fill="#f0fff4" stroke="#bce8c9"/>
+          <text x="1140" y="1192" text-anchor="middle" fill="#1f8a3c" font-weight="700">异端登录提醒</text>
+          <text x="1140" y="1212" text-anchor="middle" fill="#6e6e73">推送通知用户</text>
+        </g>
+
+        <!-- ===== 底部：再次登录的特殊路径 ===== -->
+        <g filter="url(#ds)">
+          <rect x="60" y="1280" width="1160" height="170" rx="14" fill="#f5f5f7"/>
+          <text x="640" y="1308" text-anchor="middle" fill="#1d1d1f" font-size="14" font-weight="700">再次登录的 3 条特殊路径（绕开方式选择面板）</text>
+
+          <rect x="90" y="1326" width="350" height="100" rx="10" fill="#fff" stroke="#d2d2d7"/>
+          <text x="265" y="1350" text-anchor="middle" fill="#0071e3" font-size="12" font-weight="700">① Token 自动续期（无感）</text>
+          <text x="265" y="1372" text-anchor="middle" fill="#6e6e73" font-size="11">refresh token 还在有效期</text>
+          <text x="265" y="1388" text-anchor="middle" fill="#6e6e73" font-size="11">App 启动 0 秒进入主场景</text>
+          <text x="265" y="1408" text-anchor="middle" fill="#1f8a3c" font-size="11" font-weight="600">90% 老用户走这条</text>
+
+          <rect x="465" y="1326" width="350" height="100" rx="10" fill="#fff" stroke="#d2d2d7"/>
+          <text x="640" y="1350" text-anchor="middle" fill="#0071e3" font-size="12" font-weight="700">② 设备信任 + 二次校验</text>
+          <text x="640" y="1372" text-anchor="middle" fill="#6e6e73" font-size="11">refresh 过期但设备已信任</text>
+          <text x="640" y="1388" text-anchor="middle" fill="#6e6e73" font-size="11">指纹 / Face ID / 短信二验</text>
+          <text x="640" y="1408" text-anchor="middle" fill="#d97a00" font-size="11" font-weight="600">8% 用户走这条</text>
+
+          <rect x="840" y="1326" width="350" height="100" rx="10" fill="#fff" stroke="#d2d2d7"/>
+          <text x="1015" y="1350" text-anchor="middle" fill="#0071e3" font-size="12" font-weight="700">③ 完全重登（回到 L2）</text>
+          <text x="1015" y="1372" text-anchor="middle" fill="#6e6e73" font-size="11">主动退出 / 长期未用 / 异常风控</text>
+          <text x="1015" y="1388" text-anchor="middle" fill="#6e6e73" font-size="11">走完整方式选择面板</text>
+          <text x="1015" y="1408" text-anchor="middle" fill="#ff453a" font-size="11" font-weight="600">2% 用户走这条</text>
+        </g>
+
+      </svg>
+
+      <div class="legend">
+        <span><span class="swatch" style="background:#0071e3;"></span>主流程节点</span>
+        <span><span class="swatch" style="background:#34c759;"></span>成功分支</span>
+        <span><span class="swatch" style="background:#ff453a;"></span>失败分支</span>
+        <span><span class="swatch" style="background:#ff9f0a;"></span>检查点 / 拦截</span>
+        <span><span class="swatch" style="background:#86868b;"></span>用户决策</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 状态机 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">03 · State Machine</div>
+      <h2 class="sec-title">登录状态机：成功 / 失败 / 中间态</h2>
+      <p class="sec-desc">三类终态对应不同的 UI 反馈与重试策略，前端必须明确区分。</p>
+    </div>
+    <div class="states">
+      <div class="state success">
+        <div class="icon">✓</div>
+        <h4>成功态</h4>
+        <ul>
+          <li>下发 Token + 写入本地</li>
+          <li>主场景顶部 Toast「欢迎回来」</li>
+          <li>无缝回到登录前操作</li>
+          <li>头像 / 昵称右上角刷新</li>
+          <li>资产同步进度条（可隐藏）</li>
+        </ul>
+      </div>
+      <div class="state pending">
+        <div class="icon">⋯</div>
+        <h4>中间态（Loading / 等待用户）</h4>
+        <ul>
+          <li>跳第三方授权页 → 灰底蒙层</li>
+          <li>等待短信 → 60 秒倒计时按钮禁用</li>
+          <li>风控人机验证 → 滑块 / 选图</li>
+          <li>设备信任二次校验 → Face ID 弹窗</li>
+          <li>超时 30 秒未返回 → 询问"是否重试"</li>
+        </ul>
+      </div>
+      <div class="state fail">
+        <div class="icon">✗</div>
+        <h4>失败态</h4>
+        <ul>
+          <li>网络异常 → 顶部 Toast + 重试按钮</li>
+          <li>验证码错 → 输入框红描边 + 文案提示</li>
+          <li>用户拒绝授权 → 静默回到 L2 面板</li>
+          <li>风控拦截 → 弹窗 + 联系客服入口</li>
+          <li>频率超限 → 倒计时锁 + 引导换方式</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 8 个细化场景 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">04 · Edge Scenes</div>
+      <h2 class="sec-title">8 个必须覆盖的细化场景</h2>
+      <p class="sec-desc">主流程之外的边角情况，每一个都对应一段独立的产品文案与交互。</p>
+    </div>
+    <div class="scenes">
+
+      <div class="scene">
+        <div class="sid">SCENE 01 · 首登</div>
+        <h3>新用户首次进入元宝</h3>
+        <div class="row"><div class="k">触发</div><div class="v">App 启动 → 默认游客 → 触发付费/资产场景</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">面板 → 一键登录 → <b>0.5 秒进主场景</b> → 头像默认 + 昵称"元宝用户"</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">不强制设昵称、不强制绑微信，<b>3 步内完成</b></div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 02 · 老用户回访</div>
+        <h3>已登录用户重新打开 App</h3>
+        <div class="row"><div class="k">触发</div><div class="v">App 启动 + Token 有效</div></div>
+        <div class="row"><div class="k">体感</div><div class="v"><b>无任何登录页</b>，直接进入主场景，资产后台同步</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">90% 用户走这条路径，必须保证 <b>0 秒入场</b></div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 03 · 跨端首登</div>
+        <h3>已用 A 端登录，在 B 端打开</h3>
+        <div class="row"><div class="k">触发</div><div class="v">B 端首次启动，触发登录</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">面板顶部多一个"<b>从手机扫码登录</b>"，1 秒完成</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">扫码后无需再填手机号、无需再选偏好</div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 04 · 多账号合并</div>
+        <h3>同一手机号已绑过另一个微信</h3>
+        <div class="row"><div class="k">触发</div><div class="v">用微信登录 → 服务端发现该手机号已存在另一 YuanbaoID</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">弹窗"<b>检测到已有账号，是否合并？</b>"→ 二次确认</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">合并不可逆，提供 <b>30 天回滚通道</b></div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 05 · 一键登录失败</div>
+        <h3>SIM 异常 / 飞行模式 / 双卡</h3>
+        <div class="row"><div class="k">触发</div><div class="v">点一键登录 → 运营商网关返回失败</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">Toast 提示 → 主按钮自动切换为"<b>短信验证码</b>"</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">不让用户感知失败，<b>无缝切兜底</b></div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 06 · 第三方拒绝</div>
+        <h3>用户在微信确认页点取消</h3>
+        <div class="row"><div class="k">触发</div><div class="v">跳微信 → 用户拒绝授权</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">静默回到 L2 面板，<b>不弹错误提示</b></div></div>
+        <div class="row"><div class="k">关键</div><div class="v">尊重用户选择，避免负反馈</div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 07 · 风控拦截</div>
+        <h3>异地登录 / 短时多账号</h3>
+        <div class="row"><div class="k">触发</div><div class="v">服务端识别风险 → 触发人机验证</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">滑块 / 选图 → 通过后继续；不通过 → 24h 锁</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">必须有<b>客服入口</b>，避免误伤投诉</div></div>
+      </div>
+
+      <div class="scene">
+        <div class="sid">SCENE 08 · 长期未用</div>
+        <h3>30 天以上未登录</h3>
+        <div class="row"><div class="k">触发</div><div class="v">refresh token 过期 + 设备信任过期</div></div>
+        <div class="row"><div class="k">体感</div><div class="v">App 启动 → 直接拉登录页（不报错）</div></div>
+        <div class="row"><div class="k">关键</div><div class="v">登录后<b>资产无损恢复</b>，给"欢迎回来"反馈</div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. 三个 PM 决策点 -->
+  <section class="callout">
+    <h2>Key Decisions</h2>
+    <h3>登录流程的 3 个用户体感拐点</h3>
+    <div class="grid">
+      <div class="item">
+        <div class="k">DECISION 01</div>
+        <div class="t">登录页要不要默认勾选协议？</div>
+        <div class="d">建议<b style="color:#fff;">默认不勾</b>。监管合规优先于转化率，被处罚的代价远高于增加的转化。</div>
+      </div>
+      <div class="item">
+        <div class="k">DECISION 02</div>
+        <div class="t">新用户要不要强制设昵称？</div>
+        <div class="d">建议<b style="color:#fff;">不强制</b>。默认"元宝用户 #1234"，让用户进主场景体验后自然产生设置动机。</div>
+      </div>
+      <div class="item">
+        <div class="k">DECISION 03</div>
+        <div class="t">是否做"一键登录"主推？</div>
+        <div class="d">建议<b style="color:#fff;">主推</b>。AppStore/工信部合规要求 + 比微信路径更短。失败时静默切短信。</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    元宝矩阵登录流程脑图 · v1.0 · 2026-06-10 · 仅覆盖用户可感知层（前端 + 中台契约）
+  </footer>
+
+</div>
+</body>
+</html>
