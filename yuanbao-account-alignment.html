@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元宝矩阵账号体系对齐纪要 · v1.0</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+    background: #fafafa;
+    color: #1d1d1f;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 56px 40px 96px; }
+
+  /* Hero */
+  .hero { margin-bottom: 48px; }
+  .eyebrow {
+    color: #0071e3; font-size: 13px; letter-spacing: 1.2px; font-weight: 600;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 42px; font-weight: 700; letter-spacing: -1px;
+    line-height: 1.18; margin-bottom: 14px;
+  }
+  .subtitle { font-size: 18px; color: #6e6e73; max-width: 880px; }
+  .meta { margin-top: 16px; font-size: 12.5px; color: #86868b; }
+
+  /* TL;DR */
+  .tldr {
+    background: linear-gradient(135deg, #1d1d1f 0%, #2c2c2e 100%);
+    color: #f5f5f7; border-radius: 22px; padding: 32px 36px; margin-bottom: 56px;
+  }
+  .tldr h2 { font-size: 12px; color: #0a84ff; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .tldr h3 { font-size: 24px; font-weight: 700; margin-bottom: 18px; letter-spacing: -0.3px; }
+  .tldr ul { list-style: none; padding: 0; }
+  .tldr li {
+    padding: 10px 0 10px 32px; position: relative; font-size: 15px;
+    color: #d2d2d7; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .tldr li:last-child { border-bottom: 0; }
+  .tldr li::before {
+    content: ""; position: absolute; left: 6px; top: 18px;
+    width: 14px; height: 14px; border-radius: 50%; background: #0a84ff;
+  }
+  .tldr li b { color: #fff; }
+
+  /* Section */
+  section { margin-bottom: 56px; }
+  .sec-head { margin-bottom: 22px; }
+  .sec-eyebrow {
+    font-size: 11.5px; color: #0071e3; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .sec-title { font-size: 28px; font-weight: 700; letter-spacing: -0.4px; }
+  .sec-desc { font-size: 15px; color: #6e6e73; margin-top: 6px; max-width: 880px; }
+
+  /* 三方案对比 */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .plan {
+    background: #fff; border-radius: 18px; padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    position: relative;
+  }
+  .plan.recommend { border: 2px solid #0071e3; }
+  .badge {
+    position: absolute; top: 16px; right: 16px;
+    background: #0071e3; color: #fff; font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 999px; letter-spacing: 0.3px;
+  }
+  .plan h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.2px; }
+  .plan .pid { color: #86868b; font-size: 12px; letter-spacing: 0.5px; margin-bottom: 14px; }
+  .plan .row { display: flex; padding: 8px 0; border-bottom: 1px dashed #f0f0f2; font-size: 13.5px; }
+  .plan .row:last-child { border-bottom: 0; }
+  .plan .row .k { width: 64px; color: #86868b; flex-shrink: 0; }
+  .plan .row .v { color: #1d1d1f; }
+  .pros li, .cons li { font-size: 13px; padding: 4px 0 4px 16px; position: relative; line-height: 1.5; }
+  .pros li::before { content: "✓"; color: #1f8a3c; position: absolute; left: 0; font-weight: 700; }
+  .cons li::before { content: "✗"; color: #ff453a; position: absolute; left: 0; font-weight: 700; }
+  .plan .label { font-size: 11px; font-weight: 600; color: #6e6e73; margin-top: 12px; margin-bottom: 4px; letter-spacing: 0.3px; }
+
+  /* 通用表格 */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  th, td { padding: 14px 16px; text-align: left; vertical-align: top; font-size: 13.5px; }
+  th { background: #f5f5f7; font-weight: 600; color: #1d1d1f; font-size: 12.5px; letter-spacing: 0.3px; }
+  tr + tr td { border-top: 1px solid #f0f0f2; }
+  .tag { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  .tag.r { background: rgba(255,59,48,0.1); color: #ff3b30; }
+  .tag.y { background: rgba(255,159,10,0.12); color: #d97a00; }
+  .tag.g { background: rgba(48,209,88,0.12); color: #1f8a3c; }
+  .tag.b { background: rgba(0,113,227,0.1); color: #0071e3; }
+
+  /* Q 卡 */
+  .questions { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .q {
+    background: #fff; border-radius: 16px; padding: 22px 26px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+    border-left: 4px solid #0071e3;
+  }
+  .q .qid { font-size: 11.5px; color: #0071e3; font-weight: 600; letter-spacing: 0.6px; }
+  .q h3 { font-size: 17px; font-weight: 600; margin: 4px 0 12px; }
+  .q .qa { display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: start; padding: 8px 0; font-size: 13.5px; }
+  .q .qa .k { color: #86868b; font-weight: 600; }
+  .q .qa .v { color: #1d1d1f; }
+  .q .qa .v b { color: #0071e3; }
+
+  /* 合规卡 */
+  .compliance {
+    background: #fff7e6; border-radius: 22px; padding: 32px 36px;
+    border: 1px solid #ffd591;
+  }
+  .compliance h2 { font-size: 12px; color: #d97a00; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .compliance h3 { font-size: 24px; font-weight: 700; margin-bottom: 18px; color: #7c3a00; letter-spacing: -0.3px; }
+  .compliance .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .compliance .item {
+    background: rgba(255,255,255,0.7); border-radius: 12px; padding: 18px 20px;
+  }
+  .compliance .item .k { font-size: 12px; color: #d97a00; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .compliance .item .t { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: #1d1d1f; }
+  .compliance .item .d { font-size: 13.5px; color: #5b3a00; line-height: 1.6; }
+
+  /* 待协商清单 */
+  .ask-list {
+    background: #fff; border-radius: 18px; padding: 24px 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+  }
+  .ask-list ol { padding-left: 22px; }
+  .ask-list li {
+    padding: 10px 0; font-size: 14.5px; line-height: 1.6;
+    border-bottom: 1px dashed #f0f0f2;
+  }
+  .ask-list li:last-child { border-bottom: 0; }
+  .ask-list li b { color: #0071e3; }
+
+  footer { margin-top: 56px; text-align: center; color: #86868b; font-size: 12.5px; }
+
+  @media (max-width: 900px) {
+    .wrap { padding: 28px 18px 56px; }
+    h1 { font-size: 30px; }
+    .plans, .compliance .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="eyebrow">Account System Alignment · 2026-06-12 PM</div>
+    <h1>元宝矩阵账号体系对齐纪要<br>三方案 × 三问题 × 七风险 × 合规评估</h1>
+    <p class="subtitle">下午与元宝账号体系负责人对齐用，目标产出一套能落地的账号方案，并补齐合规与法务评估口径。</p>
+    <div class="meta">v1.0 · 2026-06-12 · Layna · 议程 30 min</div>
+  </header>
+
+  <!-- TL;DR -->
+  <section class="tldr">
+    <h2>TL;DR · 我方核心诉求</h2>
+    <h3>推荐方案 3，但需要元宝补三个能力</h3>
+    <ul>
+      <li><b>方案选择</b>：方案 3「独立 BrowserID + openid2openid 映射」是最优解 —— 既保住新矩阵 6 个 App 的灵活迭代节奏，又能复用元宝的 UID 资产。</li>
+      <li><b>必须从元宝拿到</b>：① 元宝 UID 的 status 字段（注销态防呆）② 解绑 / 注销回调通知机制 ③ 双向凭证列表查询能力（防注册凭证丢失）。</li>
+      <li><b>合规底线</b>：同体系下不同 App 之间的账号互通，<b>需要用户明确授权</b>，不能默认全通；需要写进《用户协议》并提供撤销通道。</li>
+      <li><b>本次会议要拿到的 3 个结论</b>：① 元宝是否计划改造"解绑 = 注册"逻辑 ② 注销回调能否承诺 ③ 多 UID 合并的口径与 SLA。</li>
+    </ul>
+  </section>
+
+  <!-- 1. 三方案对比 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">01 · Plan Comparison</div>
+      <h2 class="sec-title">三方案横向对比</h2>
+      <p class="sec-desc">从灵活度、迭代依赖、研发成本、合规成本、UID 一致性五个维度评估。</p>
+    </div>
+    <div class="plans">
+
+      <div class="plan">
+        <h3>方案 1</h3>
+        <div class="pid">完全复用元宝账号服务</div>
+        <div class="row"><div class="k">UID</div><div class="v">直接用元宝 UID</div></div>
+        <div class="row"><div class="k">凭证</div><div class="v">元宝侧维护</div></div>
+        <div class="row"><div class="k">迭代</div><div class="v">完全跟元宝节奏</div></div>
+        <div class="row"><div class="k">研发</div><div class="v">高（约 2.5 人月，需配合元宝改造）</div></div>
+
+        <div class="label">PROS</div>
+        <ul class="pros">
+          <li>账号体系天然统一</li>
+          <li>无需自建映射层</li>
+        </ul>
+        <div class="label">CONS</div>
+        <ul class="cons">
+          <li>研发成本最高（任何改动都要拉元宝侧排期联调）</li>
+          <li>业务定制能力为零</li>
+          <li>元宝挂了 → 新矩阵全停</li>
+          <li>6 端迭代被元宝节奏锁死</li>
+          <li>注销逻辑无法独立处理</li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <h3>方案 2</h3>
+        <div class="pid">复用 UID + 部分定制</div>
+        <div class="row"><div class="k">UID</div><div class="v">用元宝 UID（要改造）</div></div>
+        <div class="row"><div class="k">凭证</div><div class="v">新矩阵+元宝双存</div></div>
+        <div class="row"><div class="k">迭代</div><div class="v">部分独立</div></div>
+        <div class="row"><div class="k">研发</div><div class="v">中（约 1.5 人月）</div></div>
+
+        <div class="label">PROS</div>
+        <ul class="pros">
+          <li>UID 唯一，资产天然互通</li>
+          <li>可针对新业务定制部分逻辑</li>
+        </ul>
+        <div class="label">CONS</div>
+        <ul class="cons">
+          <li>需元宝改造 UID 生成 / 回绑</li>
+          <li>跨团队改造排期不可控</li>
+          <li>注销 / 解绑仍受元宝约束</li>
+          <li>多自然人多 UID 难根除</li>
+        </ul>
+      </div>
+
+      <div class="plan recommend">
+        <span class="badge">推荐</span>
+        <h3>方案 3</h3>
+        <div class="pid">独立 BrowserID + openid2openid 映射</div>
+        <div class="row"><div class="k">UID</div><div class="v">自建 BrowserID + 映射元宝 UID</div></div>
+        <div class="row"><div class="k">凭证</div><div class="v">新矩阵自存</div></div>
+        <div class="row"><div class="k">迭代</div><div class="v">完全独立</div></div>
+        <div class="row"><div class="k">研发</div><div class="v">较低（约 1 人月，链路成熟）</div></div>
+
+        <div class="label">PROS</div>
+        <ul class="pros">
+          <li>研发成本较低（走腾讯标准 openid2openid，链路成熟可复用）</li>
+          <li>新矩阵迭代节奏 100% 可控</li>
+          <li>元宝挂了，新矩阵不受影响</li>
+          <li>注销 / 风控逻辑可独立设计</li>
+        </ul>
+        <div class="label">CONS</div>
+        <ul class="cons">
+          <li>BrowserID ↔ 元宝 UID 映射需双向维护</li>
+          <li>合规上要明确双 ID 的关系披露</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. 三个核心问题 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">02 · Open Questions</div>
+      <h2 class="sec-title">下午要拍板的 3 个核心问题</h2>
+      <p class="sec-desc">每个问题都有"我方倾向"作为开场白，避免会议跑偏。</p>
+    </div>
+
+    <div class="questions">
+
+      <div class="q">
+        <div class="qid">QUESTION 01 · 元宝侧改造意愿</div>
+        <h3>「绑定→解绑后视为已注册，UID 不可回绑」是否有计划改造？</h3>
+        <div class="qa"><div class="k">背景</div><div class="v">元宝当前逻辑：用户解绑微信后，wx_openid 仍标记为"已注册"，新用户用同一微信再注册会失败，且不能回绑到原 UID。</div></div>
+        <div class="qa"><div class="k">影响</div><div class="v">用户解绑微信再回绑 → 直接登录失败 / 创建新 UID → 同一自然人产生多 UID（对应风险表场景 7 🔴）。</div></div>
+        <div class="qa"><div class="k">我方倾向</div><div class="v"><b>推动元宝排期改造</b>：解绑后释放凭证，允许同一 openid 回绑同一 UID。若元宝短期不能改，新矩阵走方案 3，用 BrowserID 自有体系解耦。</div></div>
+        <div class="qa"><div class="k">要拿结论</div><div class="v">元宝是否有改造排期？如有，预计什么时候？如果没有，是否能给到一个解绑兜底接口（如允许 admin 后台手动回绑）？</div></div>
+      </div>
+
+      <div class="q">
+        <div class="qid">QUESTION 02 · 方案 2 的研发支持</div>
+        <h3>若选方案 2，元宝能否支持"按新矩阵规则分配 UID"？</h3>
+        <div class="qa"><div class="k">背景</div><div class="v">方案 2 需要元宝侧暴露 UID 生成接口，并允许新矩阵在注册阶段调用。</div></div>
+        <div class="qa"><div class="k">影响</div><div class="v">如果元宝 UID 生成不可定制，新矩阵的"游客模式 → 登录态升级"流程会很别扭。</div></div>
+        <div class="qa"><div class="k">我方倾向</div><div class="v"><b>不优先选方案 2</b>。改造涉及元宝核心账号链路，风险高、排期长。倾向直接走方案 3 解耦。</div></div>
+        <div class="qa"><div class="k">要拿结论</div><div class="v">如果元宝坚持方案 2，请给出具体的接口形态、SLA、改造工期；若超过 2 个月，新矩阵直接走方案 3。</div></div>
+      </div>
+
+      <div class="q">
+        <div class="qid">QUESTION 03 · 多账号绑定状态同步</div>
+        <h3>若用户在元宝内已绑多账号，新矩阵登录后是否完全同步？</h3>
+        <div class="qa"><div class="k">背景</div><div class="v">用户在元宝内可能同时绑了微信 + QQ + 手机号；解绑、换绑、注销时新矩阵侧如何同步？</div></div>
+        <div class="qa"><div class="k">影响</div><div class="v">不同步 → 用户在元宝解绑微信，新矩阵仍允许微信登录到旧 UID，体感割裂；过度同步 → 元宝侧任何变更直接影响新矩阵，耦合过深。</div></div>
+        <div class="qa"><div class="k">我方倾向</div><div class="v"><b>分级同步</b>：① 注销 = 强同步（必须立即冻结新矩阵资产）② 解绑 / 换绑 = 弱同步（异步通知 + 新矩阵自决策）③ 新增绑定 = 不同步（用户在新矩阵主动触发）。</div></div>
+        <div class="qa"><div class="k">要拿结论</div><div class="v">元宝能否提供"账号事件订阅"机制（webhook / MQ）？事件粒度（绑/解绑/换绑/注销 4 类）能否承诺？</div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. 七风险场景 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">03 · Risk Scenarios</div>
+      <h2 class="sec-title">7 个跨团队风险场景（来自前期梳理）</h2>
+      <p class="sec-desc">下午对齐时按"评级"从高到低过 —— 红色场景必须当场拿到方案。</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:40px;">#</th>
+          <th style="width:240px;">场景</th>
+          <th style="width:160px;">元宝侧结果</th>
+          <th>对新矩阵影响</th>
+          <th style="width:80px;">评级</th>
+          <th style="width:80px;">需协商</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5</td>
+          <td>注销 UID 到期清理</td>
+          <td>UID→DELETED，永久删除</td>
+          <td>新矩阵侧资产成孤儿，需同步清理</td>
+          <td><span class="tag r">🔴 高</span></td>
+          <td><span class="tag b">是</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>同一自然人两个 UID</td>
+          <td>两套独立数据，不可合并</td>
+          <td>同一用户资产可能分裂</td>
+          <td><span class="tag r">🔴 高</span></td>
+          <td><span class="tag b">是</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>解绑了微信（注册凭证！但还有 QQ/手机）</td>
+          <td>UID 不变，微信入口没了</td>
+          <td>微信无法登录。需 QQ/手机号兜底找回 UID</td>
+          <td><span class="tag y">🟡 中</span></td>
+          <td><span class="tag b">是</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>换绑手机号</td>
+          <td>UID 不变，旧号解绑新号绑定</td>
+          <td>手机号 → wx_openid 链路断了</td>
+          <td><span class="tag y">🟡 中</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>注销 UID（15 天反悔期）</td>
+          <td>UID→DELETING，数据冻结</td>
+          <td>新矩阵应感知 status 并冻结</td>
+          <td><span class="tag y">🟡 中</span></td>
+          <td><span class="tag b">是</span></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>解绑了 QQ（注册用的是微信）</td>
+          <td>UID 不变</td>
+          <td>无影响 —— wx_openid → UID 没断</td>
+          <td><span class="tag g">🟢 低</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>元宝服务挂了</td>
+          <td>调不到</td>
+          <td>已登录用户不受影响，新注册降级</td>
+          <td><span class="tag g">🟢 低</span></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4. 推荐架构 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">04 · Recommended Architecture</div>
+      <h2 class="sec-title">推荐架构：方案 3 升级版</h2>
+      <p class="sec-desc">基于两张流程图整合：BrowserID 自有 + openid2openid 桥接 + 元宝 UID 映射。</p>
+    </div>
+
+    <div class="card" style="background:#fff;border-radius:18px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);">
+
+      <svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;min-width:1000px;">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#86868b"/>
+          </marker>
+        </defs>
+
+        <!-- 三层 -->
+        <!-- 入口层 -->
+        <text x="40" y="50" font-size="13" font-weight="700" fill="#0071e3">入口层 · Entry</text>
+        <rect x="40" y="60" width="180" height="56" rx="10" fill="#e8f5e9" stroke="#34c759"/>
+        <text x="130" y="84" text-anchor="middle" font-size="13" font-weight="600" fill="#1f8a3c">微信授权</text>
+        <text x="130" y="102" text-anchor="middle" font-size="11" fill="#5b6b62">→ wx_openid</text>
+
+        <rect x="240" y="60" width="180" height="56" rx="10" fill="#e3f2fd" stroke="#0071e3"/>
+        <text x="330" y="84" text-anchor="middle" font-size="13" font-weight="600" fill="#0071e3">QQ 授权</text>
+        <text x="330" y="102" text-anchor="middle" font-size="11" fill="#5b6b73">→ qq_openid</text>
+
+        <rect x="440" y="60" width="180" height="56" rx="10" fill="#fce4ec" stroke="#ff3b30"/>
+        <text x="530" y="84" text-anchor="middle" font-size="13" font-weight="600" fill="#c8281f">手机号</text>
+        <text x="530" y="102" text-anchor="middle" font-size="11" fill="#7c3a00">→ 138xxxx</text>
+
+        <!-- 新矩阵层 -->
+        <text x="40" y="170" font-size="13" font-weight="700" fill="#0071e3">新矩阵账号层 · Self-Owned</text>
+        <rect x="40" y="180" width="700" height="120" rx="14" fill="#eef4ff" stroke="#0071e3" stroke-width="1.5"/>
+        <text x="60" y="208" font-size="13" font-weight="700" fill="#0071e3">BrowserID（主键）+ 自有 Token + 双向凭证表</text>
+        <rect x="60" y="220" width="200" height="60" rx="8" fill="#fff"/>
+        <text x="160" y="244" text-anchor="middle" font-size="12" font-weight="600">凭证 → BrowserID</text>
+        <text x="160" y="264" text-anchor="middle" font-size="11" fill="#6e6e73">openid / phone → BID</text>
+
+        <rect x="280" y="220" width="200" height="60" rx="8" fill="#fff"/>
+        <text x="380" y="244" text-anchor="middle" font-size="12" font-weight="600">BrowserID → 凭证列表</text>
+        <text x="380" y="264" text-anchor="middle" font-size="11" fill="#6e6e73">防凭证丢失</text>
+
+        <rect x="500" y="220" width="220" height="60" rx="8" fill="#fff"/>
+        <text x="610" y="244" text-anchor="middle" font-size="12" font-weight="600">BrowserID ↔ 元宝 UID</text>
+        <text x="610" y="264" text-anchor="middle" font-size="11" fill="#6e6e73">映射表（被动桥接时写入）</text>
+
+        <!-- 元宝桥接层 -->
+        <text x="40" y="345" font-size="13" font-weight="700" fill="#d97a00">元宝桥接层 · Yuanbao Bridge</text>
+        <rect x="40" y="355" width="700" height="160" rx="14" fill="#fff7e6" stroke="#ff9f0a" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="60" y="383" font-size="13" font-weight="700" fill="#d97a00">被动桥接（仅在需要拉元宝资产时触发）</text>
+
+        <rect x="60" y="395" width="200" height="50" rx="8" fill="#fff"/>
+        <text x="160" y="416" text-anchor="middle" font-size="12" font-weight="600">openid2openid</text>
+        <text x="160" y="432" text-anchor="middle" font-size="10.5" fill="#6e6e73">浏览器 wx → 元宝 wx</text>
+
+        <rect x="280" y="395" width="200" height="50" rx="8" fill="#fff"/>
+        <text x="380" y="416" text-anchor="middle" font-size="12" font-weight="600">openid2commid</text>
+        <text x="380" y="432" text-anchor="middle" font-size="10.5" fill="#6e6e73">qq → commid → 元宝 wx</text>
+
+        <rect x="500" y="395" width="220" height="50" rx="8" fill="#fff"/>
+        <text x="610" y="416" text-anchor="middle" font-size="12" font-weight="600">PFPhoneAccountQbid</text>
+        <text x="610" y="432" text-anchor="middle" font-size="10.5" fill="#6e6e73">phone → 元宝 openid</text>
+
+        <rect x="60" y="460" width="660" height="42" rx="8" fill="#fff"/>
+        <text x="390" y="486" text-anchor="middle" font-size="12" font-weight="600" fill="#d97a00">元宝侧：openid → 元宝 UID（已存在则复用，新用户则生成）</text>
+
+        <!-- 元宝域 -->
+        <text x="800" y="50" font-size="13" font-weight="700" fill="#ff3b30">元宝核心域 · Yuanbao Core</text>
+        <rect x="800" y="60" width="360" height="455" rx="14" fill="#fff5f5" stroke="#ff3b30" stroke-dasharray="4,4"/>
+        <text x="820" y="90" font-size="14" font-weight="700" fill="#c8281f">必须协商的能力清单</text>
+
+        <rect x="820" y="105" width="320" height="60" rx="8" fill="#fff"/>
+        <text x="980" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#0071e3">① UID + status 接口</text>
+        <text x="980" y="148" text-anchor="middle" font-size="11" fill="#6e6e73">支持 ACTIVE/DELETING/DELETED</text>
+
+        <rect x="820" y="180" width="320" height="60" rx="8" fill="#fff"/>
+        <text x="980" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#0071e3">② 账号事件订阅</text>
+        <text x="980" y="223" text-anchor="middle" font-size="11" fill="#6e6e73">绑定/解绑/换绑/注销 webhook</text>
+
+        <rect x="820" y="255" width="320" height="60" rx="8" fill="#fff"/>
+        <text x="980" y="278" text-anchor="middle" font-size="12" font-weight="700" fill="#0071e3">③ 多 UID 合并 API</text>
+        <text x="980" y="298" text-anchor="middle" font-size="11" fill="#6e6e73">同一手机号触发合并询问</text>
+
+        <rect x="820" y="330" width="320" height="60" rx="8" fill="#fff"/>
+        <text x="980" y="353" text-anchor="middle" font-size="12" font-weight="700" fill="#0071e3">④ 注销回调</text>
+        <text x="980" y="373" text-anchor="middle" font-size="11" fill="#6e6e73">15 天到期清理时通知新矩阵</text>
+
+        <rect x="820" y="405" width="320" height="60" rx="8" fill="#fff"/>
+        <text x="980" y="428" text-anchor="middle" font-size="12" font-weight="700" fill="#0071e3">⑤ 凭证回绑能力</text>
+        <text x="980" y="448" text-anchor="middle" font-size="11" fill="#6e6e73">解绑后允许同一 openid 回绑</text>
+
+        <text x="980" y="495" text-anchor="middle" font-size="11" fill="#c8281f" font-weight="600">↑ 这 5 项是方案 3 落地的硬依赖</text>
+
+        <!-- 连线 -->
+        <line x1="130" y1="116" x2="130" y2="180" stroke="#86868b" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="330" y1="116" x2="330" y2="180" stroke="#86868b" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="530" y1="116" x2="530" y2="180" stroke="#86868b" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="380" y1="300" x2="380" y2="355" stroke="#86868b" stroke-width="1.5" marker-end="url(#ar)"/>
+        <line x1="740" y1="430" x2="800" y2="280" stroke="#86868b" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#ar)"/>
+
+        <!-- 注释 -->
+        <text x="60" y="560" font-size="11.5" fill="#6e6e73">📌 关键设计：浏览器 BrowserID 是主键，元宝 UID 是"被引用的资源"——避免元宝挂了影响新矩阵 6 端登录态</text>
+        <text x="60" y="580" font-size="11.5" fill="#6e6e73">📌 桥接是"被动"的：只有用户主动拉取元宝资产时才触发 openid2openid 转换，常态下两套体系解耦</text>
+        <text x="60" y="600" font-size="11.5" fill="#6e6e73">📌 多 UID 容错：BrowserID ↔ 元宝 UID 是 1:N 关系，允许后续合并，不阻断登录</text>
+
+      </svg>
+
+    </div>
+  </section>
+
+  <!-- 5. 合规评估 -->
+  <section class="compliance">
+    <h2>05 · Compliance Assessment</h2>
+    <h3>合规评估 · 同体系不同 App 间能否完全互通？</h3>
+    <div class="grid">
+
+      <div class="item">
+        <div class="k">Q1 · 法规依据</div>
+        <div class="t">《个人信息保护法》第 23 条 · 单独同意</div>
+        <div class="d">向其他个人信息处理者提供个人信息的，应当向用户告知接收方名称、联系方式、处理目的、处理方式和个人信息种类，并取得<b>单独同意</b>。</div>
+      </div>
+
+      <div class="item">
+        <div class="k">Q2 · 监管口径</div>
+        <div class="t">网信办《App 违法违规收集使用个人信息》</div>
+        <div class="d">同一公司不同 App 之间共享账号信息，仍属"信息共享"行为。需在隐私政策第 X 章节明确披露，<b>不能默认全通</b>。</div>
+      </div>
+
+      <div class="item">
+        <div class="k">Q3 · 默认互通是否合规</div>
+        <div class="t">不合规 ❌</div>
+        <div class="d">即便都是腾讯系，元宝 / 浏览器 / 输入法之间共享账号必须用户授权。建议<b>登录后弹出"是否将账号资产同步到 X App"</b>的二次确认。</div>
+      </div>
+
+      <div class="item">
+        <div class="k">Q4 · 推荐做法</div>
+        <div class="t">分级授权 + 撤销通道</div>
+        <div class="d">① 默认仅同步"登录态"（最小集）<br>② AI 资产 / 收藏等需用户开关确认<br>③ 设置中提供"已授权 App 列表"+ 一键撤销。</div>
+      </div>
+
+      <div class="item">
+        <div class="k">Q5 · 注销联动</div>
+        <div class="t">用户在 A 注销 ≠ B 自动注销</div>
+        <div class="d">合规要求：元宝注销 → 新矩阵<b>询问用户</b>是否一并注销 / 仅断开关联 / 保留独立账号。三选一不能默认。</div>
+      </div>
+
+      <div class="item">
+        <div class="k">Q6 · 跨境合规</div>
+        <div class="t">出海版本需独立账号体系</div>
+        <div class="d">GDPR / CCPA 对账号互通要求更严。出海版（P2）建议拆出独立 BrowserID 体系，不与国内打通。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. 待协商清单 -->
+  <section style="margin-top:56px;">
+    <div class="sec-head">
+      <div class="sec-eyebrow">06 · Action Items</div>
+      <h2 class="sec-title">下午会议要从元宝拿到的 7 件事</h2>
+      <p class="sec-desc">按优先级排序 —— 拿不到红色 3 项，会议视为未达成对齐。</p>
+    </div>
+
+    <div class="ask-list">
+      <ol>
+        <li><span class="tag r">🔴 P0</span> &nbsp;<b>注销回调机制</b>：元宝 UID DELETING / DELETED 时，能否给新矩阵发 webhook？SLA 多少？</li>
+        <li><span class="tag r">🔴 P0</span> &nbsp;<b>多 UID 合并能力</b>：同一手机号产生两个 UID 时，元宝是否提供合并 API？合并不可逆还是可回滚？</li>
+        <li><span class="tag r">🔴 P0</span> &nbsp;<b>解绑 = 注册的改造意愿</b>：是否有计划放开"同一 openid 回绑同一 UID"？如有排期请同步；如无，新矩阵走方案 3 解耦。</li>
+        <li><span class="tag y">🟡 P1</span> &nbsp;<b>UID + status 接口</b>：能否在 UID 查询接口里直接返回 status 字段（ACTIVE/DELETING/DELETED）？</li>
+        <li><span class="tag y">🟡 P1</span> &nbsp;<b>账号事件订阅</b>：绑定 / 解绑 / 换绑 / 注销 4 类事件能否独立订阅？粒度与延迟？</li>
+        <li><span class="tag y">🟡 P1</span> &nbsp;<b>双向凭证表查询</b>：能否提供"UID → 已绑凭证列表"接口？用于注册凭证丢失时的兜底找回。</li>
+        <li><span class="tag g">🟢 P2</span> &nbsp;<b>方案 2 接口形态评估</b>：若坚持方案 2，请给出 UID 生成接口形态和工期 —— 超过 2 个月则确定走方案 3。</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    元宝矩阵账号体系对齐纪要 · v1.0 · 2026-06-12 · Layna · 基于「账号体系打通调研」「登录体系设计」「登录流程脑图」三份前置文档归纳
+  </footer>
+
+</div>
+</body>
+</html>
