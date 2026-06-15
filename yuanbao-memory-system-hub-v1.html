@@ -1,0 +1,582 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 记忆系统 · 框架共识 × 资产中枢落地</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'PingFang SC', sans-serif;
+    background: #000;
+    color: #f5f5f7;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum";
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  /* HERO */
+  .hero { padding: 160px 0 120px; text-align: center; }
+  .hero-eyebrow {
+    font-size: 14px; color: #86868b; letter-spacing: 0.04em;
+    margin-bottom: 24px; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'SF Pro Display', -apple-system, sans-serif;
+    font-size: 80px; line-height: 1.05; letter-spacing: -0.02em;
+    font-weight: 600;
+    background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 32px;
+  }
+  .hero h1 em { font-style: normal; color: #2997ff; -webkit-text-fill-color: #2997ff; }
+  .hero-sub { font-size: 22px; color: #a1a1a6; max-width: 720px; margin: 0 auto; line-height: 1.5; }
+  .hero-meta {
+    margin-top: 56px; font-size: 13px; color: #6e6e73;
+    display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+  }
+  .hero-meta span::before { content: "·"; margin-right: 28px; color: #424245; }
+  .hero-meta span:first-child::before { content: ""; margin: 0; }
+
+  /* SECTION */
+  .chapter { padding: 140px 0 80px; border-top: 1px solid #1d1d1f; }
+  .chapter-num { font-size: 13px; color: #6e6e73; letter-spacing: 0.08em; margin-bottom: 24px; }
+  .chapter h2 {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 56px; font-weight: 600; line-height: 1.1; letter-spacing: -0.015em;
+    margin-bottom: 24px;
+    background: linear-gradient(180deg, #fff 0%, #c7c7cc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .chapter-lead { font-size: 22px; color: #a1a1a6; max-width: 800px; line-height: 1.55; margin-bottom: 64px; }
+
+  /* TLDR */
+  .tldr { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #1d1d1f; border: 1px solid #1d1d1f; border-radius: 18px; overflow: hidden; }
+  .tldr-cell { background: #000; padding: 36px 32px; }
+  .tldr-cell .lbl { font-size: 12px; color: #6e6e73; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .tldr-cell .v { font-size: 18px; color: #f5f5f7; line-height: 1.5; }
+  .tldr-cell .v strong { color: #2997ff; font-weight: 500; }
+
+  /* CONSENSUS */
+  .consensus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .cons-card {
+    background: #0a0a0a; border: 1px solid #1d1d1f; border-radius: 18px;
+    padding: 28px 24px;
+  }
+  .cons-card .src { font-size: 11px; color: #6e6e73; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .cons-card h4 { font-size: 17px; color: #f5f5f7; font-weight: 500; margin-bottom: 12px; line-height: 1.35; }
+  .cons-card p { font-size: 14px; color: #a1a1a6; line-height: 1.6; }
+
+  /* ARCH MAP */
+  .arch-map {
+    background: linear-gradient(180deg, #0a0a14 0%, #06060a 100%);
+    border: 1px solid #1d1d1f; border-radius: 24px;
+    padding: 56px 48px; margin: 32px 0;
+  }
+  .arch-tier { margin-bottom: 36px; }
+  .arch-tier:last-child { margin-bottom: 0; }
+  .tier-label {
+    font-size: 12px; color: #6e6e73; letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 14px; padding-left: 4px;
+  }
+  .tier-row { display: grid; gap: 12px; }
+  .tier-row.r3 { grid-template-columns: repeat(3, 1fr); }
+  .tier-row.r4 { grid-template-columns: repeat(4, 1fr); }
+  .tier-row.r2 { grid-template-columns: repeat(2, 1fr); }
+  .mem-cell {
+    background: #111118; border: 1px solid #2a2a32; border-radius: 14px;
+    padding: 20px 18px;
+  }
+  .mem-cell.blue { border-left: 3px solid #2997ff; }
+  .mem-cell.green { border-left: 3px solid #30d158; }
+  .mem-cell.orange { border-left: 3px solid #ff9f0a; }
+  .mem-cell.purple { border-left: 3px solid #bf5af2; }
+  .mem-cell.teal { border-left: 3px solid #64d2ff; }
+  .mem-cell.pink { border-left: 3px solid #ff375f; }
+  .mem-cell h5 { font-size: 15px; color: #f5f5f7; font-weight: 500; margin-bottom: 4px; }
+  .mem-cell .en { font-size: 11px; color: #6e6e73; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .mem-cell .desc { font-size: 12.5px; color: #a1a1a6; line-height: 1.55; margin-bottom: 10px; }
+  .mem-cell .imp { font-size: 11px; color: #6e6e73; padding-top: 8px; border-top: 1px solid #1d1d1f; }
+  .mem-cell .imp strong { color: #f5f5f7; font-weight: 500; }
+
+  /* TIER DIVIDER */
+  .tier-arrow { text-align: center; color: #424245; font-size: 18px; margin: 18px 0; }
+
+  /* FRAMEWORKS */
+  .fw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .fw-card {
+    background: #0a0a0a; border: 1px solid #1d1d1f; border-radius: 18px;
+    padding: 32px 28px;
+  }
+  .fw-tag { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: #1d1d1f; color: #a1a1a6; letter-spacing: 0.05em; margin-bottom: 12px; }
+  .fw-card h4 { font-size: 22px; color: #f5f5f7; font-weight: 500; margin-bottom: 6px; }
+  .fw-card .fw-sub { font-size: 13px; color: #6e6e73; margin-bottom: 16px; }
+  .fw-card .fw-body { font-size: 14px; color: #a1a1a6; line-height: 1.7; }
+  .fw-card .fw-body strong { color: #f5f5f7; font-weight: 500; }
+  .fw-card .fw-body .hl { color: #2997ff; }
+  .fw-card ul { list-style: none; padding: 0; margin-top: 12px; }
+  .fw-card ul li { padding: 8px 0; font-size: 13.5px; color: #a1a1a6; border-bottom: 1px solid #1d1d1f; line-height: 1.55; }
+  .fw-card ul li:last-child { border-bottom: none; }
+  .fw-card ul li strong { color: #f5f5f7; font-weight: 500; }
+
+  /* MECHANISM */
+  .mech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .mech-card {
+    background: #0a0a0a; border: 1px solid #1d1d1f; border-radius: 18px;
+    padding: 32px 28px;
+  }
+  .mech-card .icon-num { font-size: 56px; font-weight: 200; color: #2997ff; line-height: 1; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .mech-card h4 { font-size: 18px; color: #f5f5f7; font-weight: 500; margin-bottom: 8px; }
+  .mech-card .sub { font-size: 12px; color: #6e6e73; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .mech-card p { font-size: 13.5px; color: #a1a1a6; line-height: 1.7; }
+  .mech-card p + p { margin-top: 10px; }
+
+  /* HUB */
+  .hub-hero { text-align: center; padding: 60px 0 40px; }
+  .hub-hero .badge { display: inline-block; font-size: 12px; color: #2997ff; padding: 5px 14px; border: 1px solid #2997ff; border-radius: 999px; margin-bottom: 24px; letter-spacing: 0.06em; }
+  .hub-hero h3 { font-size: 44px; font-weight: 600; color: #fff; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .hub-hero p { font-size: 18px; color: #a1a1a6; max-width: 720px; margin: 0 auto; line-height: 1.55; }
+
+  .hub-arch {
+    background: linear-gradient(180deg, #0a1420 0%, #050810 100%);
+    border: 1px solid #1d2840; border-radius: 24px;
+    padding: 56px 48px; margin: 40px 0;
+  }
+  .hub-tier-label { font-size: 12px; color: #64d2ff; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+  .hub-tier { margin-bottom: 32px; }
+  .hub-tier:last-child { margin-bottom: 0; }
+  .hub-row { display: grid; gap: 12px; }
+  .hub-row.r3 { grid-template-columns: repeat(3, 1fr); }
+  .hub-row.r4 { grid-template-columns: repeat(4, 1fr); }
+  .hub-row.r5 { grid-template-columns: repeat(5, 1fr); }
+  .hub-cell {
+    background: #0d1828; border: 1px solid #1d2840; border-radius: 14px;
+    padding: 20px 18px;
+  }
+  .hub-cell h6 { font-size: 14px; color: #f5f5f7; font-weight: 500; margin-bottom: 4px; }
+  .hub-cell .h-en { font-size: 11px; color: #6e7894; margin-bottom: 10px; }
+  .hub-cell .h-desc { font-size: 12.5px; color: #a1aac0; line-height: 1.55; }
+  .hub-cell.center { text-align: center; padding: 26px 18px; background: #102240; border-color: #2997ff; }
+  .hub-cell.center h6 { font-size: 17px; color: #2997ff; }
+
+  .hub-arrow { text-align: center; color: #2a3a55; font-size: 18px; margin: 14px 0; }
+
+  /* TODO */
+  .todo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .todo-card {
+    background: #0a0a0a; border: 1px solid #1d1d1f; border-radius: 16px;
+    padding: 28px 26px;
+  }
+  .todo-card .num { font-size: 13px; color: #2997ff; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .todo-card h5 { font-size: 19px; color: #f5f5f7; font-weight: 500; margin-bottom: 6px; line-height: 1.3; }
+  .todo-card .sub { font-size: 13px; color: #6e6e73; margin-bottom: 16px; }
+  .todo-card p { font-size: 13.5px; color: #a1a1a6; line-height: 1.7; }
+  .todo-card p strong { color: #f5f5f7; font-weight: 500; }
+  .todo-card .tag { display: inline-block; font-size: 11px; color: #ff9f0a; padding: 3px 10px; border: 1px solid #ff9f0a; border-radius: 999px; margin-top: 12px; letter-spacing: 0.04em; }
+  .todo-card .tag.green { color: #30d158; border-color: #30d158; }
+  .todo-card .tag.purple { color: #bf5af2; border-color: #bf5af2; }
+  .todo-card .tag.teal { color: #64d2ff; border-color: #64d2ff; }
+
+  /* DIFF TABLE */
+  .diff-table {
+    width: 100%; border-collapse: collapse; margin-top: 24px;
+    background: #0a0a0a; border: 1px solid #1d1d1f; border-radius: 16px; overflow: hidden;
+  }
+  .diff-table th, .diff-table td {
+    padding: 16px 20px; text-align: left;
+    border-bottom: 1px solid #1d1d1f; font-size: 13.5px;
+  }
+  .diff-table th { background: #111118; color: #6e6e73; font-weight: 500; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .diff-table td { color: #a1a1a6; }
+  .diff-table td:first-child { color: #f5f5f7; font-weight: 500; }
+  .diff-table tr:last-child td { border-bottom: none; }
+  .diff-table .yes { color: #30d158; }
+  .diff-table .no { color: #ff453a; }
+
+  /* CLOSING */
+  .closing { padding: 160px 0 120px; text-align: center; border-top: 1px solid #1d1d1f; }
+  .closing h2 {
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 64px; font-weight: 600; line-height: 1.1; letter-spacing: -0.015em;
+    background: linear-gradient(180deg, #fff 0%, #2997ff 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 32px;
+  }
+  .closing-sub { font-size: 21px; color: #a1a1a6; max-width: 760px; margin: 0 auto 56px; line-height: 1.55; }
+  .closing-meta { font-size: 13px; color: #6e6e73; padding-top: 56px; border-top: 1px solid #1d1d1f; max-width: 600px; margin: 0 auto; }
+
+  @media (max-width: 800px) {
+    .hero h1 { font-size: 48px; }
+    .chapter h2 { font-size: 38px; }
+    .closing h2 { font-size: 40px; }
+    .tldr, .consensus-grid, .fw-grid, .mech-grid, .todo-grid { grid-template-columns: 1fr; }
+    .hub-row.r4, .hub-row.r5, .hub-row.r3, .tier-row.r3, .tier-row.r4 { grid-template-columns: repeat(2, 1fr); }
+    .arch-map, .hub-arch { padding: 32px 20px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Memory System · 共识地图</div>
+    <h1>记忆，不是<em>更大</em>的<br/>上下文窗口</h1>
+    <p class="hero-sub">是一套有层次、有生命周期、能自我巩固的认知架构。<br/>这是 Agent 从「会回答问题」走向「会积累经验」的分水岭。</p>
+    <div class="hero-meta">
+      <span>来源 · 业内主流框架综合</span>
+      <span>对齐 · CoALA · MemGPT · Mem0</span>
+      <span>落点 · Asset Hub · AI 资产中枢</span>
+    </div>
+  </div>
+
+  <!-- TL;DR -->
+  <div class="chapter">
+    <div class="chapter-num">00 — TL;DR</div>
+    <h2>三句话讲完。</h2>
+    <p class="chapter-lead">如果你只有一分钟看完这页，看这四张卡。</p>
+
+    <div class="tldr">
+      <div class="tldr-cell">
+        <div class="lbl">是什么</div>
+        <div class="v">把 Agent 的「记忆」拆成 <strong>瞬时 / 长期 / 技能</strong> 三层，每层独立存储、独立生命周期、独立失效模式。</div>
+      </div>
+      <div class="tldr-cell">
+        <div class="lbl">为什么</div>
+        <div class="v">大模型本身无状态，单靠扩上下文窗口只是把草稿纸做大。<strong>真正的记忆需要分层、巩固、遗忘</strong>这三件事。</div>
+      </div>
+      <div class="tldr-cell">
+        <div class="lbl">怎么落</div>
+        <div class="v">业界已收敛到 4 类经典记忆（工作 / 情景 / 语义 / 程序）+ 一套 <strong>巩固→检索→遗忘</strong>的运作机制。</div>
+      </div>
+      <div class="tldr-cell">
+        <div class="lbl">我们呢</div>
+        <div class="v">Asset Hub 不只是「存资产」，<strong>它是矩阵的语义层</strong>——把 5 类资产升级为多产品共享的工作记忆 + 长期记忆。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 三套主流共识 -->
+  <div class="chapter">
+    <div class="chapter-num">01 — 业内共识</div>
+    <h2>三套主流框架，<br/>讲的其实是同一件事。</h2>
+    <p class="chapter-lead">CoALA、MemGPT、三层瞬时长期技能——名字不同，骨架一致。</p>
+
+    <div class="consensus-grid">
+      <div class="cons-card">
+        <div class="src">CoALA · Princeton 2023</div>
+        <h4>四类记忆</h4>
+        <p>工作 · 情景 · 语义 · 程序。每个主流框架都基于这套分类。给 GPT-3.5 加一层认知架构，编码基准从 48% 拉到 95%。</p>
+      </div>
+      <div class="cons-card">
+        <div class="src">MemGPT · UC Berkeley 2023</div>
+        <h4>LLM 即操作系统</h4>
+        <p>把上下文窗口当 RAM、外部存储当磁盘。三层结构：核心记忆（2KB 常驻）/ 回忆记忆（搜索）/ 归档记忆（无限）。</p>
+      </div>
+      <div class="cons-card">
+        <div class="src">三层模型 · 业内通行</div>
+        <h4>瞬时 / 长期 / 技能</h4>
+        <p>瞬时层管「当下流畅」，长期层管「沉淀理解」，技能层管「能拿来用」。8 种细分记忆都能塞回这三层。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 总图：八种记忆 × 三层结构 -->
+  <div class="chapter">
+    <div class="chapter-num">02 — 框架总图</div>
+    <h2>三层结构，<br/>八种记忆，各司其职。</h2>
+    <p class="chapter-lead">这是一个成熟 Agent 「记忆栈」的全貌。每个格子有自己的人脑类比、典型存储、生命周期、典型失效。</p>
+
+    <div class="arch-map">
+
+      <div class="arch-tier">
+        <div class="tier-label">① 瞬时记忆层 — 当下流畅</div>
+        <div class="tier-row r3">
+          <div class="mem-cell blue">
+            <h5>感知记忆</h5>
+            <div class="en">Sensory Memory</div>
+            <div class="desc">最新一次输入的原始信号——文本、语音、图片帧。</div>
+            <div class="imp"><strong>存</strong> 上下文窗口前段 · <strong>命</strong> 毫秒级</div>
+          </div>
+          <div class="mem-cell blue">
+            <h5>工作记忆</h5>
+            <div class="en">Working Memory</div>
+            <div class="desc">当前正在思考的内容：对话、工具结果、中间推理。</div>
+            <div class="imp"><strong>存</strong> 上下文窗口 · <strong>命</strong> 当前会话</div>
+          </div>
+          <div class="mem-cell blue">
+            <h5>摘要记忆</h5>
+            <div class="en">Summary Memory</div>
+            <div class="desc">把超长对话压缩成滚动摘要，避免 token 爆掉。</div>
+            <div class="imp"><strong>存</strong> 上下文 · <strong>命</strong> 整个会话</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-arrow">↓ 沉淀</div>
+
+      <div class="arch-tier">
+        <div class="tier-label">② 长期记忆层 — 沉淀理解</div>
+        <div class="tier-row r3">
+          <div class="mem-cell green">
+            <h5>情景记忆</h5>
+            <div class="en">Episodic Memory</div>
+            <div class="desc">"那天发生了什么"——带时间戳的具体经历、决策节点、对话轨迹。</div>
+            <div class="imp"><strong>存</strong> 向量库（带元数据） · <strong>命</strong> 数周到数月，带衰减</div>
+          </div>
+          <div class="mem-cell green">
+            <h5>语义记忆</h5>
+            <div class="en">Semantic Memory</div>
+            <div class="desc">从原始素材里蒸馏出的事实——用户偏好、实体关系、可复用知识。</div>
+            <div class="imp"><strong>存</strong> 向量库 / 知识图谱 · <strong>命</strong> 持久化，需冲突解决</div>
+          </div>
+          <div class="mem-cell green">
+            <h5>知识图谱记忆</h5>
+            <div class="en">Knowledge Graph</div>
+            <div class="desc">事实之间的关系网——"用户A是用户B的同事"，"项目X早于Y上线"。</div>
+            <div class="imp"><strong>存</strong> 图数据库（Neo4j） · <strong>命</strong> 持久化</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-arrow">↓ 行动</div>
+
+      <div class="arch-tier">
+        <div class="tier-label">③ 技能与外部记忆层 — 拿来就能用</div>
+        <div class="tier-row r2">
+          <div class="mem-cell orange">
+            <h5>程序记忆</h5>
+            <div class="en">Procedural Memory</div>
+            <div class="desc">学到的「怎么做」——工作流、决策规则、系统 prompt、few-shot 示例。</div>
+            <div class="imp"><strong>存</strong> 配置 / 模板 / 带版本存储 · <strong>命</strong> 持久化，带版本</div>
+          </div>
+          <div class="mem-cell orange">
+            <h5>外部记忆</h5>
+            <div class="en">External / RAG</div>
+            <div class="desc">外接的文档库、知识库——Agent 把它们当作"可调用的百科"使用。</div>
+            <div class="imp"><strong>存</strong> 文档向量库 / API · <strong>命</strong> 跟随外部数据更新</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 03 三大行业痛点 -->
+  <div class="chapter">
+    <div class="chapter-num">03 — 行业难题</div>
+    <h2>分层之后，<br/>真正的难点才开始。</h2>
+    <p class="chapter-lead">业内文章反复点出三个共同病灶——这也是评估任何记忆方案优劣的标尺。</p>
+
+    <div class="mech-grid">
+      <div class="mech-card">
+        <div class="icon-num">01</div>
+        <h4>覆盖式遗忘</h4>
+        <div class="sub">No Versioning</div>
+        <p>新信息直接覆盖旧信息，历史的因果链条被抹掉。</p>
+        <p>结果：Agent "改主意"了你看不到；半年前用户说过的偏好突然失效但不知道为什么。</p>
+      </div>
+      <div class="mech-card">
+        <div class="icon-num">02</div>
+        <h4>堆积式噪声</h4>
+        <div class="sub">No Consolidation</div>
+        <p>所有信息一股脑堆进库里，没有合并、没有蒸馏。</p>
+        <p>结果：长期使用后偏好混乱、矛盾事实并存、检索结果参差不齐。</p>
+      </div>
+      <div class="mech-card">
+        <div class="icon-num">03</div>
+        <h4>相似度错位</h4>
+        <div class="sub">Recency vs Relevance</div>
+        <p>只靠向量相似度做检索，但相似 ≠ 相关。</p>
+        <p>结果：把三个月前的旧场景当成今天的关键证据，关键的近期决策反而召回不到。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 关键机制 -->
+  <div class="chapter">
+    <div class="chapter-num">04 — 关键机制</div>
+    <h2>好的记忆系统，<br/>都同时做对了这四件事。</h2>
+    <p class="chapter-lead">分层只是地基。真正能跑起来的记忆，靠的是层与层之间的<strong>转换 / 检索 / 遗忘 / 巩固</strong>。</p>
+
+    <div class="fw-grid">
+      <div class="fw-card">
+        <span class="fw-tag">① 巩固 Consolidation</span>
+        <h4>从情景到语义</h4>
+        <div class="fw-sub">把"那天发生了什么"蒸馏成"这件事的规律"。</div>
+        <div class="fw-body">
+          客服 Agent 处理上百次退货 → 抽出语义规则<span class="hl">「7 天内损坏可极速换货」</span>。<br/><br/>
+          这一步通常靠开发者写规则或周期性 LLM 摘要。<strong>脆弱、难验证、最被忽视</strong>，但决定记忆系统的天花板。
+        </div>
+      </div>
+      <div class="fw-card">
+        <span class="fw-tag">② 检索 Retrieval</span>
+        <h4>相关性 + 时效 + 重要性</h4>
+        <div class="fw-sub">单看相似度不够，必须三维加权。</div>
+        <ul>
+          <li><strong>相关性</strong>　向量相似度，主导默认排序</li>
+          <li><strong>时效</strong>　近期记忆给更高权重，避免「捡到旧的」</li>
+          <li><strong>重要性</strong>　高奖励 / 高惊讶事件标记为高权值</li>
+        </ul>
+      </div>
+      <div class="fw-card">
+        <span class="fw-tag">③ 遗忘 Forgetting</span>
+        <h4>主动剪枝，不是被动溢出</h4>
+        <div class="fw-sub">遗忘是健康记忆的一部分，不是漏洞。</div>
+        <ul>
+          <li><strong>摘要压缩</strong>　长尾对话归档前先压成简短摘要</li>
+          <li><strong>重要性剪枝</strong>　低于阈值的记忆按周期淘汰</li>
+          <li><strong>聚类合并</strong>　语义近似的记忆合并降冗余</li>
+        </ul>
+      </div>
+      <div class="fw-card">
+        <span class="fw-tag">④ 控制 Control Policy</span>
+        <h4>谁来决定存什么</h4>
+        <div class="fw-sub">业内最有分歧的一题，也是最关键的一题。</div>
+        <div class="fw-body">
+          <strong>程序式</strong>　开发者写规则决定。可控，但用户场景一变就失效。<br/><br/>
+          <strong>Agent 自管</strong>　Agent 把<span class="hl">store / retrieve / update / discard</span>当作可调用工具。
+          MemGPT、Letta 都走这条路——成本高，但能学到「上下文写满前先摘要」这类非显然策略。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 落到我们：AI 资产中枢 -->
+  <div class="chapter">
+    <div class="chapter-num">05 — 落到我们</div>
+    <h2>那么，<br/>「AI 资产中枢」要做什么？</h2>
+    <p class="chapter-lead">把上面 4 类记忆 × 4 个机制，对齐到我们「多产品矩阵 + 5 类资产」的现实底座上——这才是 Asset Hub 真正的产品形态。</p>
+
+    <div class="hub-hero">
+      <span class="badge">Asset Hub · AI 资产中枢</span>
+      <h3>不是收藏夹的升级，<br/>是矩阵的「记忆层」。</h3>
+      <p>把 5 类资产（链接 / 笔记 / 文件 / 对话 / 任务）按记忆系统的分层重新组织，让每一个产品都能从同一份记忆里读取上下文，又能反过来贡献新事实。</p>
+    </div>
+
+    <div class="hub-arch">
+
+      <div class="hub-tier">
+        <div class="hub-tier-label">前台 — 用户感知层（这是收藏夹）</div>
+        <div class="hub-row r5">
+          <div class="hub-cell"><h6>链接</h6><div class="h-en">Webpage</div><div class="h-desc">浏览器侧主入口</div></div>
+          <div class="hub-cell"><h6>笔记</h6><div class="h-en">Note</div><div class="h-desc">输入法 / 录音笔产出</div></div>
+          <div class="hub-cell"><h6>文件</h6><div class="h-en">File</div><div class="h-desc">文件管家承载</div></div>
+          <div class="hub-cell"><h6>对话</h6><div class="h-en">Chat</div><div class="h-desc">主脑 Chatbox 沉淀</div></div>
+          <div class="hub-cell"><h6>任务</h6><div class="h-en">Task</div><div class="h-desc">日历 / 跨端待办</div></div>
+        </div>
+      </div>
+
+      <div class="hub-arrow">↕</div>
+
+      <div class="hub-tier">
+        <div class="hub-tier-label">中台 — AI 资产中枢（要新建的核心）</div>
+        <div class="hub-row r4">
+          <div class="hub-cell"><h6>① 工作记忆</h6><div class="h-en">Working</div><div class="h-desc">"用户当前正在做什么"——跨端共享的当下上下文</div></div>
+          <div class="hub-cell"><h6>② 情景记忆</h6><div class="h-en">Episodic</div><div class="h-desc">5 类资产的原始流水 + 时间戳 + 来源端</div></div>
+          <div class="hub-cell"><h6>③ 语义记忆</h6><div class="h-en">Semantic</div><div class="h-desc">从资产蒸馏出的事实：偏好、画像、实体关系</div></div>
+          <div class="hub-cell"><h6>④ 程序记忆</h6><div class="h-en">Procedural</div><div class="h-desc">用户高频工作流模版：旅行、会议、调研</div></div>
+        </div>
+      </div>
+
+      <div class="hub-arrow">↕</div>
+
+      <div class="hub-tier">
+        <div class="hub-tier-label">后台 — 引擎与机制（接 Hy-Memory，不重造轮子）</div>
+        <div class="hub-row r4">
+          <div class="hub-cell"><h6>巩固</h6><div class="h-en">Consolidation</div><div class="h-desc">情景 → 语义的蒸馏链路</div></div>
+          <div class="hub-cell"><h6>检索</h6><div class="h-en">Retrieval</div><div class="h-desc">相关性+时效+重要性三维打分</div></div>
+          <div class="hub-cell"><h6>遗忘</h6><div class="h-en">Forgetting</div><div class="h-desc">摘要 / 剪枝 / 聚类合并</div></div>
+          <div class="hub-cell"><h6>演化</h6><div class="h-en">Evolution Chain</div><div class="h-desc">supersedes 单向链，保留因果</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="chapter-lead" style="margin-top: 60px; margin-bottom: 24px;">下面这六件事，是中台层 <strong>必须自己做掉</strong> 的。</p>
+
+    <div class="todo-grid">
+      <div class="todo-card">
+        <div class="num">TODO 01</div>
+        <h5>资产 → 四类记忆的映射</h5>
+        <div class="sub">前台 5 类资产 ↔ 后台 4 类记忆</div>
+        <p>每条资产入库时同时打两组标签：<strong>资产类型</strong>（链接/笔记/文件/对话/任务）+ <strong>记忆类型</strong>（情景/语义/程序）。一份数据，两条索引。</p>
+        <span class="tag">数据建模</span>
+      </div>
+
+      <div class="todo-card">
+        <div class="num">TODO 02</div>
+        <h5>巩固链路：情景 → 语义</h5>
+        <div class="sub">从流水抽出"用户偏好"</div>
+        <p>5 类资产是情景层；中枢必须有<strong>异步蒸馏管线</strong>：批量观察资产 → 抽偏好 → 写入语义层。这一层没有，Agent 就只是流水簿。</p>
+        <span class="tag green">最大差异化</span>
+      </div>
+
+      <div class="todo-card">
+        <div class="num">TODO 03</div>
+        <h5>演化链而非覆盖</h5>
+        <div class="sub">supersedes 指针</div>
+        <p>用户偏好变了，<strong>不能直接覆盖</strong>。建立单向链，旧节点保留，新节点指向旧节点。检索命中链上任意节点即展开整条链——这是「半年时间线」能讲出来的前提。</p>
+        <span class="tag teal">借鉴 Hy-Memory</span>
+      </div>
+
+      <div class="todo-card">
+        <div class="num">TODO 04</div>
+        <h5>跨端工作记忆</h5>
+        <div class="sub">"当前用户在做什么"</div>
+        <p>瞬时层不能是某一个端独占的。建立一个<strong>会话级共享缓存</strong>，让浏览器/输入法/日历都能读到同一份"当下上下文"——这是矩阵协同的物理基础。</p>
+        <span class="tag purple">跨端难点</span>
+      </div>
+
+      <div class="todo-card">
+        <div class="num">TODO 05</div>
+        <h5>用户掌控感 UI</h5>
+        <div class="sub">让记忆"看得见、改得了"</div>
+        <p>Hy-Memory 是黑盒后台，但我们是 C 端产品。<strong>语义层的偏好必须前台可见、可编辑、可删除</strong>——这是 C 端记忆产品的合规与信任底线。</p>
+        <span class="tag">不可让渡</span>
+      </div>
+
+      <div class="todo-card">
+        <div class="num">TODO 06</div>
+        <h5>资产间跳转图</h5>
+        <div class="sub">笔记 ↔ 原文 ↔ 对话</div>
+        <p>记忆系统的标准答案里没有这一层——这是<strong>我们独有的产品形态</strong>。从笔记可以反查到原文链接，从对话可以追到出处，这层"业务图"要自研。</p>
+        <span class="tag">差异化</span>
+      </div>
+    </div>
+
+    <p class="chapter-lead" style="margin-top: 64px; margin-bottom: 24px;">我们和业界标准框架的对比 ↓</p>
+
+    <table class="diff-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">能力</th>
+          <th style="width: 22%;">业界标准</th>
+          <th style="width: 25%;">Hy-Memory（引擎）</th>
+          <th style="width: 25%;">AI 资产中枢（我们）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>四类记忆分层</td><td class="yes">✓</td><td class="yes">✓ L1-L6 更细</td><td class="yes">✓ 直接对齐</td></tr>
+        <tr><td>巩固链路</td><td class="yes">✓ 但脆弱</td><td class="yes">✓ 双系统异步</td><td class="yes">✓ 复用引擎</td></tr>
+        <tr><td>演化链</td><td class="no">✗ 普遍缺失</td><td class="yes">✓ 业内首个</td><td class="yes">✓ 复用</td></tr>
+        <tr><td>跨业务共享</td><td class="no">单 Agent 视角</td><td class="yes">✓ 默认隔离 + 按需共享</td><td class="yes">✓ 矩阵共用</td></tr>
+        <tr><td>用户可见可改</td><td class="no">黑盒后台</td><td class="no">黑盒</td><td class="yes">✓ 前台 UI 是核心</td></tr>
+        <tr><td>多模态资产 UI</td><td class="no">不涉及</td><td class="no">不涉及</td><td class="yes">✓ 必须自研</td></tr>
+        <tr><td>资产间跳转图</td><td class="no">不涉及</td><td class="no">不涉及</td><td class="yes">✓ 必须自研</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>引擎层接 Hy-Memory，<br/>产品层是我们的战场。</h2>
+    <p class="closing-sub">
+      记忆系统已经有了成熟的认知架构和工程方案——四类记忆、三层栈、四个机制。<br/>
+      我们要做的，不是再发明一套，而是把它<strong style="color: #fff;">翻译成多产品矩阵的产品形态</strong>：<br/>
+      让用户看得见自己的偏好，让 5 类资产同时是情景与语义，让每一个端都从同一份记忆里读取上下文。
+    </p>
+    <div class="closing-meta">
+      整理 Layna Wang · 2026-06-09<br/>
+      <span style="display: block; margin-top: 12px; color: #424245;">基于 CoALA / MemGPT / 三层模型 / Hy-Memory 综合提炼</span>
+    </div>
+  </div>
+
+</div>
