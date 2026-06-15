@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini 2026 全家桶协同绑定关系 · Infographic</title>
+<style>
+  :root{
+    --bg:#fafafa;
+    --ink:#1d1d1f;
+    --ink-2:#6e6e73;
+    --line:#e5e5e7;
+    --card:#ffffff;
+    --accent:#1a73e8;     /* Google Blue */
+    --g-red:#ea4335;
+    --g-yellow:#fbbc04;
+    --g-green:#34a853;
+    --gradient: linear-gradient(135deg,#1a73e8 0%,#9b72cb 50%,#d96570 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px}
+
+  /* HERO */
+  .hero{padding:120px 0 80px;text-align:center}
+  .hero .eyebrow{font-size:14px;color:var(--ink-2);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;font-weight:500}
+  .hero h1{font-size:80px;font-weight:700;letter-spacing:-2px;line-height:1.05;margin-bottom:20px}
+  .hero h1 .grad{background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{font-size:24px;color:var(--ink-2);font-weight:400;max-width:780px;margin:0 auto 36px;line-height:1.4}
+  .hero .meta{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink-2)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--g-green)}
+
+  /* SECTION */
+  section{padding:80px 0;border-top:1px solid var(--line)}
+  .section-head{margin-bottom:56px;text-align:center}
+  .section-head .kicker{font-size:13px;color:var(--accent);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+  .section-head h2{font-size:48px;font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:16px}
+  .section-head p{font-size:19px;color:var(--ink-2);max-width:720px;margin:0 auto;line-height:1.5}
+
+  /* MODEL LINEUP */
+  .lineup{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .model{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px;transition:all .3s ease}
+  .model:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.06)}
+  .model .badge{display:inline-block;font-size:11px;font-weight:600;color:#fff;padding:4px 10px;border-radius:6px;margin-bottom:14px;letter-spacing:.5px}
+  .model.pro .badge{background:#1a73e8}
+  .model.flash .badge{background:#34a853}
+  .model.deep .badge{background:#9b72cb}
+  .model.banana .badge{background:#fbbc04;color:#1d1d1f}
+  .model h3{font-size:22px;margin-bottom:8px;font-weight:600}
+  .model .desc{font-size:14px;color:var(--ink-2);margin-bottom:16px;min-height:42px}
+  .model .stat{font-size:13px;color:var(--ink);padding:10px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between}
+  .model .stat:last-child{padding-bottom:0}
+  .model .stat span:last-child{color:var(--accent);font-weight:500}
+
+  /* CENTER HUB DIAGRAM */
+  .hub-wrap{position:relative;background:var(--card);border:1px solid var(--line);border-radius:32px;padding:60px 40px;overflow:hidden}
+  .hub-wrap::before{content:"";position:absolute;inset:-50%;background:radial-gradient(circle at center,rgba(26,115,232,.06),transparent 60%);pointer-events:none}
+  .hub-svg{width:100%;height:auto;display:block;position:relative;z-index:1}
+
+  /* APP MATRIX */
+  .matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .app-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:all .3s ease;display:flex;flex-direction:column}
+  .app-card:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(0,0,0,.06)}
+  .app-card .shot{position:relative;height:200px;background:#f0f0f2;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .app-card .shot img{width:100%;height:100%;object-fit:cover;display:block}
+  .app-card .shot .placeholder{padding:24px;text-align:center;color:var(--ink-2);font-size:13px}
+  .app-card .entry-pin{position:absolute;background:var(--g-red);color:#fff;font-size:11px;font-weight:600;padding:5px 10px;border-radius:999px;box-shadow:0 4px 12px rgba(234,67,53,.4);display:flex;align-items:center;gap:5px;z-index:2}
+  .app-card .entry-pin::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.4)}
+  .app-card .body{padding:22px;flex:1;display:flex;flex-direction:column}
+  .app-card .icon-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .app-card .app-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600}
+  .app-card h3{font-size:20px;font-weight:600;letter-spacing:-.3px}
+  .app-card .role{font-size:11px;color:var(--accent);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+  .app-card .desc{font-size:14px;color:var(--ink-2);line-height:1.55;margin-bottom:14px;flex:1}
+  .app-card .entry{font-size:12px;color:var(--ink);background:#f5f5f7;border-radius:10px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+  .app-card .entry .label{font-weight:600;color:var(--g-red);white-space:nowrap}
+
+  /* SIDEBAR ANATOMY */
+  .anatomy{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+  .anatomy .visual{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:32px;position:relative}
+  .anatomy .visual img{width:100%;border-radius:12px;display:block;border:1px solid var(--line)}
+  .anatomy .annotations h3{font-size:32px;font-weight:700;margin-bottom:8px;letter-spacing:-.5px}
+  .anatomy .annotations .lead{color:var(--ink-2);font-size:17px;margin-bottom:28px}
+  .anno-list{list-style:none;display:flex;flex-direction:column;gap:18px}
+  .anno-list li{display:flex;gap:16px;align-items:flex-start}
+  .anno-list .num{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--gradient);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px}
+  .anno-list .text strong{display:block;font-size:16px;margin-bottom:4px}
+  .anno-list .text span{color:var(--ink-2);font-size:14px;line-height:1.5}
+
+  /* FLOW */
+  .flow-wrap{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:48px}
+
+  /* FOOTER */
+  footer{padding:60px 0 80px;text-align:center;color:var(--ink-2);font-size:13px;border-top:1px solid var(--line)}
+  footer p{margin:6px 0}
+  footer a{color:var(--accent);text-decoration:none}
+
+  /* utility */
+  .legend{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .legend-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2)}
+  .legend-dot{width:10px;height:10px;border-radius:3px}
+
+  @media (max-width: 980px){
+    .hero h1{font-size:52px}
+    .hero .sub{font-size:18px}
+    .lineup{grid-template-columns:repeat(2,1fr)}
+    .matrix{grid-template-columns:1fr}
+    .anatomy{grid-template-columns:1fr}
+    .section-head h2{font-size:34px}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">GEMINI ECOSYSTEM · 2026</div>
+    <h1>当 <span class="grad">Gemini</span> 成为<br>整个 Google 的<span class="grad">操作层</span></h1>
+    <p class="sub">从独立 App 到 Workspace 的内嵌侧边栏，从 Chrome 浏览器到 NotebookLM 直接住进 Gemini 主界面——一张图看懂 2026 年 Gemini 与 Google 全家桶的协同绑定关系。</p>
+    <div class="meta">
+      <span class="chip"><span class="dot"></span>截至 2026 年 6 月</span>
+      <span class="chip">Gemini 3 Pro / Flash / Deep Think</span>
+      <span class="chip">Nano Banana Pro · Antigravity</span>
+      <span class="chip">月活跃用户 6.5 亿+</span>
+    </div>
+  </div>
+</header>
+
+<!-- 1. MODEL LINEUP -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">PART 01 · 模型矩阵</div>
+      <h2>Gemini 3 全家桶</h2>
+      <p>四条产品线覆盖从日常对话到复杂推理、从图像生成到智能体编程的全部场景，构成 2026 年 Google AI 的能力底座。</p>
+    </div>
+
+    <div class="lineup">
+      <div class="model pro">
+        <span class="badge">FLAGSHIP</span>
+        <h3>Gemini 3 Pro</h3>
+        <p class="desc">最强多模态推理模型，100万 token 上下文，集成搜索 AI 模式</p>
+        <div class="stat"><span>ARC-AGI-2</span><span>45.0%</span></div>
+        <div class="stat"><span>MMMU-Pro</span><span>81.0%</span></div>
+        <div class="stat"><span>上下文</span><span>1M tokens</span></div>
+      </div>
+      <div class="model flash">
+        <span class="badge">DAILY</span>
+        <h3>Gemini 3 Flash</h3>
+        <p class="desc">日常开发首选，性价比最高，提供免费层级</p>
+        <div class="stat"><span>价格</span><span>≈ Pro 的 1/4</span></div>
+        <div class="stat"><span>速度</span><span>极速响应</span></div>
+        <div class="stat"><span>免费层级</span><span>支持</span></div>
+      </div>
+      <div class="model deep">
+        <span class="badge">REASONING</span>
+        <h3>Gemini 3 Deep Think</h3>
+        <p class="desc">Pro 增强模式，专攻数学/科学/逻辑等复杂问题</p>
+        <div class="stat"><span>ARC-AGI-2</span><span>84.6%</span></div>
+        <div class="stat"><span>IMO 2025</span><span>81.5%</span></div>
+        <div class="stat"><span>Codeforces</span><span>3455 Elo</span></div>
+      </div>
+      <div class="model banana">
+        <span class="badge">VISUAL</span>
+        <h3>Nano Banana Pro</h3>
+        <p class="desc">基于 Gemini 3 Pro 的图像生成模型，4K 高保真</p>
+        <div class="stat"><span>分辨率</span><span>2K / 4K</span></div>
+        <div class="stat"><span>文本渲染错误</span><span>56%→8%</span></div>
+        <div class="stat"><span>参考图</span><span>最多 14 张</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CENTER HUB -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">PART 02 · 协同总览</div>
+      <h2>一张图看懂绑定关系</h2>
+      <p>Gemini 不再是独立 App，而是以三种形态嵌入 Google 全家桶——主入口、侧边栏、底层模型。</p>
+    </div>
+
+    <div class="hub-wrap">
+      <svg class="hub-svg" viewBox="0 0 1100 720" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hubGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a73e8"/>
+            <stop offset="50%" stop-color="#9b72cb"/>
+            <stop offset="100%" stop-color="#d96570"/>
+          </linearGradient>
+          <radialGradient id="ringGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="60%" stop-color="rgba(26,115,232,0)"/>
+            <stop offset="100%" stop-color="rgba(26,115,232,.15)"/>
+          </radialGradient>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#9b72cb"/>
+          </marker>
+        </defs>
+
+        <!-- outer ring -->
+        <circle cx="550" cy="360" r="340" fill="url(#ringGrad)"/>
+        <circle cx="550" cy="360" r="340" fill="none" stroke="#e5e5e7" stroke-dasharray="3 6"/>
+        <circle cx="550" cy="360" r="220" fill="none" stroke="#e5e5e7" stroke-dasharray="2 5"/>
+
+        <!-- center Gemini hub -->
+        <circle cx="550" cy="360" r="90" fill="url(#hubGrad)"/>
+        <text x="550" y="350" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">Gemini 3</text>
+        <text x="550" y="378" text-anchor="middle" fill="#fff" font-size="13" opacity=".9">App + Model</text>
+
+        <!-- inner ring nodes (sidebar embedded) -->
+        <!-- NotebookLM -->
+        <g>
+          <line x1="550" y1="360" x2="550" y2="170" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="550" cy="140" r="46" fill="#fff" stroke="#9b72cb" stroke-width="2"/>
+          <text x="550" y="138" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">NotebookLM</text>
+          <text x="550" y="156" text-anchor="middle" fill="#6e6e73" font-size="10">已嵌入左侧栏</text>
+        </g>
+        <!-- Gmail -->
+        <g>
+          <line x1="550" y1="360" x2="380" y2="220" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="360" cy="205" r="42" fill="#fff" stroke="#ea4335" stroke-width="2"/>
+          <text x="360" y="203" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Gmail</text>
+          <text x="360" y="220" text-anchor="middle" fill="#6e6e73" font-size="10">右侧 Gemini 面板</text>
+        </g>
+        <!-- Docs -->
+        <g>
+          <line x1="550" y1="360" x2="730" y2="220" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="750" cy="205" r="42" fill="#fff" stroke="#1a73e8" stroke-width="2"/>
+          <text x="750" y="203" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Docs</text>
+          <text x="750" y="220" text-anchor="middle" fill="#6e6e73" font-size="10">Help me create</text>
+        </g>
+        <!-- Drive -->
+        <g>
+          <line x1="550" y1="360" x2="260" y2="360" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="240" cy="360" r="42" fill="#fff" stroke="#34a853" stroke-width="2"/>
+          <text x="240" y="358" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Drive</text>
+          <text x="240" y="375" text-anchor="middle" fill="#6e6e73" font-size="10">Ask Gemini</text>
+        </g>
+        <!-- Sheets -->
+        <g>
+          <line x1="550" y1="360" x2="840" y2="360" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="860" cy="360" r="42" fill="#fff" stroke="#34a853" stroke-width="2"/>
+          <text x="860" y="358" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Sheets</text>
+          <text x="860" y="375" text-anchor="middle" fill="#6e6e73" font-size="10">Fill with Gemini</text>
+        </g>
+        <!-- Chrome -->
+        <g>
+          <line x1="550" y1="360" x2="380" y2="500" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="360" cy="515" r="42" fill="#fff" stroke="#fbbc04" stroke-width="2"/>
+          <text x="360" y="513" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Chrome</text>
+          <text x="360" y="530" text-anchor="middle" fill="#6e6e73" font-size="10">右上角 Sparkle</text>
+        </g>
+        <!-- Photos -->
+        <g>
+          <line x1="550" y1="360" x2="730" y2="500" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="750" cy="515" r="42" fill="#fff" stroke="#ea4335" stroke-width="2"/>
+          <text x="750" y="513" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Photos</text>
+          <text x="750" y="530" text-anchor="middle" fill="#6e6e73" font-size="10">Ask 标签页</text>
+        </g>
+        <!-- Maps -->
+        <g>
+          <line x1="550" y1="360" x2="550" y2="550" stroke="#9b72cb" stroke-width="2" marker-end="url(#arr)"/>
+          <circle cx="550" cy="580" r="42" fill="#fff" stroke="#34a853" stroke-width="2"/>
+          <text x="550" y="578" text-anchor="middle" fill="#1d1d1f" font-size="13" font-weight="600">Maps</text>
+          <text x="550" y="595" text-anchor="middle" fill="#6e6e73" font-size="10">Ask Maps 第一栏</text>
+        </g>
+
+        <!-- outer ring nodes (system level) -->
+        <g>
+          <circle cx="170" cy="180" r="34" fill="#1d1d1f"/>
+          <text x="170" y="178" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Android</text>
+          <text x="170" y="192" text-anchor="middle" fill="#fff" font-size="9" opacity=".7">Intelligence</text>
+        </g>
+        <g>
+          <circle cx="930" cy="180" r="34" fill="#1d1d1f"/>
+          <text x="930" y="178" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Pixel 10</text>
+          <text x="930" y="192" text-anchor="middle" fill="#fff" font-size="9" opacity=".7">系统级嵌入</text>
+        </g>
+        <g>
+          <circle cx="170" cy="540" r="34" fill="#1d1d1f"/>
+          <text x="170" y="538" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Wear OS</text>
+          <text x="170" y="552" text-anchor="middle" fill="#fff" font-size="9" opacity=".7">手表 / 眼镜</text>
+        </g>
+        <g>
+          <circle cx="930" cy="540" r="34" fill="#1d1d1f"/>
+          <text x="930" y="538" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Search</text>
+          <text x="930" y="552" text-anchor="middle" fill="#fff" font-size="9" opacity=".7">AI Mode</text>
+        </g>
+        <g>
+          <circle cx="550" cy="60" r="34" fill="#1d1d1f"/>
+          <text x="550" y="58" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Antigravity</text>
+          <text x="550" y="72" text-anchor="middle" fill="#fff" font-size="9" opacity=".7">智能体 IDE</text>
+        </g>
+        <g>
+          <circle cx="550" cy="680" r="34" fill="#1d1d1f"/>
+          <text x="550" y="678" text-anchor="middle" fill="#fff" font-size="11" font-weight="600">Android Auto</text>
+          <text x="550" y="692" text-anchor="middle" fill="#fff" font-size="9" opacity=".7">车机语音</text>
+        </g>
+
+        <!-- legends -->
+        <g transform="translate(40,650)">
+          <circle cx="6" cy="6" r="5" fill="#9b72cb"/>
+          <text x="20" y="10" font-size="11" fill="#6e6e73">App 内嵌：以侧边栏/面板形式融入</text>
+          <circle cx="6" cy="26" r="5" fill="#1d1d1f"/>
+          <text x="20" y="30" font-size="11" fill="#6e6e73">系统层：Gemini 作为底座驱动</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 3. APP MATRIX (with screenshots) -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">PART 03 · 真实界面入口</div>
+      <h2>每个 App 的 Gemini 入口在哪里</h2>
+      <p>红色标记位置即为产品中实际触发 Gemini 的位置——一图看清全部交互入口。</p>
+    </div>
+
+    <div class="matrix">
+
+      <!-- 1. Gemini App + NotebookLM 左侧栏 -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;left:14px;">入口 · 左侧 Notebooks 栏</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/NotebookLM_in_Gemini_app.width-1300.png" alt="NotebookLM in Gemini sidebar" onerror="this.parentElement.innerHTML='<div class=placeholder>Gemini 桌面网页 · 左侧侧边栏直接展示 Notebooks 入口，点击即可创建/打开 NotebookLM 笔记本</div>'">
+        </div>
+        <div class="body">
+          <div class="role">主入口 · App-in-App</div>
+          <h3>Gemini App ← NotebookLM</h3>
+          <p class="desc">2026 年 4 月 9 日，NotebookLM 完整体验被嵌入 Gemini 网页版的<strong>左侧侧边栏</strong>，无需再跳转 notebooklm.google.com。支持 PDF、YouTube、URL 等 5 种来源。</p>
+          <div class="entry"><span class="label">📍</span><span>gemini.google.com → 左侧侧边栏 → "Create new notebook"</span></div>
+        </div>
+      </div>
+
+      <!-- 2. Chrome -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;right:14px;">入口 · 右上角 Sparkle 图标</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_in_Chrome_hero.width-1300.png" alt="Gemini in Chrome sidebar" onerror="this.parentElement.innerHTML='<div class=placeholder>Chrome 浏览器 · 右上角 Sparkle 图标点击后右侧弹出 Gemini 侧边栏，绑定当前标签页</div>'">
+        </div>
+        <div class="body">
+          <div class="role">浏览器侧边栏</div>
+          <h3>Chrome ← Gemini</h3>
+          <p class="desc">右上角 <strong>Sparkle 图标</strong>（或 Ctrl/Cmd+G）一键唤出右侧侧边栏，支持多标签页对比、Auto Browse 自动浏览、调用 Gmail/Calendar/Maps/YouTube。</p>
+          <div class="entry"><span class="label">📍</span><span>Chrome 标题栏右上角 Sparkle 图标 / Ctrl+G / Cmd+G</span></div>
+        </div>
+      </div>
+
+      <!-- 3. Gmail -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;right:14px;">入口 · 右侧栏 Gemini 按钮</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_in_Gmail_side_panel.width-1300.png" alt="Gemini in Gmail" onerror="this.parentElement.innerHTML='<div class=placeholder>Gmail 网页 · 右侧固定导航栏的 Gemini 星形图标点击后展开侧面板</div>'">
+        </div>
+        <div class="body">
+          <div class="role">右侧侧边栏面板</div>
+          <h3>Gmail ← Gemini</h3>
+          <p class="desc">"Help me write" 在写信框内联触发；右侧侧栏的 <strong>Gemini 星形图标</strong>展开总结邮件、提取行动项、跨邮件检索（Drive 也能反向调用 Gmail 内容）。</p>
+          <div class="entry"><span class="label">📍</span><span>Gmail 右侧导航栏 Gemini 星形图标 + 写信框 "Help me write"</span></div>
+        </div>
+      </div>
+
+      <!-- 4. Docs -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;left:14px;">入口 · 左上角 Help me create</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Help_me_create_in_Docs.width-1300.png" alt="Gemini in Google Docs" onerror="this.parentElement.innerHTML='<div class=placeholder>Google Docs · 文档左上角 Help me create 入口 + 右侧 Gemini 侧边栏</div>'">
+        </div>
+        <div class="body">
+          <div class="role">三入口并存</div>
+          <h3>Docs ← Gemini</h3>
+          <p class="desc">2026 年 3 月新增 "Help me create" 一键基于 Drive/Gmail/Chat 数据起草；新版 <strong>Match writing style</strong> 统一多人协作语气；<strong>Match the format</strong> 复刻另一份文档的版式。</p>
+          <div class="entry"><span class="label">📍</span><span>左上角 Help me create / 选中文字浮窗 / 右侧 Gemini 面板</span></div>
+        </div>
+      </div>
+
+      <!-- 5. Sheets -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;left:14px;">入口 · 单元格 Fill with Gemini</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Fill_with_Gemini_Sheets.width-1300.png" alt="Gemini in Sheets" onerror="this.parentElement.innerHTML='<div class=placeholder>Google Sheets · 单元格右键 Fill with Gemini，自动从 Search/Gmail/Drive 抓取数据填表</div>'">
+        </div>
+        <div class="body">
+          <div class="role">单元格内联</div>
+          <h3>Sheets ← Gemini</h3>
+          <p class="desc">"<strong>Fill with Gemini</strong>" 自动生成自定义文本、分类汇总、抓取 Google Search 实时数据；自然语言生成复杂公式 / 数据透视表 / 图表。</p>
+          <div class="entry"><span class="label">📍</span><span>选中单元格 → 右键菜单 Fill with Gemini / 顶部 Gemini 图标</span></div>
+        </div>
+      </div>
+
+      <!-- 6. Drive -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;right:14px;">入口 · Ask Gemini 按钮</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Ask_Gemini_in_Drive.width-1300.png" alt="Ask Gemini in Drive" onerror="this.parentElement.innerHTML='<div class=placeholder>Google Drive · 顶部 Ask Gemini 按钮，可同时引用 Drive 文件和 Gmail 邮件</div>'">
+        </div>
+        <div class="body">
+          <div class="role">跨域检索中枢</div>
+          <h3>Drive ← Gemini</h3>
+          <p class="desc">2026 年 6 月 3 日重磅升级：<strong>Ask Gemini in Drive</strong> 首次支持把 Gmail 邮件作为引用源——查文件 + 查邮件一次完成，正面对标 Microsoft Copilot。</p>
+          <div class="entry"><span class="label">📍</span><span>Drive 顶部工具栏 "Ask Gemini" 按钮（需管理员开启智能功能）</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Photos -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="bottom:14px;left:50%;transform:translateX(-50%);">入口 · 底部 Ask 标签页</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Ask_Photos_with_Gemini.width-1300.png" alt="Ask Photos with Gemini" onerror="this.parentElement.innerHTML='<div class=placeholder>Google Photos App · 底部导航栏的 Search 改名为 Ask，进入即可自然语言提问</div>'">
+        </div>
+        <div class="body">
+          <div class="role">App 底部导航</div>
+          <h3>Photos ← Gemini</h3>
+          <p class="desc">"<strong>Ask Photos</strong>" 把原来的 Search 标签直接替换为 Ask，可问"女儿游泳学习成果""停车牌号"。Gemini App 反向通过 Personal Intelligence 调取 Photos 生成个性化图像。</p>
+          <div class="entry"><span class="label">📍</span><span>Google Photos App 底部导航 Ask 标签（需在 Settings 开启）</span></div>
+        </div>
+      </div>
+
+      <!-- 8. Maps -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:48px;left:14px;">入口 · 搜索栏下第一栏</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Ask_Maps_Gemini.width-1300.png" alt="Ask Maps Gemini" onerror="this.parentElement.innerHTML='<div class=placeholder>Google Maps 移动端 · 搜索栏正下方第一个 Tab 即 Ask Maps，自然语言生成多日行程</div>'">
+        </div>
+        <div class="body">
+          <div class="role">移动端首屏 Tab</div>
+          <h3>Maps ← Gemini</h3>
+          <p class="desc">"<strong>Ask Maps</strong>" 占据搜索栏正下方第一个标签页，自然语言生成多日行程。导航中可"Hey Google"语音报路况、跨调 Calendar/Keep。</p>
+          <div class="entry"><span class="label">📍</span><span>Maps 移动端搜索框下方 "Ask Maps" Tab + Android Auto 语音</span></div>
+        </div>
+      </div>
+
+      <!-- 9. Search AI Mode -->
+      <div class="app-card">
+        <div class="shot">
+          <span class="entry-pin" style="top:14px;left:14px;">入口 · 搜索结果页 AI Mode</span>
+          <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_Search_AI_Mode.width-1300.png" alt="Google Search AI Mode" onerror="this.parentElement.innerHTML='<div class=placeholder>Google Search · 结果顶部 AI Mode 标签（已基于 Gemini 3 Pro 提供 120 国家服务）</div>'">
+        </div>
+        <div class="body">
+          <div class="role">搜索引擎底层</div>
+          <h3>Search ← Gemini</h3>
+          <p class="desc">2025 年 12 月 2 日，Gemini 3 Pro 直接驱动 Google Search <strong>AI Mode</strong>，覆盖 120 个国家。前 5 天调用量 1435 亿 tokens，首周访问量 3 亿人次。</p>
+          <div class="entry"><span class="label">📍</span><span>google.com 搜索结果页顶部 "AI Mode" 标签</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 4. Gemini App 左侧栏解剖 -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">PART 04 · 主入口解剖</div>
+      <h2>Gemini App 左侧栏：Google AI 的总开关</h2>
+      <p>2026 年 4 月起，Gemini 网页主界面左侧栏不再只是历史会话，而是 NotebookLM、Gems、Canvas、Deep Research 等所有能力的集中入口。</p>
+    </div>
+
+    <div class="anatomy">
+      <div class="visual">
+        <!-- SVG mockup of Gemini sidebar -->
+        <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:12px;background:#fff;border:1px solid var(--line)">
+          <!-- window chrome -->
+          <rect width="600" height="460" fill="#fff"/>
+          <rect width="600" height="36" fill="#f5f5f7"/>
+          <circle cx="18" cy="18" r="6" fill="#ff5f57"/>
+          <circle cx="38" cy="18" r="6" fill="#febc2e"/>
+          <circle cx="58" cy="18" r="6" fill="#28c840"/>
+          <text x="300" y="22" text-anchor="middle" font-size="11" fill="#6e6e73">gemini.google.com</text>
+
+          <!-- left sidebar -->
+          <rect x="0" y="36" width="220" height="424" fill="#f8f9fa"/>
+          <line x1="220" y1="36" x2="220" y2="460" stroke="#e5e5e7"/>
+
+          <!-- logo -->
+          <text x="20" y="74" font-size="18" font-weight="700" fill="#1d1d1f">✦ Gemini</text>
+
+          <!-- new chat -->
+          <rect x="16" y="92" width="188" height="36" rx="18" fill="#fff" stroke="#dadce0"/>
+          <text x="34" y="115" font-size="12" fill="#1d1d1f">＋ New chat</text>
+
+          <!-- section: Tools -->
+          <text x="20" y="156" font-size="10" fill="#6e6e73" font-weight="600" letter-spacing="1">EXPLORE GEMS</text>
+          <g transform="translate(0,166)">
+            <rect x="8" y="0" width="204" height="28" rx="8" fill="#e8f0fe"/>
+            <text x="20" y="18" font-size="12" fill="#1a73e8">📓 Notebooks</text>
+            <text x="180" y="18" font-size="10" fill="#1a73e8">NEW</text>
+          </g>
+          <g transform="translate(0,200)">
+            <text x="20" y="14" font-size="12" fill="#1d1d1f">💎 Gems manager</text>
+          </g>
+          <g transform="translate(0,222)">
+            <text x="20" y="14" font-size="12" fill="#1d1d1f">🎨 Canvas</text>
+          </g>
+          <g transform="translate(0,244)">
+            <text x="20" y="14" font-size="12" fill="#1d1d1f">🔬 Deep Research</text>
+          </g>
+          <g transform="translate(0,266)">
+            <text x="20" y="14" font-size="12" fill="#1d1d1f">🍌 Image (Nano Banana)</text>
+          </g>
+          <g transform="translate(0,288)">
+            <text x="20" y="14" font-size="12" fill="#1d1d1f">🎬 Video (Veo)</text>
+          </g>
+
+          <!-- recent -->
+          <text x="20" y="326" font-size="10" fill="#6e6e73" font-weight="600" letter-spacing="1">RECENT</text>
+          <text x="20" y="344" font-size="11" fill="#6e6e73">• Q3 营收分析</text>
+          <text x="20" y="362" font-size="11" fill="#6e6e73">• 行业研究 notebook</text>
+          <text x="20" y="380" font-size="11" fill="#6e6e73">• 旅行规划</text>
+
+          <!-- main canvas -->
+          <text x="280" y="80" font-size="22" font-weight="700" fill="#1d1d1f">Hello, Layna</text>
+          <text x="280" y="104" font-size="13" fill="#6e6e73">What would you like to explore today?</text>
+
+          <rect x="280" y="380" width="290" height="44" rx="22" fill="#f5f5f7" stroke="#dadce0"/>
+          <text x="296" y="406" font-size="12" fill="#9aa0a6">Ask Gemini anything…</text>
+
+          <!-- highlight rings -->
+          <circle cx="120" cy="180" r="46" fill="none" stroke="#ea4335" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="120" y="138" text-anchor="middle" font-size="11" fill="#ea4335" font-weight="600">① NotebookLM 入口</text>
+
+          <circle cx="120" cy="255" r="58" fill="none" stroke="#fbbc04" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="120" y="402" text-anchor="middle" font-size="11" fill="#b88600" font-weight="600">② 工具集中区</text>
+        </svg>
+      </div>
+
+      <div class="annotations">
+        <h3>左侧栏 = 整个 Google AI 的<br>"控制中心"</h3>
+        <p class="lead">这是一次产品哲学的转身：<br>Gemini 不再被定义为"一个聊天框"，而是 Google AI 全部能力的入口。</p>
+        <ol class="anno-list">
+          <li>
+            <span class="num">1</span>
+            <div class="text"><strong>Notebooks 入口</strong><span>NotebookLM 完整体验直接挂在左侧栏，支持 PDF / YouTube / URL / Docs / 粘贴文本五种来源；输出音频概览、视频概览、信息图、复习卡。</span></div>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <div class="text"><strong>Gems 管理</strong><span>定制专家智能体（编程 Gem、研究 Gem、数据 Gem），处理重复性或复杂项目。</span></div>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <div class="text"><strong>Canvas / Deep Research</strong><span>Canvas 是文档协作画布，Deep Research 用 Gemini 3 Pro 自主完成深度调研报告。</span></div>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <div class="text"><strong>Nano Banana + Veo</strong><span>图像与视频生成入口同栏一键切换；Personal Intelligence 自动调取你的 Google Photos 作上下文。</span></div>
+          </li>
+          <li>
+            <span class="num">5</span>
+            <div class="text"><strong>Recent</strong><span>历史会话与 notebook 混排，跨会话引用对方上下文。</span></div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Three Forms -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">PART 05 · 协同模式总结</div>
+      <h2>Gemini 嵌入 Google 全家桶的<br>三种形态</h2>
+      <p>所有融入方式归纳为三种范式——理解这三种范式，就理解了 Google 2026 的产品策略。</p>
+    </div>
+
+    <div class="flow-wrap">
+      <svg viewBox="0 0 1080 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <defs>
+          <linearGradient id="f1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a73e8"/><stop offset="100%" stop-color="#4285f4"/></linearGradient>
+          <linearGradient id="f2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9b72cb"/><stop offset="100%" stop-color="#c47fc7"/></linearGradient>
+          <linearGradient id="f3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34a853"/><stop offset="100%" stop-color="#5cbf6e"/></linearGradient>
+        </defs>
+
+        <!-- form 1 -->
+        <rect x="40" y="40" width="320" height="300" rx="20" fill="url(#f1)"/>
+        <text x="200" y="80" text-anchor="middle" font-size="48" fill="#fff" font-weight="700">A</text>
+        <text x="200" y="120" text-anchor="middle" font-size="20" fill="#fff" font-weight="600">主入口形态</text>
+        <text x="200" y="148" text-anchor="middle" font-size="13" fill="#fff" opacity=".85">Stand-alone App</text>
+        <line x1="80" y1="170" x2="320" y2="170" stroke="#fff" opacity=".3"/>
+        <text x="60" y="200" font-size="13" fill="#fff" opacity=".95">• Gemini App（网页/iOS/Android）</text>
+        <text x="60" y="225" font-size="13" fill="#fff" opacity=".95">• 左侧栏 = Google AI 总控制台</text>
+        <text x="60" y="250" font-size="13" fill="#fff" opacity=".95">• NotebookLM 直接挂在左侧栏</text>
+        <text x="60" y="275" font-size="13" fill="#fff" opacity=".95">• Gems / Canvas / Deep Research</text>
+        <text x="60" y="300" font-size="13" fill="#fff" opacity=".95">• Personal Intelligence 调用全家桶</text>
+        <text x="60" y="325" font-size="11" fill="#fff" opacity=".7">代表：gemini.google.com</text>
+
+        <!-- form 2 -->
+        <rect x="380" y="40" width="320" height="300" rx="20" fill="url(#f2)"/>
+        <text x="540" y="80" text-anchor="middle" font-size="48" fill="#fff" font-weight="700">B</text>
+        <text x="540" y="120" text-anchor="middle" font-size="20" fill="#fff" font-weight="600">侧边栏形态</text>
+        <text x="540" y="148" text-anchor="middle" font-size="13" fill="#fff" opacity=".85">Embedded Side Panel</text>
+        <line x1="420" y1="170" x2="660" y2="170" stroke="#fff" opacity=".3"/>
+        <text x="400" y="200" font-size="13" fill="#fff" opacity=".95">• Gmail 右侧栏 Gemini 面板</text>
+        <text x="400" y="225" font-size="13" fill="#fff" opacity=".95">• Docs / Sheets / Slides 右侧栏</text>
+        <text x="400" y="250" font-size="13" fill="#fff" opacity=".95">• Drive Ask Gemini（含 Gmail 源）</text>
+        <text x="400" y="275" font-size="13" fill="#fff" opacity=".95">• Chrome 右上角 Sparkle 侧边栏</text>
+        <text x="400" y="300" font-size="13" fill="#fff" opacity=".95">• Photos 底部 Ask 标签</text>
+        <text x="400" y="325" font-size="11" fill="#fff" opacity=".7">范式：在原 App 内不跳转地获得 AI</text>
+
+        <!-- form 3 -->
+        <rect x="720" y="40" width="320" height="300" rx="20" fill="url(#f3)"/>
+        <text x="880" y="80" text-anchor="middle" font-size="48" fill="#fff" font-weight="700">C</text>
+        <text x="880" y="120" text-anchor="middle" font-size="20" fill="#fff" font-weight="600">系统底座形态</text>
+        <text x="880" y="148" text-anchor="middle" font-size="13" fill="#fff" opacity=".85">OS-level Backbone</text>
+        <line x1="760" y1="170" x2="1000" y2="170" stroke="#fff" opacity=".3"/>
+        <text x="740" y="200" font-size="13" fill="#fff" opacity=".95">• Search AI Mode（120 国家）</text>
+        <text x="740" y="225" font-size="13" fill="#fff" opacity=".95">• Android Gemini Intelligence</text>
+        <text x="740" y="250" font-size="13" fill="#fff" opacity=".95">• Pixel 10 / Galaxy S26 系统级</text>
+        <text x="740" y="275" font-size="13" fill="#fff" opacity=".95">• Wear OS / 智能眼镜 / Auto</text>
+        <text x="740" y="300" font-size="13" fill="#fff" opacity=".95">• Antigravity Agentic IDE</text>
+        <text x="740" y="325" font-size="11" fill="#fff" opacity=".7">范式：跨应用、多步骤自动化操作</text>
+      </svg>
+    </div>
+
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#1a73e8"></span>主入口形态：用户主动打开 Gemini</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#9b72cb"></span>侧边栏形态：在工作流中召唤 AI</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#34a853"></span>系统底座形态：AI 主动代理用户</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>📊 数据来源：Google Blog · DeepMind · Google Workspace 帮助中心 · The Verge · 9to5Google · Engadget</p>
+    <p>📅 信息截至 2026 年 6 月 9 日 · 由 Layna 整理</p>
+    <p style="margin-top:12px;color:#a1a1a6">Gemini 3 · NotebookLM · Nano Banana Pro · Antigravity 均为 Google LLC 商标</p>
+  </div>
+</footer>
+
+</body>
+</html>
