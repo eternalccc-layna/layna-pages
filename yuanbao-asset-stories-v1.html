@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元宝矩阵 · 资产互通故事板 v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+                 "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #FFFFFF;
+    color: #1A1A1A;
+    line-height: 1.7;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 60px 80px; }
+
+  /* DOC META */
+  .doc-meta {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    padding: 16px 0; border-bottom: 1px solid #E8E8E8;
+    font-size: 12px; color: #666; margin-bottom: 32px;
+  }
+  .doc-meta .item { display: flex; align-items: center; }
+  .doc-meta .label { font-weight: 600; margin-right: 6px; color: #1A1A1A; }
+
+  /* PAGE TITLE */
+  .page-title {
+    font-size: 36px; font-weight: 700; line-height: 1.3;
+    color: #1A1A1A; letter-spacing: -0.5px; margin-bottom: 8px;
+  }
+  .page-subtitle { font-size: 16px; color: #666; margin-bottom: 32px; }
+
+  /* TLDR */
+  .highlight-box {
+    background: #FFFBF0; border: 1px solid #FFE8CC;
+    border-radius: 6px; padding: 24px 28px; margin: 24px 0 40px;
+  }
+  .highlight-box .title {
+    font-size: 16px; font-weight: 600; color: #1A1A1A;
+    margin-bottom: 12px; display: flex; align-items: center;
+  }
+  .highlight-box .title .icon { font-size: 18px; margin-right: 8px; }
+  .highlight-box .content { font-size: 14px; line-height: 1.8; color: #333; }
+  .highlight-box ul { margin: 8px 0 0 0; padding-left: 20px; }
+  .highlight-box ul li { margin-bottom: 4px; }
+  .highlight-box ul li::marker { color: #F39C12; }
+
+  /* TOC */
+  .toc { background: #F9F9F9; border: 1px solid #E8E8E8; border-radius: 6px; padding: 20px 24px; margin: 24px 0 48px; }
+  .toc .toc-title { font-size: 13px; font-weight: 600; color: #666; margin-bottom: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .toc ol { list-style: none; padding: 0; columns: 2; column-gap: 32px; counter-reset: toc-counter; }
+  .toc li { margin-bottom: 6px; font-size: 13px; }
+  .toc li::before { content: counter(toc-counter, decimal-leading-zero) " · "; counter-increment: toc-counter; color: #F39C12; font-weight: 600; }
+  .toc a { color: #3498DB; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* SECTION */
+  section { margin-top: 56px; }
+  .section-title {
+    font-size: 26px; font-weight: 700; line-height: 1.4;
+    color: #1A1A1A; margin-bottom: 8px;
+    padding-bottom: 12px; border-bottom: 2px solid #FFD700;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .section-title .num { font-size: 13px; color: #999; font-weight: 500; letter-spacing: 0.06em; }
+  .section-lead { font-size: 14px; color: #666; margin-bottom: 24px; line-height: 1.7; }
+
+  /* PERSONA STRIP */
+  .persona-strip {
+    display: flex; align-items: center; gap: 16px;
+    background: #FFFBF0; border: 1px solid #FFE8CC;
+    padding: 14px 18px; border-radius: 6px; margin-bottom: 12px;
+    font-size: 13px;
+  }
+  .persona-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700, #F39C12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .persona-strip .meta { display: flex; flex-direction: column; gap: 2px; }
+  .persona-strip .name { font-weight: 700; color: #1A1A1A; font-size: 14px; }
+  .persona-strip .desc { color: #666; font-size: 12px; }
+  .persona-strip .tag {
+    background: #fff; border: 1px solid #FFD700; color: #B07700;
+    padding: 2px 10px; border-radius: 12px; font-size: 11px; margin-left: auto;
+  }
+
+  /* STORY HEADER */
+  .story-header {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 20px 0 12px;
+  }
+  .story-num {
+    font-size: 56px; font-weight: 800; line-height: 1;
+    color: #FFD700; flex-shrink: 0; min-width: 70px;
+  }
+  .story-h { flex: 1; }
+  .story-h h3 { font-size: 22px; font-weight: 700; color: #1A1A1A; margin-bottom: 6px; }
+  .story-h .sub { font-size: 13px; color: #666; line-height: 1.6; }
+
+  /* FLOW BAR  */
+  .flow-bar {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 8px; background: #F9F9F9; border-left: 3px solid #FFD700;
+    padding: 12px 16px; border-radius: 4px; margin: 12px 0 24px;
+    font-size: 12px;
+  }
+  .flow-bar .pill {
+    background: #fff; border: 1px solid #E0E0E0;
+    padding: 4px 10px; border-radius: 14px;
+    font-weight: 600; color: #333;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .flow-bar .pill.anchor { background: #FFD700; border-color: #F39C12; color: #1A1A1A; }
+  .flow-bar .arr { color: #F39C12; font-weight: 700; }
+  .flow-bar .label { color: #999; margin-right: 4px; }
+
+  /* SCREEN ROW */
+  .screen-row { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 28px; }
+  .screen {
+    border: 1px solid #E8E8E8; border-radius: 8px; overflow: hidden;
+    background: #fff;
+  }
+  .screen-head {
+    background: #FAFAFA; padding: 12px 18px;
+    border-bottom: 1px solid #E8E8E8;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .screen-head .step-no {
+    background: #FFD700; color: #1A1A1A;
+    padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;
+    margin-right: 8px;
+  }
+  .screen-head .title { font-size: 14px; font-weight: 700; color: #1A1A1A; }
+  .screen-head .endpoint {
+    font-size: 11px; color: #666; font-family: "SF Mono", Menlo, monospace;
+    background: #fff; border: 1px solid #E0E0E0; padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* COMPARE GRID */
+  .compare {
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .compare > div { padding: 18px 20px; }
+  .compare .before {
+    background: #FFF7F7; border-right: 1px dashed #E8E8E8;
+  }
+  .compare .after { background: #F7FCF8; }
+  .compare .label-before, .compare .label-after {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 8px;
+    display: inline-block; padding: 2px 8px; border-radius: 3px;
+  }
+  .label-before { background: #FFE0E0; color: #C0392B; }
+  .label-after { background: #D6F5DA; color: #27AE60; }
+
+  .compare h5 { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1A1A1A; }
+  .compare ul { padding-left: 18px; margin: 4px 0; }
+  .compare ul li { font-size: 13px; line-height: 1.7; color: #333; margin-bottom: 4px; }
+  .compare .before ul li::marker { color: #C0392B; }
+  .compare .after ul li::marker { color: #27AE60; }
+  .compare .quote {
+    font-style: italic; color: #555; font-size: 12.5px;
+    padding-left: 12px; border-left: 2px solid #FFD700;
+    margin-top: 8px;
+  }
+
+  /* ASSET TAGS */
+  .asset-row {
+    background: #FAFAFA; padding: 10px 18px; border-top: 1px solid #E8E8E8;
+    font-size: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  .asset-row .label { color: #999; font-weight: 600; }
+  .asset-tag {
+    padding: 2px 9px; border-radius: 10px; font-size: 11px; font-weight: 600;
+    border: 1px solid;
+  }
+  .at-link { background: #E3F2FD; border-color: #90CAF9; color: #1565C0; }
+  .at-note { background: #FFF8E1; border-color: #FFD54F; color: #B07700; }
+  .at-file { background: #F3E5F5; border-color: #CE93D8; color: #7B1FA2; }
+  .at-talk { background: #E8F5E9; border-color: #A5D6A7; color: #2E7D32; }
+  .at-task { background: #FFE0B2; border-color: #FFB74D; color: #E65100; }
+
+  .id-flow {
+    margin-left: auto; font-family: "SF Mono", Menlo, monospace;
+    font-size: 11px; color: #999;
+  }
+  .id-flow strong { color: #B07700; }
+
+  /* STORY OUTCOME */
+  .story-outcome {
+    background: #FFFBF0; border: 1px solid #FFE8CC;
+    padding: 16px 20px; border-radius: 6px; margin-top: 4px;
+    font-size: 13px; line-height: 1.7;
+  }
+  .story-outcome strong { color: #1A1A1A; }
+  .story-outcome .row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; margin-bottom: 6px; }
+  .story-outcome .row:last-child { margin-bottom: 0; }
+  .story-outcome .row .k { color: #B07700; font-weight: 600; }
+  .story-outcome .row .v { color: #333; }
+
+  /* COVERAGE TABLE */
+  table.cov {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 13px;
+  }
+  table.cov th, table.cov td {
+    border: 1px solid #E8E8E8; padding: 10px 12px; text-align: center;
+  }
+  table.cov th {
+    background: #FFFBF0; color: #1A1A1A; font-weight: 700;
+    border-bottom: 2px solid #FFD700;
+  }
+  table.cov td.left { text-align: left; font-weight: 600; }
+  table.cov tbody tr:nth-child(even) { background: #FAFAFA; }
+  table.cov tbody tr:hover { background: #FFFBF0; }
+  table.cov .yes { color: #27AE60; font-weight: 700; }
+  table.cov .core { background: #FFD700; color: #1A1A1A; font-weight: 700; }
+
+  /* CLOSING */
+  .closing {
+    background: #FFFBF0; border: 1px solid #FFE8CC;
+    padding: 28px 32px; border-radius: 8px; margin-top: 56px;
+  }
+  .closing h3 { font-size: 18px; margin-bottom: 12px; color: #1A1A1A; }
+  .closing p { font-size: 14px; line-height: 1.8; color: #333; margin-bottom: 8px; }
+  .closing .stmt {
+    font-size: 16px; font-weight: 600; color: #1A1A1A;
+    border-left: 3px solid #FFD700; padding-left: 14px;
+    margin: 16px 0;
+  }
+  .signoff { font-size: 12px; color: #999; text-align: right; margin-top: 32px; }
+
+  @media (max-width: 900px) {
+    .container { padding: 24px 20px 60px; }
+    .compare { grid-template-columns: 1fr; }
+    .compare .before { border-right: none; border-bottom: 1px dashed #E8E8E8; }
+    .toc ol { columns: 1; }
+    .story-num { font-size: 40px; min-width: 50px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- DOC META -->
+  <div class="doc-meta">
+    <div class="item"><span class="label">项目：</span>元宝矩阵 · 资产互通</div>
+    <div class="item"><span class="label">主笔：</span>Layna</div>
+    <div class="item"><span class="label">更新：</span>2026-06-15</div>
+    <div class="item"><span class="label">阅读：</span>~10 min</div>
+    <div class="item"><span class="label">前置：</span><a href="https://layna-pages.pages.dev/yuanbao-memory-system-hub-v1" target="_blank" style="color:#3498DB;">AI 记忆系统 · 框架与中枢落地</a></div>
+  </div>
+
+  <!-- TITLE -->
+  <h1 class="page-title">元宝矩阵 · 资产互通故事板 <span style="color:#F39C12;">v1</span></h1>
+  <p class="page-subtitle">账号通了 → 资产通了 → 场景丝滑 — 三段真实生活流程，每段都以浏览器闭环</p>
+
+  <!-- TL;DR -->
+  <div class="highlight-box">
+    <div class="title"><span class="icon">🎯</span> 一段话讲清</div>
+    <div class="content">
+      <strong>用户感知不到「账号 ID」，用户感知的是「我在 A 端做的事，到了 B 端自动接得上」。</strong>
+      本文用 3 个真实生活场景，覆盖元宝多产品矩阵 6 端（浏览器 / 输入法 / 翻译 / 录音笔 / 文件管家 / 日历），
+      每段都以<strong>浏览器为闭环锚点</strong>，并用 <span style="background:#FFE0E0;padding:1px 6px;border-radius:3px;color:#C0392B;">❌ 打通前</span>
+      vs <span style="background:#D6F5DA;padding:1px 6px;border-radius:3px;color:#27AE60;">✅ 打通后</span> 双栏对照，呈现资产中枢的真实价值。
+      <ul>
+        <li><strong>故事①</strong>：白领 PM 追热点写选题（浏览器 → 输入法 → 翻译 → 浏览器）</li>
+        <li><strong>故事②</strong>：白领 PM 跨国会议复盘（录音笔 → 翻译 → 浏览器 → 日历）</li>
+        <li><strong>故事③</strong>：学生党周末出行筹备（浏览器 → 文件管家 → 日历 → 输入法 → 浏览器）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">目录</div>
+    <ol>
+      <li><a href="#cov">六端覆盖一览</a></li>
+      <li><a href="#s1">故事① 追热点写选题</a></li>
+      <li><a href="#s2">故事② 跨国会议复盘</a></li>
+      <li><a href="#s3">故事③ 周末出行筹备</a></li>
+      <li><a href="#takeaway">结论 · 三个故事的共同脊柱</a></li>
+    </ol>
+  </nav>
+
+  <!-- COVERAGE -->
+  <section id="cov">
+    <h2 class="section-title"><span class="num">00</span> 六端覆盖一览</h2>
+    <p class="section-lead">三个故事覆盖矩阵 6 端，浏览器作为枢纽出现 3 次（每个故事必到），其它端按场景自然嵌入。</p>
+    <table class="cov">
+      <thead>
+        <tr>
+          <th class="left">故事</th>
+          <th>🌐 浏览器</th>
+          <th>⌨️ 输入法</th>
+          <th>🌍 翻译</th>
+          <th>🎙️ 录音笔</th>
+          <th>📂 文件管家</th>
+          <th>📅 日历</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left">①  追热点写选题</td>
+          <td class="core">枢纽</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+          <td>—</td><td>—</td><td>—</td>
+        </tr>
+        <tr>
+          <td class="left">②  跨国会议复盘</td>
+          <td class="core">枢纽</td>
+          <td>—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+          <td>—</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr>
+          <td class="left">③  周末出行筹备</td>
+          <td class="core">枢纽</td>
+          <td class="yes">✓</td>
+          <td>—</td><td>—</td>
+          <td class="yes">✓</td>
+          <td class="yes">✓</td>
+        </tr>
+        <tr style="background:#FFFBF0;">
+          <td class="left"><strong>命中次数</strong></td>
+          <td><strong>3</strong></td>
+          <td><strong>2</strong></td>
+          <td><strong>2</strong></td>
+          <td><strong>1</strong></td>
+          <td><strong>1</strong></td>
+          <td><strong>2</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#999;">资产维度：每个故事至少串联 5 类资产中的 3 类（链接 / 笔记 / 文件 / 对话 / 任务）。</p>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- STORY 1 -->
+  <!-- ============================================ -->
+  <section id="s1">
+    <h2 class="section-title"><span class="num">01</span> 故事① 追热点写选题</h2>
+    <p class="section-lead">最高频也最容易感知的场景：刷到一条新闻 → 想沉淀观点 → 输出文章。三端协同闭环回浏览器。</p>
+
+    <div class="persona-strip">
+      <div class="persona-avatar">👩‍💻</div>
+      <div class="meta">
+        <div class="name">小 L · 28 岁 · 互联网大厂产品经理</div>
+        <div class="desc">每天刷 50+ 公众号 / X / 知乎；负责一个 AI 产品线，需要持续追选题、写周报观点</div>
+      </div>
+      <span class="tag">白领 PM</span>
+    </div>
+
+    <div class="story-header">
+      <div class="story-num">①</div>
+      <div class="story-h">
+        <h3>周三晚 10 点 · 刷到 OpenAI 发布 GPT-5 多模态推理论文</h3>
+        <div class="sub">从「看到 → 想引用 → 写出来」全程不出浏览器矩阵，账号通了之后只动手指不动脑子。</div>
+      </div>
+    </div>
+
+    <div class="flow-bar">
+      <span class="label">资产流：</span>
+      <span class="pill anchor">🌐 浏览器</span><span class="arr">→</span>
+      <span class="pill">⌨️ 输入法</span><span class="arr">→</span>
+      <span class="pill">🌍 翻译</span><span class="arr">→</span>
+      <span class="pill anchor">🌐 浏览器（笔记）</span>
+    </div>
+
+    <!-- screen 1.1 -->
+    <div class="screen">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 1</span><span class="title">看到论文 → 一键存进个人收藏夹</span></div>
+        <span class="endpoint">🌐 元宝浏览器</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>看完只能"右键复制链接"</h5>
+          <ul>
+            <li>浏览器收藏夹塞了 2000+ 条 ，找不到时全靠 Ctrl+F</li>
+            <li>想发到微信群分享 → 复制 URL → 切微信 → 粘贴 → 关闭浏览器，原文已忘</li>
+            <li>下次想引用观点 → 搜不到 → 重新 Google 一遍</li>
+          </ul>
+          <p class="quote">"昨天那篇怎么没了？……算了重新搜。"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>右上角「⭐️ 存到资产」一键归位</h5>
+          <ul>
+            <li>系统自动抽取标题/作者/摘要/3 句要点 → 存入<strong>资产中枢 · 链接库</strong></li>
+            <li>带上下文标签（"AI 产品 / GPT-5 / 多模态"），下次任意端搜「GPT-5」立刻命中</li>
+            <li>账号通后，<strong>晚上手机存的，明早开公司电脑浏览器同步在</strong></li>
+          </ul>
+          <p class="quote">"⭐️ 已收。" — 整个动作 0.5 秒。</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产产生：</span>
+        <span class="asset-tag at-link">🔗 链接</span>
+        <span class="asset-tag at-note">📝 摘要笔记</span>
+        <span class="id-flow">ID：<strong>YuanbaoID</strong> 写入 → Asset Hub</span>
+      </div>
+    </div>
+
+    <!-- screen 1.2 -->
+    <div class="screen" style="margin-top:20px;">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 2</span><span class="title">在微信群讨论 → 输入法 @资产 直接引用</span></div>
+        <span class="endpoint">⌨️ 元宝输入法（任意 App 文本框）</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>切回浏览器复制 → 粘贴回微信 → 退格三次格式才正常</h5>
+          <ul>
+            <li>群友追问"原文链接？" → 又得切回浏览器找一遍</li>
+            <li>想表达观点引用一段话 → 复制后格式炸了，富文本/超链接全丢</li>
+            <li>聊到一半要去查个英文术语 → 切翻译 App，再切回来已经凉了</li>
+          </ul>
+          <p class="quote">"等一下我找下原文……（5 分钟过去）"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>在输入法呼出「@资产」面板 → 选刚才那条链接</h5>
+          <ul>
+            <li>输入法直接拉取<strong>同账号下的资产中枢</strong>，列出最近收藏</li>
+            <li>选中后插入"卡片式引用"：标题 + 一句摘要 + 链接，群友点开即视</li>
+            <li>遇到英文术语长按选词 → 输入法<strong>无缝调元宝翻译能力</strong>，结果直接落到光标处</li>
+          </ul>
+          <p class="quote">"@刚才看的 GPT-5 论文" — 整段引用一气呵成。</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产消费：</span>
+        <span class="asset-tag at-link">🔗 链接（被引用）</span>
+        <span class="asset-tag at-note">📝 笔记（被插入）</span>
+        <span class="id-flow"><strong>YuanbaoID</strong> 透传 → 输入法读 Hub</span>
+      </div>
+    </div>
+
+    <!-- screen 1.3 -->
+    <div class="screen" style="margin-top:20px;">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 3</span><span class="title">回浏览器写选题文档 → 引用 + 翻译能力都已就绪</span></div>
+        <span class="endpoint">🌐 元宝浏览器 · AI 笔记</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>新建 Doc，从零开始组织语言</h5>
+          <ul>
+            <li>引用得手动复制一遍 + 重新写一段摘要</li>
+            <li>英文段落得切翻译 App → 复制译文 → 切回 Doc 粘贴</li>
+            <li>写完发出去，内容散在 5 个 App 里，下次找又是一场战役</li>
+          </ul>
+          <p class="quote">"我刚才那段话写哪儿了？……"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>浏览器 AI 笔记 → /引用 → 资产中枢 → 选论文 + 群讨论</h5>
+          <ul>
+            <li>论文摘要自动嵌入；群里讨论也作为「对话资产」可被引用</li>
+            <li>选中英文段 → 右键「翻译并保留双语」→ 翻译能力<strong>原生在编辑器里</strong></li>
+            <li>笔记落在浏览器，<strong>但同一份资产手机端打开就在</strong> — 因为它属于 YuanbaoID，不属于设备</li>
+          </ul>
+          <p class="quote">"30 分钟出一篇有引用、双语、有观点的选题。"</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产沉淀：</span>
+        <span class="asset-tag at-note">📝 选题笔记</span>
+        <span class="asset-tag at-link">🔗 引用链接</span>
+        <span class="asset-tag at-talk">💬 引用对话</span>
+        <span class="id-flow">闭环写回 → <strong>Asset Hub</strong></span>
+      </div>
+    </div>
+
+    <div class="story-outcome">
+      <div class="row"><span class="k">📍 闭环锚点</span><span class="v">浏览器 — 起点是浏览器看到，终点是浏览器笔记，全程没有出过元宝矩阵</span></div>
+      <div class="row"><span class="k">⏱️ 时间对照</span><span class="v">打通前 60 min（频繁切 App + 找内容）→ 打通后 25 min</span></div>
+      <div class="row"><span class="k">🔑 关键体感</span><span class="v">"我没意识到我用了 3 个 App，但每个 App 都知道我刚才做了什么。"</span></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- STORY 2 -->
+  <!-- ============================================ -->
+  <section id="s2">
+    <h2 class="section-title"><span class="num">02</span> 故事② 跨国会议复盘</h2>
+    <p class="section-lead">高密度信息场景：英文会议 → 录音 → 查证术语 → 写纪要 → 跟进任务。四端协同，浏览器收口。</p>
+
+    <div class="persona-strip">
+      <div class="persona-avatar">👩‍💻</div>
+      <div class="meta">
+        <div class="name">小 L · 28 岁 · 互联网大厂产品经理</div>
+        <div class="desc">每周 2-3 个跨国对接会，全英文，会议纪要要发邮件给海外团队，自己中文记忆，输出双语</div>
+      </div>
+      <span class="tag">白领 PM</span>
+    </div>
+
+    <div class="story-header">
+      <div class="story-num">②</div>
+      <div class="story-h">
+        <h3>周四上午 10 点 · 与新加坡设计团队评审新版本</h3>
+        <div class="sub">会上听不懂的术语想立刻查；会后要写双语纪要并把跟进项排进日历，账号不通的时候这就是一场灾难。</div>
+      </div>
+    </div>
+
+    <div class="flow-bar">
+      <span class="label">资产流：</span>
+      <span class="pill">🎙️ 录音笔</span><span class="arr">→</span>
+      <span class="pill">🌍 翻译</span><span class="arr">→</span>
+      <span class="pill anchor">🌐 浏览器（纪要）</span><span class="arr">→</span>
+      <span class="pill">📅 日历（跟进任务）</span>
+    </div>
+
+    <!-- screen 2.1 -->
+    <div class="screen">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 1</span><span class="title">会上录音 + 实时同传 + 术语标记</span></div>
+        <span class="endpoint">🎙️ 元宝录音笔（手机端）</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>开普通录音 App，会后 1h 录音不知从何下手</h5>
+          <ul>
+            <li>听到「embodied agent」一懵，想查不敢打断会议</li>
+            <li>会后要重听 1 小时录音定位关键句</li>
+            <li>录音文件存在手机里，电脑端没有</li>
+          </ul>
+          <p class="quote">"他刚才那个词是 embedded 还是 embodied？……"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>录音笔实时转双语 + AI 自动标关键词 + 翻译能力随时召唤</h5>
+          <ul>
+            <li>左边英文原文实时显示，右边中文同传，<strong>翻译能力是底座，不是另一个 App</strong></li>
+            <li>听到生词 → 长按转写文字 → 翻译卡片浮窗 + 同时<strong>自动收藏到资产 · 笔记</strong></li>
+            <li>录音、转写、关键词标记，全部<strong>挂在 YuanbaoID 下，电脑端浏览器立刻能开</strong></li>
+          </ul>
+          <p class="quote">"会议结束的瞬间，我已经有了一份带时间戳的双语纪要稿。"</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产产生：</span>
+        <span class="asset-tag at-talk">💬 会议对话</span>
+        <span class="asset-tag at-note">📝 术语笔记</span>
+        <span class="id-flow"><strong>YuanbaoID</strong> 写入 → Hub</span>
+      </div>
+    </div>
+
+    <!-- screen 2.2 -->
+    <div class="screen" style="margin-top:20px;">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 2</span><span class="title">回到工位 → 浏览器打开 → 一键生成双语纪要</span></div>
+        <span class="endpoint">🌐 元宝浏览器 · 资产中枢</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>录音文件传到电脑要 AirDrop / 微信文件传输助手</h5>
+          <ul>
+            <li>文件大传输慢；传过来再扔到第三方转写工具</li>
+            <li>转写出来的文字没结构，得自己抓重点重写</li>
+            <li>双语纪要要逐段翻译，又是一遍体力活</li>
+          </ul>
+          <p class="quote">"这录音 200MB 传不动，要不打开网盘？……"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>浏览器侧栏「最近资产」自动出现刚才的会议</h5>
+          <ul>
+            <li>点击 → 直接进资产详情页：转写 / 双语 / 关键词 / 提到的链接全在</li>
+            <li>右上角「✨ 生成纪要」→ 自动按 Decision / Action / Question 三栏组织</li>
+            <li>纪要里所有<strong>提到的术语都自动 hover 显示翻译</strong>，发邮件直接 Cmd+C 整页粘贴</li>
+          </ul>
+          <p class="quote">"会议结束 → 浏览器 → 纪要写完，10 分钟。"</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产消费 + 沉淀：</span>
+        <span class="asset-tag at-talk">💬 对话→</span>
+        <span class="asset-tag at-note">📝 纪要</span>
+        <span class="id-flow"><strong>同 YuanbaoID</strong> · 设备无关</span>
+      </div>
+    </div>
+
+    <!-- screen 2.3 -->
+    <div class="screen" style="margin-top:20px;">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 3</span><span class="title">纪要里的 Action Items → 一键拆进日历跟进</span></div>
+        <span class="endpoint">📅 元宝日历</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>纪要发出去 = 任务消失</h5>
+          <ul>
+            <li>跟进项要手动一条条建日历提醒</li>
+            <li>日历里只有事件名，回头不知道这事 follow-up 自哪个会</li>
+            <li>下次会前问"上次 action 进展" → 翻聊天记录</li>
+          </ul>
+          <p class="quote">"咦上次这事我说要做什么来着？……"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>纪要里每条 Action 旁的「📅 加日历」按钮</h5>
+          <ul>
+            <li>一键创建日历事件，自动带<strong>原会议链接 + 摘要</strong>，事件就是任务资产</li>
+            <li>日历事件点开 → 直接跳浏览器对应纪要那一段，<strong>跨端深链</strong></li>
+            <li>下次会前打开日历 → 看到 follow-up → 顺着链一秒回到上下文</li>
+          </ul>
+          <p class="quote">"任务不再是孤岛，是一条能往回追的链。"</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产沉淀：</span>
+        <span class="asset-tag at-task">✅ 跟进任务</span>
+        <span class="asset-tag at-note">📝 纪要（关联）</span>
+        <span class="id-flow"><strong>跨端深链</strong> · Asset Hub 中转</span>
+      </div>
+    </div>
+
+    <div class="story-outcome">
+      <div class="row"><span class="k">📍 闭环锚点</span><span class="v">浏览器 — 录音的归宿是浏览器纪要，纪要又把任务派到日历，日历回链浏览器</span></div>
+      <div class="row"><span class="k">⏱️ 时间对照</span><span class="v">打通前 90 min（重听 + 翻译 + 整理 + 排日历）→ 打通后 15 min</span></div>
+      <div class="row"><span class="k">🔑 关键体感</span><span class="v">"我没在记笔记，但我有了纪要。"</span></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- STORY 3 -->
+  <!-- ============================================ -->
+  <section id="s3">
+    <h2 class="section-title"><span class="num">03</span> 故事③ 周末出行筹备</h2>
+    <p class="section-lead">切到学生党画像：同样的底座，跨人群的丝滑感。浏览器起头，浏览器收尾分享。</p>
+
+    <div class="persona-strip">
+      <div class="persona-avatar">🎒</div>
+      <div class="meta">
+        <div class="name">小 W · 22 岁 · 大三学生</div>
+        <div class="desc">手机重度用户，电脑只在宿舍偶尔开；和室友约去南京玩，要查攻略 / 订车票 / 排行程 / 晒朋友圈</div>
+      </div>
+      <span class="tag">学生党</span>
+    </div>
+
+    <div class="story-header">
+      <div class="story-num">③</div>
+      <div class="story-h">
+        <h3>周三晚 9 点 · 宿舍躺床上刷小红书 + 计划周末出游</h3>
+        <div class="sub">攻略散在 8 个标签页，车票截图在相册深处，行程在备忘录，分享只能干巴巴发链接 — 直到账号通了。</div>
+      </div>
+    </div>
+
+    <div class="flow-bar">
+      <span class="label">资产流：</span>
+      <span class="pill anchor">🌐 浏览器</span><span class="arr">→</span>
+      <span class="pill">📂 文件管家</span><span class="arr">→</span>
+      <span class="pill">📅 日历</span><span class="arr">→</span>
+      <span class="pill">⌨️ 输入法</span><span class="arr">→</span>
+      <span class="pill anchor">🌐 浏览器（分享）</span>
+    </div>
+
+    <!-- screen 3.1 -->
+    <div class="screen">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 1</span><span class="title">浏览器收藏攻略 → 文件管家自动归档车票/酒店</span></div>
+        <span class="endpoint">🌐 浏览器 + 📂 文件管家</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>攻略 8 个 tab，截图扔相册，PDF 散落下载文件夹</h5>
+          <ul>
+            <li>"那个网红咖啡店笔记我截图了，但相册 5000 张找不到"</li>
+            <li>12306 订完车票 → 手动下载 PDF → 不知道丢哪儿</li>
+            <li>酒店预订邮件躺在邮箱，要时找不到</li>
+          </ul>
+          <p class="quote">"图呢？我截过一张啊……"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>所有"出行相关"自动聚在一个智能合集</h5>
+          <ul>
+            <li>浏览器收藏攻略时打"#南京周末" tag → 文件管家<strong>识别同 tag 自动收车票/酒店 PDF</strong></li>
+            <li>从 12306 下载的车票 → <strong>同账号下文件管家自动入库</strong>，并归到「南京周末」合集</li>
+            <li>所有资产都挂 YuanbaoID，宿舍手机存 → 路上 iPad 立刻看见</li>
+          </ul>
+          <p class="quote">"哦那东西在合集里。" — 找东西从此 0 秒。</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产产生：</span>
+        <span class="asset-tag at-link">🔗 攻略链接 ×8</span>
+        <span class="asset-tag at-file">📎 车票/酒店 PDF</span>
+        <span class="id-flow"><strong>YuanbaoID</strong> · #南京周末 智能合集</span>
+      </div>
+    </div>
+
+    <!-- screen 3.2 -->
+    <div class="screen" style="margin-top:20px;">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 2</span><span class="title">合集里一键生成行程 → 排进日历</span></div>
+        <span class="endpoint">📂 文件管家 · 合集 → 📅 日历</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>备忘录手敲行程，时间冲突全凭脑补</h5>
+          <ul>
+            <li>什么时候到、什么时候 check-in、几点吃饭，全靠脑子</li>
+            <li>室友问"几点出发" → 翻聊天记录翻车票翻 5 次</li>
+            <li>到现场临时想看车票 → 截图翻不到 → 现场买票</li>
+          </ul>
+          <p class="quote">"等下，几点的车？我截一下……"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>合集里点「✨ 生成行程」→ AI 读懂车票/酒店/攻略</h5>
+          <ul>
+            <li>自动按时间轴排出 Day 1 / Day 2，每个事件挂着对应资产链接</li>
+            <li>一键<strong>排进元宝日历</strong>，到点提醒"该出发去南京站了，车票在合集 → 一键打开"</li>
+            <li>日历事件点击直接显示原始攻略 / 车票 PDF / 酒店地址，<strong>不用切 5 个 App</strong></li>
+          </ul>
+          <p class="quote">"完整行程，2 分钟。"</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产派生：</span>
+        <span class="asset-tag at-task">✅ 行程任务 ×6</span>
+        <span class="asset-tag at-file">📎 ↔ 资产引用</span>
+        <span class="id-flow">合集→日历 · <strong>同 ID 跨端深链</strong></span>
+      </div>
+    </div>
+
+    <!-- screen 3.3 -->
+    <div class="screen" style="margin-top:20px;">
+      <div class="screen-head">
+        <div><span class="step-no">STEP 3</span><span class="title">回程 → 输入法分享朋友圈 + 浏览器导出游记</span></div>
+        <span class="endpoint">⌨️ 输入法（朋友圈）+ 🌐 浏览器（游记页）</span>
+      </div>
+      <div class="compare">
+        <div class="before">
+          <span class="label-before">❌ 打通前</span>
+          <h5>朋友圈干巴巴一句"南京真好" + 9 张图</h5>
+          <ul>
+            <li>想推荐那家咖啡店 → 链接找不到 → 算了不发</li>
+            <li>想给学妹整理一份"南京 2 日攻略" → 重新写一遍 → 累死</li>
+            <li>下次想再去 → 上次的笔记完全消失</li>
+          </ul>
+          <p class="quote">"算了懒得整理了。"</p>
+        </div>
+        <div class="after">
+          <span class="label-after">✅ 打通后</span>
+          <h5>朋友圈输入法呼出「@刚才的合集」→ 智能精选 3 个亮点</h5>
+          <ul>
+            <li>输入法直接读 Asset Hub 里的"#南京周末"，自动生成"3 句话推荐"+ 链接卡片</li>
+            <li>浏览器一键「✨ 整理为游记」→ 攻略+照片+行程自动排版成可分享网页</li>
+            <li>游记本身又作为新资产沉淀，<strong>下次有人问"南京怎么玩"直接 @自己的游记</strong></li>
+          </ul>
+          <p class="quote">"懒人版小红书博主，上线。"</p>
+        </div>
+      </div>
+      <div class="asset-row">
+        <span class="label">资产沉淀：</span>
+        <span class="asset-tag at-note">📝 游记笔记</span>
+        <span class="asset-tag at-link">🔗 分享链接</span>
+        <span class="id-flow">闭环回 <strong>浏览器</strong> · Asset Hub 资产 +1</span>
+      </div>
+    </div>
+
+    <div class="story-outcome">
+      <div class="row"><span class="k">📍 闭环锚点</span><span class="v">浏览器 — 起点是浏览器查攻略，终点是浏览器游记，朋友圈分享指回浏览器</span></div>
+      <div class="row"><span class="k">⏱️ 时间对照</span><span class="v">打通前出游筹备 + 复盘 ~5h（找东西 80% 时间）→ 打通后 1.5h</span></div>
+      <div class="row"><span class="k">🔑 关键体感</span><span class="v">"我没攒攻略，是攻略在攒我。"</span></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- TAKEAWAY -->
+  <!-- ============================================ -->
+  <section id="takeaway">
+    <h2 class="section-title"><span class="num">04</span> 三个故事的共同脊柱</h2>
+    <p class="section-lead">不同人群、不同场景，同一套底座规律。剥开故事壳，能看到三件确定的事。</p>
+
+    <table class="cov" style="text-align:left;">
+      <thead>
+        <tr>
+          <th class="left" style="width:140px;">脊柱</th>
+          <th style="text-align:left;">故事①  追热点</th>
+          <th style="text-align:left;">故事②  会议复盘</th>
+          <th style="text-align:left;">故事③  出行筹备</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left">起点 = 看到</td>
+          <td>浏览器看到论文</td>
+          <td>录音笔录到对话</td>
+          <td>浏览器刷到攻略</td>
+        </tr>
+        <tr>
+          <td class="left">中段 = 加工</td>
+          <td>输入法 + 翻译 协同</td>
+          <td>翻译 + 浏览器 整合</td>
+          <td>文件管家 + 日历 编排</td>
+        </tr>
+        <tr>
+          <td class="left">终点 = 沉淀</td>
+          <td>浏览器笔记（选题文档）</td>
+          <td>浏览器纪要 + 日历任务</td>
+          <td>浏览器游记 + 朋友圈分享</td>
+        </tr>
+        <tr>
+          <td class="left">穿线 = ID</td>
+          <td>YuanbaoID 透传</td>
+          <td>YuanbaoID 透传</td>
+          <td>YuanbaoID 透传</td>
+        </tr>
+        <tr>
+          <td class="left">枢纽 = Hub</td>
+          <td>链接 → 笔记 → 引用</td>
+          <td>对话 → 纪要 → 任务</td>
+          <td>链接 + 文件 → 任务 → 笔记</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="closing">
+      <h3>🎯 三句话总结</h3>
+      <p class="stmt">① <strong>账号是地基</strong>：用户感知不到 ID，但没有 ID 就没有"接得上"。</p>
+      <p class="stmt">② <strong>资产是货币</strong>：5 类资产在 6 端之间流动，每流动一次价值翻一倍。</p>
+      <p class="stmt">③ <strong>浏览器是枢纽</strong>：所有故事的起点或终点都在浏览器 — 这是元宝矩阵的"主战场"。</p>
+
+      <p style="margin-top:16px;color:#555;">
+        <strong>对外一句话</strong>：「在元宝矩阵里，<span style="background:#FFE8CC;padding:2px 6px;border-radius:3px;">你不是在用 6 个 App，你是在用 1 个底座的 6 个表达</span>。」
+      </p>
+    </div>
+
+    <div class="signoff">— Layna · 元宝矩阵 · 2026-06-15 · v1</div>
+  </section>
+
+</div>
+</body>
+</html>
