@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本东京周边7日亲子行程 | 3大2小 · 7月底-8月初</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); color: white; border-radius: 20px; padding: 40px 36px; margin-bottom: 20px; position: relative; overflow: hidden; }
+.hero::after { content: "富士山"; position: absolute; right: 30px; bottom: -10px; font-size: 120px; opacity: 0.05; font-weight: 900; }
+.hero h1 { font-size: 28px; margin-bottom: 8px; letter-spacing: 1px; }
+.hero .subtitle { font-size: 14px; opacity: 0.8; margin-bottom: 16px; }
+.hero .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero .tag { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 13px; }
+.hero .summary-bar { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+.hero .summary-item { text-align: center; }
+.hero .summary-item .num { font-size: 22px; font-weight: 800; color: #e94560; }
+.hero .summary-item .label { font-size: 12px; opacity: 0.7; }
+
+/* Section */
+.section { background: white; border-radius: 16px; padding: 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.section h2 { font-size: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; }
+.section h3 { font-size: 16px; margin: 18px 0 10px; color: #16213e; }
+
+/* Alert box */
+.alert { border-radius: 12px; padding: 16px 20px; margin: 12px 0; font-size: 13px; line-height: 1.8; }
+.alert-free { background: #e8f5e9; border-left: 4px solid #4caf50; }
+.alert-warn { background: #fff3e0; border-left: 4px solid #ff9800; }
+.alert-info { background: #e3f2fd; border-left: 4px solid #2196f3; }
+.alert-tip { background: #fce4ec; border-left: 4px solid #e91e63; }
+.alert b { font-weight: 700; }
+
+/* Day card */
+.day-card { border: 2px solid #e8e8e8; border-radius: 14px; overflow: hidden; margin-bottom: 20px; }
+.day-header { padding: 16px 20px; color: white; display: flex; align-items: center; gap: 12px; }
+.day-header .day-num { font-size: 28px; font-weight: 900; opacity: 0.3; }
+.day-header .day-title { font-size: 16px; font-weight: 700; }
+.day-header .day-sub { font-size: 13px; opacity: 0.8; }
+.day-body { padding: 20px; }
+
+/* Day colors */
+.d1 .day-header { background: linear-gradient(135deg, #e63946, #c1121f); }
+.d2 .day-header { background: linear-gradient(135deg, #457b9d, #1d3557); }
+.d3 .day-header { background: linear-gradient(135deg, #2a9d8f, #264653); }
+.d4 .day-header { background: linear-gradient(135deg, #e76f51, #b5651d); }
+.d5 .day-header { background: linear-gradient(135deg, #6a4c93, #4a235a); }
+.d6 .day-header { background: linear-gradient(135deg, #06a77d, #047857); }
+.d7 .day-header { background: linear-gradient(135deg, #5b8def, #3a5bb5); }
+
+/* Time block */
+.time-block { margin-bottom: 16px; padding: 12px 16px; background: #f8f9fa; border-radius: 10px; border-left: 3px solid #ddd; }
+.time-block.morning { border-left-color: #ffa726; }
+.time-block.afternoon { border-left-color: #42a5f5; }
+.time-block.evening { border-left-color: #7e57c2; }
+.time-block .time-label { font-size: 12px; font-weight: 700; color: #888; margin-bottom: 4px; }
+.time-block .activity { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.time-block .detail { font-size: 13px; color: #555; line-height: 1.8; }
+.time-block .detail .price { color: #e63946; font-weight: 700; }
+.time-block .detail .free { color: #4caf50; font-weight: 700; }
+.time-block .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.badge-ticket { background: #e3f2fd; color: #1565c0; }
+.badge-transport { background: #fff3e0; color: #e65100; }
+.badge-tip { background: #fce4ec; color: #c62828; }
+.badge-food { background: #e8f5e9; color: #2e7d32; }
+.badge-free { background: #e8f5e9; color: #2e7d32; }
+
+/* Cost table */
+.cost-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.cost-table th { background: #16213e; color: white; padding: 10px 12px; text-align: left; font-weight: 600; }
+.cost-table td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+.cost-table tr:nth-child(even) td { background: #f9f9fb; }
+.cost-table .total-row td { background: #e8f5e9; font-weight: 700; font-size: 15px; border-top: 2px solid #4caf50; }
+.cost-table .highlight { color: #e63946; font-weight: 700; }
+.cost-table .free-tag { color: #4caf50; font-weight: 700; }
+
+/* Summary cards */
+.cost-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+.cost-card { border-radius: 12px; padding: 16px; color: white; text-align: center; }
+.cost-card .amount { font-size: 24px; font-weight: 800; }
+.cost-card .desc { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+.cc-1 { background: linear-gradient(135deg, #e63946, #c1121f); }
+.cc-2 { background: linear-gradient(135deg, #457b9d, #1d3557); }
+.cc-3 { background: linear-gradient(135deg, #2a9d8f, #264653); }
+.cc-4 { background: linear-gradient(135deg, #e76f51, #b5651d); }
+.cc-5 { background: linear-gradient(135deg, #6a4c93, #4a235a); }
+.cc-total { background: linear-gradient(135deg, #1a1a2e, #16213e); grid-column: 1 / -1; }
+.cc-total .amount { font-size: 32px; }
+
+/* Ticket table */
+.ticket-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 12px 0; }
+.ticket-table th { background: #0f3460; color: white; padding: 8px 10px; text-align: left; white-space: nowrap; }
+.ticket-table td { padding: 8px 10px; border-bottom: 1px solid #eee; }
+.ticket-table tr:nth-child(even) td { background: #f9f9fb; }
+.ticket-table .buy-link { color: #1565c0; text-decoration: none; font-weight: 600; }
+.ticket-table .buy-link:hover { text-decoration: underline; }
+.ticket-table .free { color: #4caf50; font-weight: 700; }
+
+/* Tips grid */
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin: 12px 0; }
+.tip-card { background: #f8f9fa; border-radius: 10px; padding: 14px; border: 1px solid #e0e0e0; }
+.tip-card .tip-icon { font-size: 20px; margin-bottom: 6px; }
+.tip-card .tip-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: #16213e; }
+.tip-card .tip-text { font-size: 12px; color: #666; line-height: 1.7; }
+
+/* Packing list */
+.packing-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin: 12px 0; }
+.packing-category { background: #f8f9fa; border-radius: 10px; padding: 14px; }
+.packing-category h4 { font-size: 14px; margin-bottom: 8px; color: #16213e; }
+.packing-category ul { list-style: none; font-size: 12px; }
+.packing-category li { padding: 3px 0; padding-left: 18px; position: relative; }
+.packing-category li::before { content: "✓"; position: absolute; left: 0; color: #4caf50; font-weight: 700; }
+
+/* Pass comparison */
+.pass-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin: 12px 0; }
+.pass-card { border: 2px solid #e0e0e0; border-radius: 12px; padding: 16px; }
+.pass-card.recommended { border-color: #4caf50; background: #f0fdf4; }
+.pass-card .pass-name { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.pass-card .pass-price { font-size: 20px; font-weight: 800; color: #e63946; margin-bottom: 8px; }
+.pass-card .pass-desc { font-size: 12px; color: #555; line-height: 1.7; margin-bottom: 8px; }
+.pass-card .pass-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.pass-tag-rec { background: #4caf50; color: white; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container { padding: 8px; }
+  .hero { padding: 24px 16px; }
+  .hero h1 { font-size: 22px; }
+  .section { padding: 16px; }
+  .ticket-table, .cost-table { font-size: 11px; }
+  .ticket-table th, .ticket-table td, .cost-table th, .cost-table td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <h1>🇯🇵 日本东京+周边7日亲子行程</h1>
+  <div class="subtitle">7月底-8月初 · 3成人 + 2幼儿(3岁/1.5岁) · 首次赴日家庭 · 儿童友好慢节奏</div>
+  <div class="tags">
+    <span class="tag">东京市区 3晚</span>
+    <span class="tag">箱根温泉 2晚</span>
+    <span class="tag">伊豆海边 1晚</span>
+    <span class="tag">镰仓当日往返</span>
+    <span class="tag">两娃均免交通费</span>
+  </div>
+  <div class="summary-bar">
+    <div class="summary-item"><div class="num">7天</div><div class="label">行程天数</div></div>
+    <div class="summary-item"><div class="num">4城</div><div class="label">东京·镰仓·箱根·伊豆</div></div>
+    <div class="summary-item"><div class="num">¥0</div><div class="label">两娃交通费</div></div>
+    <div class="summary-item"><div class="num">~¥13,000</div><div class="label">人均总花费(RMB)</div></div>
+  </div>
+</div>
+
+<!-- ===== 日本儿童票价规则 ===== -->
+<div class="section">
+  <h2>🎫 核心须知：日本儿童交通&门票规则（省钱关键！）</h2>
+  <div class="alert alert-free">
+    <b>🚄 交通规则（JR/地铁/巴士/新干线通用）：</b><br>
+    • <b>0-5岁（幼児・乳児）：完全免费！</b>不占座免费，每位成人可免费携带2名幼儿<br>
+    • 你们有3位成人 → 可免费携带<b>最多6名幼儿</b>，2个娃完全免费！<br>
+    • 6-11岁：半价（儿童票）<br>
+    • 12岁以上：成人票价<br>
+    • <b>结论：3岁和1.5岁两个宝宝，全程JR/地铁/巴士/新干线交通费 = ¥0</b>
+  </div>
+  <div class="alert alert-info">
+    <b>🏛️ 景点门票规则：</b><br>
+    • 上野动物园：0-12岁 <span class="free-tag" style="color:#4caf50;font-weight:700">免费</span><br>
+    • teamLab Planets：0-3岁 <span style="color:#4caf50;font-weight:700">免费</span>（3岁宝宝正好免费！）<br>
+    • 东京迪士尼：0-3岁 <span style="color:#4caf50;font-weight:700">免费</span><br>
+    • 箱根雕刻之森美术馆：学龄前 <span style="color:#4caf50;font-weight:700">免费</span><br>
+    • 伊豆仙人掌动物园：0-3岁 <span style="color:#4caf50;font-weight:700">免费</span><br>
+    • 大室山缆车：0-5岁 <span style="color:#4caf50;font-weight:700">免费</span><br>
+    • <b>结论：两个宝宝几乎所有景点门票 = ¥0，只需买3张成人票！</b>
+  </div>
+</div>
+
+<!-- ===== 签证&出发前 ===== -->
+<div class="section">
+  <h2>📋 出发前准备清单</h2>
+  <div class="alert alert-warn">
+    <b>⚠️ 签证（最优先！）：</b>中国公民赴日需办理旅游签证，须通过指定旅行社代办，不可个人直接申请。<br>
+    • <b>办理时间：</b>5-7个工作日（旺季可能延长至10-15天），建议<b>提前1个月</b>办理<br>
+    • <b>费用：</b>单次签证领馆费150元/人（2025年现行），7月1日起可能涨价至约630元/人（15,000日元），请向代办旅行社确认最新费用<br>
+    • <b>所需材料：</b>护照（6个月以上有效期）、签证申请表、身份证复印件、户口本复印件、在职证明、银行流水/存款证明、机票酒店预订单<br>
+    • <b>5人总费用估算：</b>约1,500-3,000元（含代办费，视签证费新政策）
+  </div>
+  <div class="alert alert-info">
+    <b>📱 必装APP：</b><br>
+    • <b>Google Maps</b> - 日本导航神器，精确到站台和出口编号<br>
+    • <b>乘换案内</b>（Navitime/Yahoo乘换）- 日本电车时刻表查询<br>
+    • <b>Google Translate</b> - 拍照翻译日文菜单和标识<br>
+    • <b>Klook / KKday</b> - 购买景点门票和交通票券<br>
+    • <b>Suica</b>（Apple Wallet直接添加）- 电子交通卡，刷手机乘车
+  </div>
+  <div class="alert alert-tip">
+    <b>💳 支付准备：</b><br>
+    • 在Apple Wallet添加<b>Suica电子卡</b>，充值后直接刷手机坐地铁/巴士/便利店，<b>免买实体卡</b><br>
+    • 带一张<b>Visa/Master信用卡</b>（部分餐厅/景点仅收现金）<br>
+    • 换<span style="font-weight:700;color:#e63946">5-8万日元现金</span>备用（小店/自动售票机/部分餐厅只收现金）<br>
+    • 微信/支付宝在大型商场和药妆店可用，但覆盖率不如国内
+  </div>
+</div>
+
+<!-- ===== DAY 1 ===== -->
+<div class="day-card d1">
+  <div class="day-header">
+    <div class="day-num">01</div>
+    <div>
+      <div class="day-title">抵达东京 · 浅草寺文化适应日</div>
+      <div class="day-sub">关键词：到达、倒时差、浅草寺、上野动物园 | 住宿：上野/浅草区域</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · 抵达与入住</div>
+      <div class="activity">成田/羽田机场 → 东京市区酒店</div>
+      <div class="detail">
+        <span class="badge badge-transport">交通</span>
+        <b>推荐方案A - N'EX成田特快（外国人优惠）</b><br>
+        成田机场 → 上野站，约60分钟<br>
+        票价：<span class="price">成人5,000日元往返</span>（单程票3,070日元，外国人往返套票仅5,000日元，超划算）<br>
+        儿童票6-11岁：2,500日元 | <span class="free">两娃免费</span><br>
+        全家3成人：<span class="price">15,000日元（≈750元）</span><br>
+        <b>购买渠道：</b>成田机场JR售票处出示护照 / <a href="https://www.jreast.co.jp" style="color:#1565c0">JR东日本官网</a> / Klook<br><br>
+
+        <b>推荐方案B - Skyliner京成电铁</b>（更快，到上野仅41分钟）<br>
+        成人单程2,720日元 | 全家3人单程：<span class="price">8,160日元（≈408元）</span><br>
+        <b>购买渠道：</b>Klook / 京成电铁官网 / 机场售票机<br><br>
+
+        <b>推荐方案C - 利木津巴士</b>（直达酒店，适合行李多）<br>
+        成人3,600日元到新宿 | <span class="free">两娃免费（不占座）</span> | 全家：<span class="price">10,800日元</span>
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · 浅草寺仲见世通</div>
+      <div class="activity">浅草寺 · 雷门 · 仲见世商店街</div>
+      <div class="detail">
+        <span class="badge badge-free">免费</span>
+        浅草寺门票：<span class="free">免费</span><br>
+        从上野乘地铁银座线到浅草站约5分钟，Suica刷卡 <span class="price">180日元/人</span>，<span class="free">两娃免费</span><br>
+        • <b>雷门</b>拍照打卡 → <b>仲见世商店街</b>逛和风小玩具、棉花糖、人形烧<br>
+        • 全程平地，婴儿车可推行，适合刚到日本适应节奏<br>
+        • 推荐<b>浅草今半</b>亲子日式定食 / <b>梅园</b>甜品（铜锣烧小朋友最爱）<br>
+        <span class="badge badge-tip">提示</span>避开主殿拥挤人群，沿仲见世商店街慢慢走就好
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 上野公园散步</div>
+      <div class="activity">上野公园 · 不忍池</div>
+      <div class="detail">
+        <span class="badge badge-free">免费</span>
+        上野公园门票：<span class="free">免费</span><br>
+        从浅草步行/地铁回上野，公园散步看夜景，便利店采购早餐和零食<br>
+        早睡倒时差，为明天储备体力
+      </div>
+    </div>
+
+    <div class="alert alert-tip" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>交通N'EX往返15,000 + 地铁540 + 浅草寺0 + 餐饮约6,000 = <b>约21,540日元（≈1,077元，3成人）</b><br>
+      <b>🏨 住宿建议：</b>上野/浅草区域，交通便利、餐饮密集、到机场直达。推荐上野三井花园饭店/浅草View饭店，约8,000-12,000日元/晚
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 2 ===== -->
+<div class="day-card d2">
+  <div class="day-header">
+    <div class="day-num">02</div>
+    <div>
+      <div class="day-title">东京市区 · 动物园+沉浸艺术体验</div>
+      <div class="day-sub">关键词：上野动物园、teamLab Planets、台场海滨 | 住宿：同上</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · 上野动物园（熊猫+小动物）</div>
+      <div class="activity">上野动物园</div>
+      <div class="detail">
+        <span class="badge badge-ticket">门票</span>
+        成人600日元 | <span class="free">0-12岁免费！两娃全免</span><br>
+        全家3成人：<span class="price">1,800日元（≈90元）</span><br>
+        <b>购票渠道：</b>现场售票窗口 / 官网预约（高峰期建议预约）<br>
+        开放时间：9:30-17:00（周一休园）<br>
+        • 园内有<b>大熊猫</b>、小熊猫、企鹅、长颈鹿等420种动物<br>
+        • 步道平缓，推车友好，西园有大型草坪可跑跳放电<br>
+        • <b>自然馆</b>和<b>小哺乳动物之家</b>开放到16:15<br>
+        <span class="badge badge-tip">提示</span>建议9:30开门即入场，避开旅行团高峰
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · teamLab Planets 沉浸式数字艺术</div>
+      <div class="activity">丰洲 teamLab Planets TOKYO</div>
+      <div class="detail">
+        <span class="badge badge-ticket">门票</span>
+        成人3,600-4,200日元（动态定价，平日便宜） | 儿童(4-12)1,500日元 | <span class="free">0-3岁免费！两娃全免</span><br>
+        全家3成人：<span class="price">约12,000日元（≈600元）</span><br>
+        <b>购买渠道：</b><a href="https://www.klook.com" style="color:#1565c0">Klook</a>（有折扣）/ <a href="https://teamlab.planets" style="color:#1565c0">官网</a>（需选时间段）/ KKday<br>
+        <b>务必提前购票！</b>现场不售票，热门时段经常满<br>
+        从上野乘地铁日比谷线→丰洲站约25分钟，Suica <span class="price">280日元/人</span><br><br>
+        • <b>日本独有的沉浸式体验</b>：赤脚走入及膝水池、花与人的花园、水晶宇宙<br>
+        • <b>3岁宝宝会超兴奋</b>：踩水、追光影、在花丛中奔跑<br>
+        • 全程约1.5-2小时，有储物柜（免费存鞋和行李）<br>
+        <span class="badge badge-tip">提示</span>穿方便脱穿的鞋，带替换衣物（涉水区会弄湿）
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 台场海滨公园</div>
+      <div class="activity">台场海滨公园 · 自由女神像 · 高达像</div>
+      <div class="detail">
+        <span class="badge badge-free">免费</span>
+        门票：<span class="free">免费</span><br>
+        从丰洲乘百合海鸥线→台场海滨公园站约15分钟<br>
+        • 东京都内<b>唯一的沙滩</b>，小朋友可以挖沙玩水<br>
+        • 看彩虹大桥夜景、1:1高达立像<br>
+        • 台场DiverCity商场有儿童楼层和亲子餐厅<br>
+        晚餐推荐：台场拉面国技馆 / AQUA CITY 亲子餐厅
+      </div>
+    </div>
+
+    <div class="alert alert-info" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>地铁约1,500 + 动物园1,800 + teamLab约12,000 + 餐饮约6,000 = <b>约21,300日元（≈1,065元，3成人）</b><br>
+      <b>🔄 备选方案：</b>如果想去迪士尼，今天改为<b>东京迪士尼乐园</b>全天。门票成人7,900-9,400日元，0-3岁<b>免费</b>，全家约25,800日元（≈1,290元）。推荐选工作日去人少。
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 3 ===== -->
+<div class="day-card d3">
+  <div class="day-header">
+    <div class="day-num">03</div>
+    <div>
+      <div class="day-title">镰仓·江之岛一日游（当日往返东京）</div>
+      <div class="day-sub">关键词：江之电复古列车、七里滨沙滩、新江之岛水族馆 | 住宿：同上</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · JR前往镰仓 + 江之电</div>
+      <div class="activity">东京 → 镰仓 · 乘坐复古江之电</div>
+      <div class="detail">
+        <span class="badge badge-transport">交通</span>
+        <b>路线：</b>上野站 →（JR山手线/湘南新宿线）→ 镰仓站，约60-80分钟<br>
+        JR票价：<span class="price">成人920日元单程</span> | <span class="free">两娃免费</span> | 往返3人：<span class="price">5,520日元</span><br><br>
+
+        <b>江之电一日券「のりおりくん」</b><br>
+        成人800日元 | 儿童400日元 | <span class="free">两娃免费</span> | 全家3人：<span class="price">2,400日元</span><br>
+        <b>购买渠道：</b>江之电各站售票机 / <a href="https://emot-odakyu.jp" style="color:#1565c0">EMot在线购票</a><br>
+        • 当日无限次乘坐江之电全线，4次以上即回本<br>
+        • 沿线20+设施可享优惠折扣<br><br>
+
+        • 坐绿色复古电车沿海岸线行驶，<b>3岁宝宝会超爱观光列车</b><br>
+        • <b>镰仓高校前站</b>下车，看《灌篮高手》经典路口（大人拍照、小孩看海）<br>
+        • <b>七里滨站</b>下车，平缓浅滩沙滩，挖沙玩水（自带工具）
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · 新江之岛水族馆</div>
+      <div class="activity">新江之岛水族馆</div>
+      <div class="detail">
+        <span class="badge badge-ticket">门票</span>
+        成人2,800日元 | <b>Klook折扣价约2,500日元</b> | 3岁宝宝可能需儿童票约1,000日元 | 1.5岁免费<br>
+        全家3成人+1儿童：<span class="price">约8,500日元（≈425元，Klook价）</span><br>
+        <b>购买渠道：</b><a href="https://www.klook.com" style="color:#1565c0">Klook</a>（最便宜，约7折）/ KKday / 现场售票<br>
+        开放时间：9:00-17:00（3-11月）<br><br>
+        • <b>相模湾大水槽</b>重现海洋生态，可看到富士山与水槽同框<br>
+        • <b>水母梦幻空间</b>，灯光梦幻适合拍照<br>
+        • <b>亚洲小爪水獭和水豚</b>，小朋友最喜欢<br>
+        • 有<b>触摸池</b>可以摸海星和海参<br>
+        • 从水族馆可以眺望富士山和湘南海岸
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 江之岛散策 + 返回东京</div>
+      <div class="activity">江之岛沿海散步 · 海鲜简餐</div>
+      <div class="detail">
+        • 江之岛平缓沿海小路散步（跳过大佛和八幡宫的大量台阶）<br>
+        • <b>江之岛エスカー</b>（自动扶梯）上山，成人500日元，<span class="free">两娃免费</span><br>
+        • <b>江之岛灯塔</b>（Sea Candle）看落日，成人800日元<br>
+        • 海边海鲜简餐：しらす丼（小银鱼盖饭）是当地名物<br>
+        • 18:00左右乘JR返回上野
+      </div>
+    </div>
+
+    <div class="alert alert-tip" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>JR往返5,520 + 江之电2,400 + 水族馆8,500 + エスカー1,500 + 餐饮约5,000 = <b>约22,920日元（≈1,146元，3成人+1儿童）</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 4 ===== -->
+<div class="day-card d4">
+  <div class="day-header">
+    <div class="day-num">04</div>
+    <div>
+      <div class="day-title">东京 → 箱根 · 入住温泉酒店</div>
+      <div class="day-sub">关键词：小田急浪漫特快、箱根周游券、雕刻之森美术馆、私汤温泉 | 住宿：箱根温泉酒店</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · 出发前往箱根</div>
+      <div class="activity">新宿 → 箱根汤本 · 浪漫特快</div>
+      <div class="detail">
+        <span class="badge badge-transport">交通</span>
+        <b>🏆 推荐购买：箱根周游券（Hakone Free Pass）2日券</b><br>
+        从新宿出发：成人6,100日元 | 儿童1,100日元 | <span class="free">两娃免费</span> | 全家3人：<span class="price">18,300日元（≈915元）</span><br>
+        <b>注意：</b>2025年10月1日起涨价至7,100日元（7月出行不受影响！）<br>
+        <b>购买渠道：</b><a href="https://odakyu-global.com/sc/passes/hakone-freepass" style="color:#1565c0">小田急官网EMot</a> / 新宿西口小田急旅游服务中心 / Klook / KKday<br><br>
+        <b>包含内容（超值！）：</b><br>
+        ① 小田急线新宿↔小田原往返1次<br>
+        ② 箱根登山电车（无限次）<br>
+        ③ 箱根登山巴士（指定区间无限次）<br>
+        ④ 箱根缆车（无限次）<br>
+        ⑤ 箱根空中缆车/索道（无限次）<br>
+        ⑥ <b>箱根海盗观光船</b>（无限次）<br>
+        ⑦ 东海巴士（指定区间无限次）<br>
+        ⑧ 观光设施巡游巴士（无限次）<br>
+        ⑨ 约70个设施门票折扣<br><br>
+        <b>浪漫特快（Romancecar）加价：</b>单程1,240日元/人，3人3,720日元<br>
+        （直达箱根汤本约85分钟，全车指定席，舒适豪华）<br><br>
+
+        • 从上野乘JR山手线→新宿（约25分钟，210日元），在Busta新宿换乘<br>
+        • 浪漫特快全程对号入座，有USB充电口和大行李架<br>
+        • 到达箱根汤本站约11:30，先在站前寄存行李
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · 雕刻之森美术馆</div>
+      <div class="activity">箱根雕刻之森美术馆（户外雕塑+儿童乐园）</div>
+      <div class="detail">
+        <span class="badge badge-ticket">门票</span>
+        成人2,000日元 | <b>官网预约价1,800日元</b> | 中小学生800日元 | <span class="free">学龄前免费！两娃全免</span><br>
+        全家3成人：<span class="price">5,400日元（≈270元，官网价）</span><br>
+        <b>购买渠道：</b><a href="https://chokokunomori.jp" style="color:#1565c0">官网预约</a>（省200日元）/ Asoview / Klook<br>
+        从箱根汤本站乘登山电车→雕刻之森站约25分钟（周游券免费）<br><br>
+        • 户外大型雕塑公园，大片草坪可跑跳，<b>推车友好全平地</b><br>
+        • <b>「网罗之森」儿童空间</b>：木制攀爬网、原木积木堆，3岁宝宝能玩很久<br>
+        • <b>彩色玻璃塔</b>「Symphonic Sculpture」：登顶可看箱根全景<br>
+        • <b>毕加索馆</b>：收藏200+件毕加索作品<br>
+        • <b>森林足汤</b>：免费泡脚！坐在户外长椅上边看雕塑边泡脚<br>
+        <span class="badge badge-tip">提示</span>建议预留2-3小时，可免费租婴儿车
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 入住温泉酒店</div>
+      <div class="activity">箱根温泉酒店 · 私汤体验</div>
+      <div class="detail">
+        <span class="badge badge-food">住宿</span>
+        • 乘登山巴士到酒店（周游券免费），办理入住<br>
+        • <b>选择带私汤（贷切露天风吕）的酒店</b>，避免公共大池拥挤<br>
+        • 宝宝温泉单次不超过10分钟，注意补充水分<br>
+        • 晚餐：酒店内会席料理（多数温泉酒店含早晚两餐）<br>
+        <b>推荐酒店区域：</b>强罗/仙石原/箱根汤本<br>
+        <b>价格参考：</b>带私汤的和室约15,000-25,000日元/晚（含早晚2餐）<br>
+        <span class="badge badge-tip">提示</span>带1.5岁婴儿住日式和室最方便——榻榻米上随便爬不怕摔
+      </div>
+    </div>
+
+    <div class="alert alert-info" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>箱根周游券18,300 + 浪漫特快加价3,720 + 雕刻之森5,400 + 餐饮含酒店 = <b>约27,420日元 + 酒店住宿费（≈1,371元+住宿）</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 5 ===== -->
+<div class="day-card d5">
+  <div class="day-header">
+    <div class="day-num">05</div>
+    <div>
+      <div class="day-title">箱根慢游 · 海盗船+芦之湖+缆车</div>
+      <div class="day-sub">关键词：海盗观光船、芦之湖、大涌谷远观、玻璃美术馆 | 住宿：同上箱根酒店</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · 芦之湖海盗观光船</div>
+      <div class="activity">箱根海盗船 · 元箱根港→桃源台港</div>
+      <div class="detail">
+        <span class="badge badge-transport">交通</span>
+        <span class="badge badge-free">周游券包含</span>
+        海盗船单程：成人1,200日元 | 儿童600日元 | <span class="free">两娃免费</span><br>
+        <b>持箱根周游券完全免费！</b>无限次乘坐<br>
+        从酒店乘巴士到元箱根港或箱根町港（周游券免费）<br><br>
+        • 乘坐<b>华丽的欧式海盗船</b>游览芦之湖，约25-40分钟<br>
+        • 天气好可看到<b>富士山倒映在湖中</b>，绝景！<br>
+        • 船上有甲板可以吹风看景，小朋友会觉得很刺激<br>
+        • 到达桃源台港后可远观<b>大涌谷</b>（火山喷气地带）<br>
+        <span class="badge badge-tip">提示</span>不建议带1.5岁婴儿排队登大涌谷缆车（硫磺味重、排队久），在桃源台港拍照即可
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · 箱根玻璃美术馆+温泉街</div>
+      <div class="activity">箱根玻璃美术馆 · 宫之下温泉街散步</div>
+      <div class="detail">
+        <span class="badge badge-ticket">门票</span>
+        箱根玻璃美术馆：成人1,400日元 | <span class="free">学龄前免费</span> | 全家3人：<span class="price">4,200日元</span><br>
+        • 展示维多利亚时代玻璃工艺品，花园里有很多玻璃装饰<br>
+        • 有<b>玻璃工坊体验</b>（需另付费），小朋友看吹玻璃会很好奇<br><br>
+        乘车到宫之下温泉街散步：<br>
+        • <b>老铺温泉旅馆群</b>，建筑古色古香<br>
+        • 有很多<b>小咖啡馆和甜品店</b>，推荐品尝箱根当地布丁<br>
+        • 全程平缓街道，推车友好
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 酒店私汤+早睡</div>
+      <div class="activity">温泉放松 · 恢复体力</div>
+      <div class="detail">
+        • 回酒店泡私汤，大人小孩都放松<br>
+        • 酒店内晚餐或附近餐厅用餐<br>
+        • 整理行李，为明天前往伊豆做准备<br>
+        <span class="badge badge-tip">提示</span>箱根早晚温差大（夏天20-28°C），备一件薄外套
+      </div>
+    </div>
+
+    <div class="alert alert-tip" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>玻璃美术馆4,200 + 巴士/缆车(周游券含)0 + 餐饮约5,000 = <b>约9,200日元（≈460元，3成人）+ 酒店住宿费</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 6 ===== -->
+<div class="day-card d6">
+  <div class="day-header">
+    <div class="day-num">06</div>
+    <div>
+      <div class="day-title">箱根 → 伊豆 · 仙人掌动物园+海岸</div>
+      <div class="day-sub">关键词：仙人掌动物园、大室山缆车、城崎海岸 | 住宿：伊豆海边民宿</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · 箱根出发前往伊豆</div>
+      <div class="activity">箱根 → 伊东/伊豆高原</div>
+      <div class="detail">
+        <span class="badge badge-transport">交通</span>
+        <b>路线：</b>箱根汤本 →（登山电车）→ 小田原 →（JR东海道线）→ 热海 →（JR伊东线）→ 伊东站<br>
+        全程约1.5小时，转乘1-2次<br>
+        JR票价：小田原→热海约330日元 + 热海→伊东约330日元<br>
+        全家3成人：<span class="price">约1,980日元（≈99元）</span>，<span class="free">两娃免费</span><br><br>
+
+        <b>省力方案 - 踊子号特急：</b>小田原→伊豆高原，约50分钟<br>
+        成人约2,380日元（指定席事前购票） | <span class="free">两娃免费</span> | 全家3人：<span class="price">7,140日元</span><br>
+        <b>购买渠道：</b>JR东日本网络订票系统 / 车站绿色窗口<br><br>
+
+        到达伊东站后，购买<b>东海巴士1日券</b>：900日元/人，<span class="free">两娃免费</span>，可无限次乘坐伊豆地区巴士
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · 仙人掌动物园 + 大室山</div>
+      <div class="activity">伊豆仙人掌动物园 · 大室山缆车</div>
+      <div class="detail">
+        <span class="badge badge-ticket">门票</span>
+        <b>伊豆仙人掌动物园</b><br>
+        平日：成人2,700日元 | 周末/旺季：2,800日元 | 小学生1,300-1,400日元 | 4-5岁700日元 | <span class="free">0-3岁免费！两娃全免</span><br>
+        <b>官网电子票折扣价：</b>成人2,600日元 | <a href="https://cactus-zoo.com" style="color:#1565c0">官网Asoview购买</a><br>
+        全家3成人：<span class="price">7,800日元（≈390元，折扣价）</span><br><br>
+        • <b>低幼宝宝的天堂！</b>大量动物散养，可以亲手投喂<br>
+        • 水豚、袋鼠、羊驼、孔雀、企鹅……种类超多<br>
+        • 5个温室种植世界各地的仙人掌1500多种<br>
+        • 互动体验约1.5-2小时<br><br>
+
+        <b>大室山缆车</b>（就在动物园对面，步行1分钟）<br>
+        成人往返1,000日元 | 儿童500日元 | <span class="free">两娃免费</span> | 全家3人：<span class="price">3,000日元</span><br>
+        • 《你的名字》取景地，绿色火山锥山顶360°全景<br>
+        • 缆车3分钟到顶，环山步道约20分钟，推车不便但山顶草坪平缓<br>
+        • <b>凭大室山缆车票可享动物园门票减200日元</b>
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 城崎海岸 + 入住海边民宿</div>
+      <div class="activity">城崎海岸临海步道 · 门胁吊桥</div>
+      <div class="detail">
+        <span class="badge badge-free">免费</span>
+        城崎海岸门票：<span class="free">免费</span><br>
+        从伊豆高原站乘巴士约15分钟（1日券免费）<br>
+        • 火山熔岩形成的海岸，海浪拍打礁石壮观<br>
+        • <b>门胁吊桥</b>长48米，桥面平稳可通行（小朋友会觉得好玩）<br>
+        • <b>临海步道平缓</b>，不走陡峭山路<br>
+        • 远眺太平洋，吹海风看落日<br><br>
+        • 乘巴士到东伊豆海边民宿（伊豆热川/稻取方向）<br>
+        • 入住海边民宿/温泉旅馆，沙滩散步<br>
+        <b>价格参考：</b>东伊豆海边民宿约8,000-12,000日元/晚
+      </div>
+    </div>
+
+    <div class="alert alert-info" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>JR约1,980 + 巴士1日券2,700 + 动物园7,800 + 大室山3,000 + 餐饮约5,000 = <b>约20,480日元（≈1,024元，3成人）+ 民宿住宿费</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DAY 7 ===== -->
+<div class="day-card d7">
+  <div class="day-header">
+    <div class="day-num">07</div>
+    <div>
+      <div class="day-title">伊豆海边休闲 · 返回东京</div>
+      <div class="day-sub">关键词：沙滩玩水、海边温泉、返程购物 | 住宿：东京或机场附近</div>
+    </div>
+  </div>
+  <div class="day-body">
+
+    <div class="time-block morning">
+      <div class="time-label">☀️ 上午 · 沙滩休闲日</div>
+      <div class="activity">东伊豆海边 · 沙滩玩水+捡贝壳</div>
+      <div class="detail">
+        <span class="badge badge-free">免费</span>
+        门票：<span class="free">免费</span><br>
+        • 民宿附近沙滩自由玩耍，浅滩安全<br>
+        • 带上在东京便利店买的挖沙工具和零食<br>
+        • 海边捡贝壳、看小鱼、堆沙堡<br>
+        • 如果民宿有公共温泉，泡一次晨间温泉<br>
+        <span class="badge badge-tip">提示</span>7-8月伊豆海边紫外线强，务必做好防晒（防晒霜+帽子+防晒衣）
+      </div>
+    </div>
+
+    <div class="time-block afternoon">
+      <div class="time-label">🌤️ 下午 · 返回东京</div>
+      <div class="activity">伊豆 → 东京 · 踊子号特急</div>
+      <div class="detail">
+        <span class="badge badge-transport">交通</span>
+        <b>推荐方案 - 踊子号（Odoriko）特急</b><br>
+        伊豆高原站 → 东京站，约2小时20分钟<br>
+        成人约4,180日元（乘车券1,940 + 指定席特急券2,240）<br>
+        全家3成人：<span class="price">12,540日元（≈627元）</span>，<span class="free">两娃免费</span><br>
+        <b>购买渠道：</b>JR东日本网络订票 / 车站绿色窗口 / Klook<br><br>
+
+        <b>豪华方案 - Saphir踴子号（全车绿色车厢）</b><br>
+        东京→伊豆急下田 约2.5小时，每日运行<br>
+        绿色车厢：成人约6,260日元（乘车券+特急）| <span class="free">两娃免费</span><br>
+        全家3人：<span class="price">18,780日元（≈939元）</span><br>
+        • 全车指定席，对号入座，超大观景窗看海景<br>
+        • 有开放式厨房餐厅（需另付费）<br>
+        • <b>提前1个月10:00(日本时间)开始预约，热门日期秒杀</b><br><br>
+
+        <b>省钱方案 - 普通电车</b><br>
+        伊东→热海→东京，约3小时<br>
+        成人约1,940日元 | 全家3人：<span class="price">5,820日元（≈291元）</span>，<span class="free">两娃免费</span><br>
+        速度慢但便宜很多，适合时间充裕的家庭
+      </div>
+    </div>
+
+    <div class="time-block evening">
+      <div class="time-label">🌙 傍晚 · 东京最后购物+晚餐</div>
+      <div class="activity">药妆店购物 · 亲子晚餐 · 返程准备</div>
+      <div class="detail">
+        • 到东京后去<b>银座/新宿药妆店</b>采购：面膜、零食、日用品<br>
+        • <b>Don Quijote（唐吉诃德）</b>24小时营业，免税+全品类<br>
+        • 最后一顿日本料理大餐：寿司/和牛烧肉/居酒屋<br>
+        • 如果第二天早班机，住机场附近酒店（N'EX终点站成田/羽田）
+      </div>
+    </div>
+
+    <div class="alert alert-info" style="margin-top:8px">
+      <b>💡 今日花费估算：</b>踊子号12,540 + 餐饮约6,000 + 购物预算另算 = <b>约18,540日元（≈927元，3成人）+ 东京住宿费</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 交通票券对比 ===== -->
+<div class="section">
+  <h2>🚇 交通票券推荐对比</h2>
+  <p style="font-size:14px;color:#666;margin-bottom:16px">针对本行程优化的票券方案，均已验证2025年7月价格。</p>
+
+  <div class="pass-compare">
+    <div class="pass-card recommended">
+      <div class="pass-name">箱根周游券 Hakone Free Pass</div>
+      <div class="pass-price">6,100日元 <span style="font-size:13px;color:#888">/人/2日</span></div>
+      <span class="pass-tag pass-tag-rec">强烈推荐</span>
+      <div class="pass-desc">
+        从新宿出发，含小田急线往返+箱根8种交通无限乘坐+70设施折扣<br>
+        <b>全家3人：18,300日元</b>（两娃免费）<br>
+        单买海盗船+缆车+巴士就回本！<br>
+        <b>购买：</b>小田急EMot官网 / 新宿站售票机 / Klook
+      </div>
+    </div>
+
+    <div class="pass-card recommended">
+      <div class="pass-name">江之电一日券 Noriorikun</div>
+      <div class="pass-price">800日元 <span style="font-size:13px;color:#888">/人/1日</span></div>
+      <span class="pass-tag pass-tag-rec">推荐</span>
+      <div class="pass-desc">
+        江之电全线1日无限乘坐+沿线20+设施优惠<br>
+        <b>全家3人：2,400日元</b>（两娃免费）<br>
+        4次以上上下车即回本<br>
+        <b>购买：</b>江之电各站售票机 / EMot在线
+      </div>
+    </div>
+
+    <div class="pass-card">
+      <div class="pass-name">N'EX成田特快往返票</div>
+      <div class="pass-price">5,000日元 <span style="font-size:13px;color:#888">/人/往返</span></div>
+      <div class="pass-desc">
+        外国人专属优惠！往返成田机场-东京市区<br>
+        单程原价3,070日元，往返套票仅5,000日元省1,140日元<br>
+        <b>全家3人：15,000日元</b>（两娃免费）<br>
+        <b>购买：</b>成田机场JR售票处出示护照
+      </div>
+    </div>
+
+    <div class="pass-card">
+      <div class="pass-name">东海巴士1日券（伊豆）</div>
+      <div class="pass-price">900日元 <span style="font-size:13px;color:#888">/人/1日</span></div>
+      <div class="pass-desc">
+        伊东站出发，伊豆地区巴士无限乘坐<br>
+        <b>全家3人：2,700日元</b>（两娃免费）<br>
+        仙人掌动物园凭此券享门票折扣<br>
+        <b>购买：</b>伊东站巴士售票处
+      </div>
+    </div>
+
+    <div class="pass-card">
+      <div class="pass-name">Suica电子卡</div>
+      <div class="pass-price">0日元 <span style="font-size:13px;color:#888">开卡费</span></div>
+      <div class="pass-desc">
+        Apple Wallet直接添加，充值即用<br>
+        东京地铁/JR/巴士/便利店通用<br>
+        <b>无需买实体卡，刷手机最方便</b><br>
+        充值5,000日元足够东京市内3天使用
+      </div>
+    </div>
+
+    <div class="pass-card">
+      <div class="pass-name">JR东京广域周游券</div>
+      <div class="pass-price">16,000日元 <span style="font-size:13px;color:#888">/人/3日</span></div>
+      <div class="pass-desc">
+        3日内无限乘坐关东地区JR+新干线<br>
+        可免费坐富士回遊号到河口湖、踴子号到伊豆<br>
+        <b>全家3人：48,000日元</b>（两娃免费）<br>
+        <b>本行程不太划算</b>（单买票更便宜），<br>
+        除非额外加河口湖行程才值得买
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 景点门票汇总表 ===== -->
+<div class="section">
+  <h2>🎟️ 全部景点门票价格 & 购票渠道汇总</h2>
+  <div style="overflow-x:auto;">
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>景点</th>
+        <th>成人票价</th>
+        <th>儿童(4-11)</th>
+        <th>3岁宝宝</th>
+        <th>1.5岁宝宝</th>
+        <th>全家3成人</th>
+        <th>购票渠道</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>浅草寺</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">¥0</td>
+        <td>无需购票</td>
+      </tr>
+      <tr>
+        <td>上野动物园</td>
+        <td>600日元</td>
+        <td class="free">免费(0-12)</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td>1,800日元</td>
+        <td>现场/官网预约</td>
+      </tr>
+      <tr>
+        <td>teamLab Planets</td>
+        <td>3,600-4,200日元</td>
+        <td>1,500日元</td>
+        <td class="free">免费(0-3)</td>
+        <td class="free">免费</td>
+        <td>约11,400日元</td>
+        <td><b>Klook</b>/官网/KKday</td>
+      </tr>
+      <tr>
+        <td>东京迪士尼乐园</td>
+        <td>7,900-9,400日元</td>
+        <td>4,700-5,600日元</td>
+        <td class="free">免费(0-3)</td>
+        <td class="free">免费</td>
+        <td>约25,800日元</td>
+        <td><b>官网</b>/Klook</td>
+      </tr>
+      <tr>
+        <td>新江之岛水族馆</td>
+        <td>2,800日元</td>
+        <td>约1,000日元</td>
+        <td>约1,000日元</td>
+        <td class="free">免费</td>
+        <td>约8,500日元</td>
+        <td><b>Klook(7折)</b>/现场</td>
+      </tr>
+      <tr>
+        <td>江之岛エスカー(扶梯)</td>
+        <td>500日元</td>
+        <td>250日元</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td>1,500日元</td>
+        <td>现场售票处</td>
+      </tr>
+      <tr>
+        <td>江之岛灯塔(Sea Candle)</td>
+        <td>800日元</td>
+        <td>400日元</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td>2,400日元</td>
+        <td>现场售票处</td>
+      </tr>
+      <tr>
+        <td>箱根雕刻之森美术馆</td>
+        <td>2,000日元</td>
+        <td>800日元</td>
+        <td class="free">免费(学龄前)</td>
+        <td class="free">免费</td>
+        <td>5,400日元(官网)</td>
+        <td><b>官网预约(省200)</b>/Asoview</td>
+      </tr>
+      <tr>
+        <td>箱根海盗船</td>
+        <td>1,200日元</td>
+        <td>600日元</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">周游券含</td>
+        <td><b>周游券免费</b></td>
+      </tr>
+      <tr>
+        <td>箱根缆车/索道</td>
+        <td>1,400日元</td>
+        <td>700日元</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">周游券含</td>
+        <td><b>周游券免费</b></td>
+      </tr>
+      <tr>
+        <td>箱根玻璃美术馆</td>
+        <td>1,400日元</td>
+        <td>700日元</td>
+        <td class="free">免费(学龄前)</td>
+        <td class="free">免费</td>
+        <td>4,200日元</td>
+        <td>现场/Klook</td>
+      </tr>
+      <tr>
+        <td>伊豆仙人掌动物园</td>
+        <td>2,700-2,800日元</td>
+        <td>1,300-1,400日元</td>
+        <td class="free">免费(0-3)</td>
+        <td class="free">免费</td>
+        <td>7,800日元(官网)</td>
+        <td><b>Asoview官网(折扣)</b></td>
+      </tr>
+      <tr>
+        <td>大室山缆车</td>
+        <td>1,000日元</td>
+        <td>500日元</td>
+        <td class="free">免费(0-5)</td>
+        <td class="free">免费</td>
+        <td>3,000日元</td>
+        <td>现场售票处</td>
+      </tr>
+      <tr>
+        <td>城崎海岸</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">免费</td>
+        <td class="free">¥0</td>
+        <td>无需购票</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="alert alert-free" style="margin-top:12px">
+    <b>💰 门票总计：</b>3成人全程景点门票合计约 <b>55,200日元（≈2,760元）</b>，两娃全程门票 <b>¥0</b>！
+  </div>
+</div>
+
+<!-- ===== 全程交通费用汇总 ===== -->
+<div class="section">
+  <h2>🚄 全程交通费用汇总（3成人）</h2>
+  <table class="cost-table">
+    <thead>
+      <tr><th>日期</th><th>交通内容</th><th>费用(日元)</th><th>购票渠道</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>D1</td><td>N'EX成田特快往返(外国人优惠)</td><td class="highlight">15,000</td><td>机场JR售票处/Klook</td></tr>
+      <tr><td>D1-3</td><td>东京市内地铁(Suica充值)</td><td>约3,000</td><td>Apple Wallet Suica</td></tr>
+      <tr><td>D3</td><td>JR东京↔镰仓往返</td><td>5,520</td><td>Suica刷卡</td></tr>
+      <tr><td>D3</td><td>江之电一日券</td><td>2,400</td><td>江之电各站售票机</td></tr>
+      <tr><td>D4</td><td>箱根周游券2日(新宿出发)</td><td class="highlight">18,300</td><td>EMot官网/Klook/新宿站</td></tr>
+      <tr><td>D4</td><td>浪漫特快加价</td><td>3,720</td><td>EMot官网/新宿站窗口</td></tr>
+      <tr><td>D4</td><td>JR上野→新宿(单程)</td><td>630</td><td>Suica刷卡</td></tr>
+      <tr><td>D6</td><td>JR小田原→伊东(普通)</td><td>1,980</td><td>Suica刷卡</td></tr>
+      <tr><td>D6</td><td>伊豆东海巴士1日券</td><td>2,700</td><td>伊东站巴士窗口</td></tr>
+      <tr><td>D7</td><td>踊子号特急 伊豆高原→东京</td><td>12,540</td><td>JR网络订票/车站窗口</td></tr>
+      <tr class="total-row"><td colspan="2">交通总计（3成人）</td><td>65,790日元</td><td>≈ 3,290元 RMB</td></tr>
+    </tbody>
+  </table>
+  <div class="alert alert-free" style="margin-top:8px">
+    <b>✨ 省钱亮点：</b>两娃全程交通费 = <b>¥0</b>（日本0-5岁幼児免费规则）！已省下至少20,000+日元。
+  </div>
+</div>
+
+<!-- ===== 全程总花费估算 ===== -->
+<div class="section">
+  <h2>💰 全程总花费估算（3成人+2幼儿）</h2>
+  <div class="cost-summary">
+    <div class="cost-card cc-1"><div class="amount">¥3,290</div><div class="desc">交通费(3成人)</div></div>
+    <div class="cost-card cc-2"><div class="amount">¥2,760</div><div class="desc">景点门票(3成人)</div></div>
+    <div class="cost-card cc-3"><div class="amount">¥10,000</div><div class="desc">住宿6晚(均含)</div></div>
+    <div class="cost-card cc-4"><div class="amount">¥5,250</div><div class="desc">餐饮7天(含宝宝)</div></div>
+    <div class="cost-card cc-5"><div class="amount">¥1,500</div><div class="desc">签证(5人)</div></div>
+    <div class="cost-card cc-total"><div class="amount">≈ ¥22,800 RMB</div><div class="desc">全家5人7天总花费（不含机票，含签证/交通/门票/住宿/餐饮）</div></div>
+  </div>
+  <div class="alert alert-info" style="margin-top:12px">
+    <b>📊 费用说明：</b><br>
+    • 住宿按中档标准估算（东京8,000/晚 × 3晚 + 箱根温泉酒店20,000/晚 × 2晚 + 伊豆民宿10,000/晚 + 东京1晚8,000 = ¥74,000日元 ≈ 3,700元）<br>
+    • 餐饮按每日3成人 × 2,500日元 + 宝宝辅食/儿童餐 = 约7,500日元/天 × 7天 = 52,500日元 ≈ 2,625元<br>
+    • 以上不含购物、机票、旅游保险<br>
+    • <b>机票参考：</b>深圳/贵阳→东京往返约1,500-2,500元/人，5人约8,000-12,000元<br>
+    • <b>含机票总预算：</b>约 <b>30,000-35,000元</b>（全家5人）
+  </div>
+</div>
+
+<!-- ===== 实用带娃贴士 ===== -->
+<div class="section">
+  <h2>💡 日本亲子游实用贴士（15条精华）</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">🚃</div>
+      <div class="tip-title">推车+行李策略</div>
+      <div class="tip-text">全程带轻量折叠推车（YOYO/Babyzen），日本车站电梯完善。JR新干线和特急有行李架，提前预约靠门位置方便上下车。箱根/伊豆行李多时用宅急便寄送酒店。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🧴</div>
+      <div class="tip-title">防晒防暑必备</div>
+      <div class="tip-text">7-8月东京35-38°C，湿度极高。带防晒霜(SPF50+)、遮阳帽、防晒衣、小风扇。每天12:00-15:00尽量安排室内活动（水族馆/美术馆/商场），避开暴晒。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🍼</div>
+      <div class="tip-title">婴幼儿饮食</div>
+      <div class="tip-text">日本便利店7-11的全家餐、饭团、味噌汤都适合小朋友。餐厅几乎都有儿童椅和儿童餐具。拉面/亲子丼/咖喱饭/寿司都适合3岁宝宝。带少量婴儿辅食/零食备用。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">♨️</div>
+      <div class="tip-title">温泉带娃注意</div>
+      <div class="tip-text">选择带<b>私汤(贷切露天风吕)</b>的酒店，避免公共大池。宝宝单次泡汤不超过10分钟，水温40°C以下为宜。泡完喝运动饮料补充水分。有纹身者可能被拒入公共温泉。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📱</div>
+      <div class="tip-title">网络与通讯</div>
+      <div class="tip-text">提前在Klook/淘宝买日本eSIM或租WiFi蛋蛋。推荐eSIM最方便（无需取卡）。日本公共WiFi覆盖率不高，有自己网络更安心。Google Maps需要实时导航。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💊</div>
+      <div class="tip-title">常备药品</div>
+      <div class="tip-text">带退烧药(布洛芬/对乙酰氨基酚)、止泻药、创可贴、驱蚊液、晕车药。日本药店(マツキヨ/ウエルシア)可买应急药品但沟通不便。1.5岁宝宝防中暑最重要。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🚽</div>
+      <div class="tip-title">厕所&母婴室</div>
+      <div class="tip-text">日本公共厕所极其干净，几乎都有马桶垫和洗手液。大型商场/车站有母婴室(授乳室)，可换尿布和哺乳。随身带小包湿巾和尿不湿备用。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🎫</div>
+      <div class="tip-title">提前预约是关键</div>
+      <div class="tip-text">teamLab Planets需提前1个月买票选时段；藤子不二雄博物馆每月1日10:00开下下月票；浪漫特快和踊子号需提前1个月10:00抢指定席。<b>日本热门景点不预约=去不了。</b></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🚇</div>
+      <div class="tip-title">电车礼仪</div>
+      <div class="tip-text">电车/巴士上请保持安静，手机调静音。婴儿车在车厢内请折叠放置。高峰时段(7:30-9:30/17:30-19:30)尽量避开东京山手线/中央线，带娃选择10:00-16:00出行。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💳</div>
+      <div class="tip-title">免税购物</div>
+      <div class="tip-text">日本免税门槛从2026年起可能调整，目前满5,000日元可免税。需要出示护照。药妆店/百货/电器城一般都有中文导购。唐吉诃德24小时营业且全品类免税。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🌧️</div>
+      <div class="tip-title">雨天预案</div>
+      <div class="tip-text">7-8月日本有台风季，可能遇到暴雨。准备雨天方案：上野科学博物馆、东京国立博物馆、台场DiverCity、池袋Sunshine City均为室内大型设施，雨天也能玩一天。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🏥</div>
+      <div class="tip-title">医疗应急</div>
+      <div class="tip-text">建议买旅游保险（含医疗）。日本看病费用较高（急诊3,000-10,000日元起）。如需就医，可搜索"外国人対応クリニック"或拨打03-5285-8181(东京医疗信息服务热线，多语言)。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📦</div>
+      <div class="tip-title">轻装出行</div>
+      <div class="tip-text">日本酒店空间小，带太多行李不方便。利用宅急便(Yamato Transport)寄送大件行李到下一站酒店，每件约1,500-2,000日元，次日到达。推车+背包+登机箱足矣。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🎫</div>
+      <div class="tip-title">Suica充值技巧</div>
+      <div class="tip-text">在Apple Wallet添加Suica，用信用卡充值最方便（支持Visa/Master/银联）。每次充值最低1,000日元。退卡时未使用余额可退（需到JR车站窗口办理，收取220日元手续费）。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🌅</div>
+      <div class="tip-title">节奏控制</div>
+      <div class="tip-text">带两娃<b>每天最多2-3个点</b>，预留大量自由玩耍和午睡时间。上午精力好安排主景点，下午安排轻松活动或室内。绝不赶早赶晚——日本景点9:30开门，睡到自然醒刚好。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 行李清单 ===== -->
+<div class="section">
+  <h2>🎒 行李准备清单</h2>
+  <div class="packing-list">
+    <div class="packing-category">
+      <h4>📋 证件类</h4>
+      <ul>
+        <li>护照（6个月以上有效期）</li>
+        <li>日本签证</li>
+        <li>机票行程单（打印）</li>
+        <li>酒店预订单（打印）</li>
+        <li>旅游保险单</li>
+        <li>宝宝出生证明复印件</li>
+        <li>身份证（国内转机用）</li>
+      </ul>
+    </div>
+    <div class="packing-category">
+      <h4>👶 宝宝用品</h4>
+      <ul>
+        <li>轻量折叠推车（YOYO/Babyzen）</li>
+        <li>婴儿背带/腰凳</li>
+        <li>尿不湿（够3天量，日本可买）</li>
+        <li>湿巾+棉柔巾</li>
+        <li>宝宝防晒霜+遮阳帽</li>
+        <li>替换衣物（每天2套）</li>
+        <li>薄毯子（空调房/推车午睡）</li>
+        <li>少量辅食/零食</li>
+        <li>儿童餐具+围兜</li>
+      </ul>
+    </div>
+    <div class="packing-category">
+      <h4>🧴 日用类</h4>
+      <ul>
+        <li>防晒霜SPF50+（大人用）</li>
+        <li>防晒衣/冰丝袖套</li>
+        <li>遮阳帽（大人）</li>
+        <li>墨镜</li>
+        <li>便携小风扇（人手一个）</li>
+        <li>雨伞/折叠雨衣</li>
+        <li>驱蚊液（日本本土买VAPE最好）</li>
+        <li>保温水壶</li>
+        <li>充电宝（日本电压100V转换头）</li>
+      </ul>
+    </div>
+    <div class="packing-category">
+      <h4>💊 药品类</h4>
+      <ul>
+        <li>布洛芬/对乙酰氨基酚（退烧）</li>
+        <li>蒙脱石散/口服补液盐（止泻脱水）</li>
+        <li>创可贴+碘伏棉签</li>
+        <li>晕车药（大人+儿童）</li>
+        <li>抗过敏药（开瑞坦）</li>
+        <li>体温计</li>
+        <li>藿香正气水（防中暑）</li>
+      </ul>
+    </div>
+    <div class="packing-category">
+      <h4>🏖️ 玩耍装备</h4>
+      <ul>
+        <li>挖沙工具套装（镰仓/伊豆沙滩用）</li>
+        <li>可涉水凉鞋/洞洞鞋</li>
+        <li>游泳尿不湿（宝宝温泉/海滩用）</li>
+        <li>防水手机袋</li>
+        <li>便携 picnic mat</li>
+        <li>小毛巾/速干毛巾</li>
+      </ul>
+    </div>
+    <div class="packing-category">
+      <h4>📱 电子设备</h4>
+      <ul>
+        <li>eSIM或WiFi蛋蛋</li>
+        <li>充电宝（100Wh以下可登机）</li>
+        <li>Type-C/Lightning数据线</li>
+        <li>日本插头转换器（A型两脚扁插）</li>
+        <li>相机/自拍杆</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 对比参考行程优化说明 ===== -->
+<div class="section">
+  <h2>📝 相比参考行程的优化说明</h2>
+  <div class="alert alert-info">
+    <b>主要优化点：</b><br><br>
+    <b>1. Day 2 优化：</b>原方案为新宿/涩谷逛街（对3岁宝宝无吸引力），改为<b>teamLab Planets</b>（日本独有沉浸式体验，宝宝兴奋度极高）+ 上野动物园，体验感升级。<br><br>
+    <b>2. 去除河口湖单独行程：</b>原方案Day 4安排河口湖+箱根一日（两城往返太累），优化为<b>直达箱根</b>。箱根芦之湖海盗船上即可看到富士山倒影，效果不输河口湖且不折腾。<br><br>
+    <b>3. 交通费用透明化：</b>每段交通标注<b>精确票价+购票渠道</b>，附周游券对比推荐，最大化利用日本儿童免费规则。<br><br>
+    <b>4. 购票渠道具体化：</b>每个景点标注最优购票平台（Klook/官网/Asoview），标注折扣力度和提前预约时间。<br><br>
+    <b>5. 增加签证&出发前清单：</b>含签证办理时间线、必备APP、支付准备、医疗应急等参考行程缺失的实用信息。<br><br>
+    <b>6. 7-8月暑期适配：</b>增加防晒防暑策略、雨天预案、避开暴晒时段的行程安排建议。
+  </div>
+</div>
+
+</div>
+</body>
+</html>
