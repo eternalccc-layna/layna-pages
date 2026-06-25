@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元宝矩阵账号体系 · 法务对齐会议提纲</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+    background: #fafafa; color: #1d1d1f; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 56px 40px 96px; }
+
+  /* Hero */
+  .hero { margin-bottom: 40px; }
+  .eyebrow { color: #0071e3; font-size: 13px; letter-spacing: 1.2px; font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
+  h1 { font-size: 40px; font-weight: 700; letter-spacing: -1px; line-height: 1.18; margin-bottom: 14px; }
+  .subtitle { font-size: 17px; color: #6e6e73; max-width: 860px; }
+  .meta { margin-top: 18px; font-size: 12.5px; color: #86868b; display: flex; gap: 22px; flex-wrap: wrap; }
+  .meta span b { color: #1d1d1f; }
+
+  /* TL;DR 黑卡 */
+  .tldr { background: linear-gradient(135deg, #1d1d1f 0%, #2c2c2e 100%); color: #f5f5f7; border-radius: 22px; padding: 32px 36px; margin-bottom: 52px; }
+  .tldr h2 { font-size: 12px; color: #0a84ff; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .tldr h3 { font-size: 23px; font-weight: 700; margin-bottom: 18px; letter-spacing: -0.3px; }
+  .tldr ul { list-style: none; padding: 0; }
+  .tldr li { padding: 10px 0 10px 32px; position: relative; font-size: 15px; color: #d2d2d7; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .tldr li:last-child { border-bottom: 0; }
+  .tldr li::before { content: ""; position: absolute; left: 6px; top: 18px; width: 14px; height: 14px; border-radius: 50%; background: #0a84ff; }
+  .tldr li b { color: #fff; }
+
+  /* Section */
+  section { margin-bottom: 52px; }
+  .sec-head { margin-bottom: 22px; }
+  .sec-eyebrow { font-size: 11.5px; color: #0071e3; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
+  .sec-title { font-size: 27px; font-weight: 700; letter-spacing: -0.4px; }
+  .sec-desc { font-size: 15px; color: #6e6e73; margin-top: 6px; max-width: 880px; }
+
+  /* 议程条 */
+  .agenda { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .ag { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  .ag .t { font-size: 12px; color: #0071e3; font-weight: 600; letter-spacing: 0.4px; }
+  .ag .n { font-size: 15px; font-weight: 700; margin: 6px 0 4px; }
+  .ag .d { font-size: 12.5px; color: #86868b; }
+  .ag .m { font-size: 11.5px; color: #aaa; margin-top: 8px; }
+
+  /* 风险卡 */
+  .risks { display: flex; flex-direction: column; gap: 16px; }
+  .risk { background: #fff; border-radius: 18px; padding: 24px 26px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); border-left: 4px solid #ddd; }
+  .risk.p0 { border-left-color: #ff3b30; }
+  .risk.p1 { border-left-color: #ff9f0a; }
+  .risk.p2 { border-left-color: #34c759; }
+  .risk-top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .lv { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.5px; color: #fff; }
+  .lv.p0 { background: #ff3b30; }
+  .lv.p1 { background: #ff9f0a; }
+  .lv.p2 { background: #34c759; }
+  .risk h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.2px; }
+  .risk .law { font-size: 11.5px; color: #0071e3; background: #eef4ff; padding: 3px 10px; border-radius: 6px; font-weight: 600; }
+  .risk .ctx { font-size: 14px; color: #444; margin: 10px 0 14px; }
+  .risk .qa { background: #f7f7f9; border-radius: 12px; padding: 14px 16px; }
+  .risk .qa .qlabel { font-size: 11px; color: #86868b; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; margin-bottom: 8px; }
+  .risk .qa ul { list-style: none; padding: 0; }
+  .risk .qa li { font-size: 13.5px; padding: 5px 0 5px 22px; position: relative; color: #1d1d1f; line-height: 1.55; }
+  .risk .qa li::before { content: "?"; position: absolute; left: 2px; top: 5px; width: 15px; height: 15px; background: #0071e3; color: #fff; border-radius: 50%; font-size: 10px; font-weight: 700; text-align: center; line-height: 15px; }
+  .risk .stand { margin-top: 12px; font-size: 13px; color: #555; padding-left: 4px; }
+  .risk .stand b { color: #1d1d1f; }
+
+  /* 我方初步立场表 */
+  .pos { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  .pos th { background: #1d1d1f; color: #fff; font-size: 12.5px; font-weight: 600; padding: 14px 18px; text-align: left; letter-spacing: 0.3px; }
+  .pos td { padding: 14px 18px; font-size: 13.5px; border-bottom: 1px solid #f0f0f2; vertical-align: top; }
+  .pos tr:last-child td { border-bottom: 0; }
+  .pos td:first-child { font-weight: 600; white-space: nowrap; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+  .tag.need { background: #fff1f0; color: #ff3b30; }
+  .tag.ok { background: #f0fbf3; color: #2da44e; }
+
+  /* 待决清单 */
+  .todo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .tcard { background: #fff; border-radius: 14px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; gap: 14px; align-items: flex-start; }
+  .tcard .idx { font-size: 13px; font-weight: 700; color: #fff; background: #0071e3; width: 26px; height: 26px; border-radius: 8px; text-align: center; line-height: 26px; flex-shrink: 0; }
+  .tcard .body .h { font-size: 14.5px; font-weight: 600; margin-bottom: 2px; }
+  .tcard .body .s { font-size: 12.5px; color: #86868b; }
+
+  .foot { margin-top: 60px; padding-top: 24px; border-top: 1px solid #e8e8ea; font-size: 12.5px; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="eyebrow">LEGAL ALIGNMENT · 会议提纲</div>
+    <h1>元宝矩阵账号体系 — 法务风险对齐会</h1>
+    <p class="subtitle">方案已基本对齐为「方案 2：复用元宝 UID + 部分定制」。本次会议目标是与法务老师逐条对齐该架构下的合规风险点，明确我方义务边界与必做动作。</p>
+    <div class="meta">
+      <span>架构：<b>集中式统一账号 + 产品级授权解耦</b></span>
+      <span>范围：<b>6 款矩阵产品 · 5 个端 · 同一法律主体</b></span>
+      <span>主键：<b>UID 贯穿矩阵，跨产品资产以 UID 关联</b></span>
+    </div>
+  </div>
+
+  <!-- TL;DR -->
+  <div class="tldr">
+    <h2>会议要解决什么</h2>
+    <h3>带着我方初步立场，向法务确认 4 件事的合规边界</h3>
+    <ul>
+      <li><b>① 一账号贯穿矩阵</b>：UID 全矩阵唯一、跨产品数据以 UID 关联，是否构成「信息共享」？需不需要单独同意？</li>
+      <li><b>② 统一法律主体 + 统一隐私政策</b>：六款产品共用一套隐私政策与注销口径，法律上是否成立、风险在哪？</li>
+      <li><b>③ 注销与数据清理</b>：「注销无需跨主体协调」，但矩阵内数据如何一并清理、出海版如何隔离？</li>
+      <li><b>④ 授权解耦下的责任划分</b>：Passport 只管「是谁」、产品自管「能做什么」，出问题时责任怎么分？</li>
+    </ul>
+  </div>
+
+  <!-- 1. 会议议程 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Agenda</div>
+      <div class="sec-title">会议议程（建议 60 分钟）</div>
+      <div class="sec-desc">先用 5 分钟同步架构背景，再逐个风险模块过，最后留时间确认待办归属与排期。</div>
+    </div>
+    <div class="agenda">
+      <div class="ag"><div class="t">PART 1</div><div class="n">架构背景同步</div><div class="d">方案 2 选型结论 + 集中式账号架构图速览</div><div class="m">≈ 5 min · 我方介绍</div></div>
+      <div class="ag"><div class="t">PART 2</div><div class="n">核心合规风险</div><div class="d">逐条过 5 个 P0/P1 风险点，确认边界</div><div class="m">≈ 35 min · 法务主导</div></div>
+      <div class="ag"><div class="t">PART 3</div><div class="n">我方立场确认</div><div class="d">过初步立场表，法务给「可行 / 需调整」</div><div class="m">≈ 12 min · 双方</div></div>
+      <div class="ag"><div class="t">PART 4</div><div class="n">待办与归属</div><div class="d">明确法务支持事项 + 产出排期</div><div class="m">≈ 8 min · 收口</div></div>
+    </div>
+  </section>
+
+  <!-- 2. 核心风险点 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Risk Checklist</div>
+      <div class="sec-title">需与法务逐条对齐的风险点</div>
+      <div class="sec-desc">按风险等级排序（🔴 P0 必须先解决 / 🟡 P1 需明确口径 / 🟢 P2 留意即可）。每条附我方初步立场，供法务判断是否成立。</div>
+    </div>
+    <div class="risks">
+
+      <!-- R1 -->
+      <div class="risk p0">
+        <div class="risk-top">
+          <span class="lv p0">P0</span>
+          <h3>① 一账号贯穿矩阵 → 是否构成「个人信息共享」</h3>
+          <span class="law">个保法 §23 单独同意</span>
+        </div>
+        <div class="ctx">架构里 UID 全矩阵唯一、跨产品资产以 UID 为主键关联。用户在元宝输入法的数据，浏览器/翻译等其它产品能否凭同一 UID 调取？这一步在法律上可能被认定为「向第三方/关联产品共享个人信息」。</div>
+        <div class="qa">
+          <div class="qlabel">向法务确认</div>
+          <ul>
+            <li>同一法律主体、不同产品间用 UID 关联数据，是否仍算「共享/委托处理」，需要单独同意吗？</li>
+            <li>如果需要，单独同意应在哪个环节弹出（首次登录 / 首次跨产品调用 / 设置开关）？</li>
+            <li>哪些数据可默认随登录态打通（如昵称头像），哪些必须用户主动授权（如 AI 对话/创作资产）？</li>
+          </ul>
+        </div>
+        <div class="stand"><b>我方初步立场：</b>分级授权——基础账号信息随登录态默认同步；AI 资产类需用户开关授权；设置中提供一键撤销。不做「默认全通」。</div>
+      </div>
+
+      <!-- R2 -->
+      <div class="risk p0">
+        <div class="risk-top">
+          <span class="lv p0">P0</span>
+          <h3>② 统一法律主体 + 统一隐私政策是否成立</h3>
+          <span class="law">隐私政策合规</span>
+        </div>
+        <div class="ctx">图中明确「六款产品同属一个法律主体，原则上共用统一隐私政策」。需法务确认这套写法能否覆盖六款形态差异较大的产品（App / 键盘扩展 / 桌面窗口），以及各产品功能差异是否要单独披露。</div>
+        <div class="qa">
+          <div class="qlabel">向法务确认</div>
+          <ul>
+            <li>一份隐私政策覆盖六款产品是否合规？还是需要「主政策 + 各产品补充说明」结构？</li>
+            <li>键盘输入法这类涉及输入内容采集的产品，是否必须单独突出告知？</li>
+            <li>UID 跨产品关联这件事，需不需要在隐私政策里明确写明数据流向？</li>
+          </ul>
+        </div>
+        <div class="stand"><b>我方初步立场：</b>采用「统一主政策 + 各产品差异化补充页」，跨产品 UID 关联在主政策中明示。请法务给出模板与必备条款清单。</div>
+      </div>
+
+      <!-- R3 -->
+      <div class="risk p0">
+        <div class="risk-top">
+          <span class="lv p0">P0</span>
+          <h3>③ 注销与数据清理的矩阵联动</h3>
+          <span class="law">个保法 §47 删除权</span>
+        </div>
+        <div class="ctx">图中「注销无需跨主体协调，可按合规要求单独注销矩阵数据」。但 UID 贯穿全矩阵，注销一个账号时，六款产品里以该 UID 关联的数据如何保证一并清理/匿名化？是否允许只注销单个产品。</div>
+        <div class="qa">
+          <div class="qlabel">向法务确认</div>
+          <ul>
+            <li>用户注销时，矩阵内所有产品数据是否必须同步删除？删除 vs 匿名化的合规边界？</li>
+            <li>是否允许「只注销某一个产品、保留账号」？若允许，残留数据如何合规处理？</li>
+            <li>注销冷静期（如 15 天反悔）的设置是否合规、是否需明确告知？</li>
+            <li>第三方绑定（微信/QQ/Apple）解绑后，相关授权数据的清理义务？</li>
+          </ul>
+        </div>
+        <div class="stand"><b>我方初步立场：</b>注销默认全矩阵联动清理；设 15 天冷静期并明确告知；支持单产品注销但需二次确认残留范围。</div>
+      </div>
+
+      <!-- R4 -->
+      <div class="risk p1">
+        <div class="risk-top">
+          <span class="lv p1">P1</span>
+          <h3>④ 认证与授权分离下的责任划分</h3>
+          <span class="law">数据处理者责任</span>
+        </div>
+        <div class="ctx">架构核心是「Passport 只管是谁（AuthN），产品自管能做什么（AuthZ）」。一旦发生越权访问、数据泄露或违规调用，Passport 团队与产品团队之间的合规责任如何界定？</div>
+        <div class="qa">
+          <div class="qlabel">向法务确认</div>
+          <ul>
+            <li>对外（监管/用户）口径上，谁是个人信息处理者？是否需要内部责任协议固化分工？</li>
+            <li>产品侧自定义授权逻辑导致的越权，责任归属如何约定？</li>
+            <li>是否需要在产品接入 Passport 时签内部数据处理/安全责任条款？</li>
+          </ul>
+        </div>
+        <div class="stand"><b>我方初步立场：</b>以内部数据处理协议固化「Passport 管身份、产品管授权」的责任边界，接入即签署。</div>
+      </div>
+
+      <!-- R5 -->
+      <div class="risk p1">
+        <div class="risk-top">
+          <span class="lv p1">P1</span>
+          <h3>⑤ 第三方登录 / 多端授权的合规口径</h3>
+          <span class="law">第三方 SDK 告知</span>
+        </div>
+        <div class="ctx">登录接入层各端支持手机号 OTP、微信、QQ、Apple ID、元宝移动端授权等多种方式。第三方登录涉及向微信/QQ/Apple 获取用户信息，以及 OTP 短信涉及手机号处理，需明确告知与最小必要边界。</div>
+        <div class="qa">
+          <div class="qlabel">向法务确认</div>
+          <ul>
+            <li>第三方登录获取的信息（头像/昵称/openid）告知与同意要求？</li>
+            <li>Apple ID 隐藏邮箱、海外渠道登录是否有特殊合规要求？</li>
+            <li>「元宝移动端扫码授权」桌面端登录，授权范围如何告知用户？</li>
+          </ul>
+        </div>
+        <div class="stand"><b>我方初步立场：</b>各登录方式在授权页明示获取字段，遵循最小必要；第三方 SDK 清单纳入隐私政策。</div>
+      </div>
+
+      <!-- R6 -->
+      <div class="risk p2">
+        <div class="risk-top">
+          <span class="lv p2">P2</span>
+          <h3>⑥ 出海 / 跨境数据合规（如有出海版）</h3>
+          <span class="law">GDPR / 数据出境</span>
+        </div>
+        <div class="ctx">若矩阵含出海版本，统一账号体系是否与国内打通将触发数据跨境问题。本次先确认原则，细节待出海方案明确后专项对齐。</div>
+        <div class="qa">
+          <div class="qlabel">向法务确认</div>
+          <ul>
+            <li>出海版账号是否应与国内账号体系物理隔离、不打通 UID？</li>
+            <li>若需打通，数据出境的合规路径（安全评估 / 标准合同）？</li>
+          </ul>
+        </div>
+        <div class="stand"><b>我方初步立场：</b>出海版建议独立账号体系，默认不与国内打通，规避跨境风险。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. 我方初步立场速览表 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Our Position</div>
+      <div class="sec-title">我方初步立场速览（请法务给结论）</div>
+      <div class="sec-desc">会上请法务对每一项给出「可行」或「需调整」，并标注法律依据，便于会后落地。</div>
+    </div>
+    <table class="pos">
+      <thead>
+        <tr><th style="width:20%">议题</th><th style="width:42%">我方初步做法</th><th style="width:23%">需法务确认</th><th style="width:15%">法务结论</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>跨产品数据关联</td><td>分级授权：基础信息默认同步，AI 资产需开关授权，可一键撤销</td><td><span class="tag need">是否需单独同意</span></td><td>　</td></tr>
+        <tr><td>隐私政策结构</td><td>统一主政策 + 各产品差异化补充页</td><td><span class="tag need">能否覆盖全产品</span></td><td>　</td></tr>
+        <tr><td>注销联动</td><td>默认全矩阵清理 + 15 天冷静期 + 支持单产品注销</td><td><span class="tag need">删除/匿名化边界</span></td><td>　</td></tr>
+        <tr><td>责任划分</td><td>内部数据处理协议固化 AuthN/AuthZ 责任，接入即签</td><td><span class="tag need">协议模板</span></td><td>　</td></tr>
+        <tr><td>第三方登录</td><td>授权页明示获取字段，遵循最小必要</td><td><span class="tag ok">沿用现有口径</span></td><td>　</td></tr>
+        <tr><td>出海版</td><td>独立账号体系，默认不与国内打通</td><td><span class="tag ok">原则确认</span></td><td>　</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4. 会议产出 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">Deliverables</div>
+      <div class="sec-title">期望从这次会议拿到的产出</div>
+      <div class="sec-desc">会议结束时需要明确以下事项的结论与责任人，避免会而不决。</div>
+    </div>
+    <div class="todo">
+      <div class="tcard"><div class="idx">1</div><div class="body"><div class="h">「跨产品数据关联是否需单独同意」的明确结论</div><div class="s">直接决定授权弹窗的产品设计</div></div></div>
+      <div class="tcard"><div class="idx">2</div><div class="body"><div class="h">隐私政策结构方案 + 必备条款清单</div><div class="s">法务提供模板或评审标准</div></div></div>
+      <div class="tcard"><div class="idx">3</div><div class="body"><div class="h">注销联动的删除 / 匿名化合规口径</div><div class="s">影响注销服务的技术实现范围</div></div></div>
+      <div class="tcard"><div class="idx">4</div><div class="body"><div class="h">内部数据处理责任协议模板</div><div class="s">产品接入 Passport 的前置条件</div></div></div>
+      <div class="tcard"><div class="idx">5</div><div class="body"><div class="h">第三方登录 SDK 告知清单口径</div><div class="s">纳入各端授权页与隐私政策</div></div></div>
+      <div class="tcard"><div class="idx">6</div><div class="body"><div class="h">出海版隔离原则的法务背书</div><div class="s">作为出海专项的合规前提</div></div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    元宝矩阵账号体系 · 法务对齐会议提纲 · 方案 2（复用 UID + 部分定制） · 仅供内部对齐使用
+  </div>
+
+</div>
+</body>
+</html>
