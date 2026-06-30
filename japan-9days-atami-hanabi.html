@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东京·镰仓·箱根·热海花火·伊豆 9日亲子攻略 | 3大2小</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #f0f2f5; color: #1a1a2e; line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); color: white; border-radius: 20px; padding: 40px 36px; margin-bottom: 20px; position: relative; overflow: hidden; }
+.hero::after { content: "🎆"; position: absolute; right: 36px; bottom: 0px; font-size: 130px; opacity: 0.12; }
+.hero h1 { font-size: 27px; margin-bottom: 8px; letter-spacing: 0.5px; }
+.hero .subtitle { font-size: 14px; opacity: 0.85; margin-bottom: 16px; }
+.hero .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero .tag { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 13px; }
+.hero .summary-bar { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
+.hero .summary-item .num { font-size: 22px; font-weight: 800; color: #ffd166; }
+.hero .summary-item .label { font-size: 12px; opacity: 0.7; }
+
+/* Nav */
+.nav { background: white; border-radius: 14px; padding: 14px 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; gap: 10px; flex-wrap: wrap; position: sticky; top: 8px; z-index: 50; }
+.nav a { font-size: 13px; color: #16213e; text-decoration: none; padding: 5px 12px; border-radius: 8px; background: #f0f2f5; transition: all .2s; font-weight: 600; }
+.nav a:hover { background: #0f3460; color: white; }
+
+/* Section */
+.section { background: white; border-radius: 16px; padding: 28px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.section h2 { font-size: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #f0f0f0; padding-bottom: 12px; }
+.section h3 { font-size: 16px; margin: 18px 0 10px; color: #16213e; }
+.section p { font-size: 14px; color: #444; margin-bottom: 8px; }
+
+/* Alert */
+.alert { border-radius: 12px; padding: 16px 20px; margin: 12px 0; font-size: 13px; line-height: 1.8; }
+.alert-free { background: #e8f5e9; border-left: 4px solid #4caf50; }
+.alert-warn { background: #fff3e0; border-left: 4px solid #ff9800; }
+.alert-info { background: #e3f2fd; border-left: 4px solid #2196f3; }
+.alert-tip { background: #fce4ec; border-left: 4px solid #e91e63; }
+.alert-fire { background: #fff0f0; border-left: 4px solid #e63946; }
+.alert b { font-weight: 700; }
+
+/* Route overview */
+.route-map { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 16px 0; padding: 18px; background: linear-gradient(135deg,#fef9f3,#f0f7ff); border-radius: 14px; }
+.route-node { background: white; border: 2px solid #0f3460; border-radius: 10px; padding: 8px 14px; font-size: 13px; font-weight: 700; color: #0f3460; text-align: center; }
+.route-node .nights { display: block; font-size: 11px; color: #888; font-weight: 500; }
+.route-node.fire { border-color: #e63946; color: #e63946; background: #fff5f5; }
+.route-arrow { color: #999; font-size: 18px; }
+
+/* Day card */
+.day-card { border: 2px solid #e8e8e8; border-radius: 14px; overflow: hidden; margin-bottom: 20px; }
+.day-header { padding: 16px 20px; color: white; display: flex; align-items: center; gap: 12px; }
+.day-header .day-num { font-size: 30px; font-weight: 900; opacity: 0.35; }
+.day-header .day-title { font-size: 16px; font-weight: 700; }
+.day-header .day-sub { font-size: 13px; opacity: 0.85; }
+.day-body { padding: 20px; }
+.d1 .day-header { background: linear-gradient(135deg, #e63946, #c1121f); }
+.d2 .day-header { background: linear-gradient(135deg, #457b9d, #1d3557); }
+.d3 .day-header { background: linear-gradient(135deg, #2a9d8f, #264653); }
+.d4 .day-header { background: linear-gradient(135deg, #e76f51, #b5651d); }
+.d5 .day-header { background: linear-gradient(135deg, #6a4c93, #4a235a); }
+.d6 .day-header { background: linear-gradient(135deg, #f4a261, #e63946); }
+.d7 .day-header { background: linear-gradient(135deg, #06a77d, #047857); }
+.d8 .day-header { background: linear-gradient(135deg, #118ab2, #073b4c); }
+.d9 .day-header { background: linear-gradient(135deg, #5b8def, #3a5bb5); }
+
+/* Time block */
+.time-block { margin-bottom: 14px; padding: 12px 16px; background: #f8f9fa; border-radius: 10px; border-left: 3px solid #ddd; }
+.time-block.morning { border-left-color: #ffa726; }
+.time-block.afternoon { border-left-color: #42a5f5; }
+.time-block.evening { border-left-color: #7e57c2; }
+.time-block.fire { border-left-color: #e63946; background: #fff5f5; }
+.time-block .time-label { font-size: 12px; font-weight: 700; color: #888; margin-bottom: 4px; }
+.time-block .activity { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.time-block .detail { font-size: 13px; color: #555; line-height: 1.85; }
+.time-block .detail .price { color: #e63946; font-weight: 700; }
+.time-block .detail .free { color: #4caf50; font-weight: 700; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.badge-ticket { background: #e3f2fd; color: #1565c0; }
+.badge-transport { background: #fff3e0; color: #e65100; }
+.badge-tip { background: #fce4ec; color: #c62828; }
+.badge-food { background: #e8f5e9; color: #2e7d32; }
+.badge-hotel { background: #ede7f6; color: #5e35b1; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+th { background: #16213e; color: white; padding: 10px 12px; text-align: left; font-weight: 600; white-space: nowrap; }
+td { padding: 10px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+tr:nth-child(even) td { background: #f9f9fb; }
+.highlight { color: #e63946; font-weight: 700; }
+.free-tag { color: #4caf50; font-weight: 700; }
+.table-wrap { overflow-x: auto; }
+
+/* Hotel cards */
+.hotel-card { border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #fafbfc; }
+.hotel-card .h-name { font-size: 15px; font-weight: 700; color: #16213e; margin-bottom: 4px; }
+.hotel-card .h-meta { font-size: 12px; color: #888; margin-bottom: 8px; }
+.hotel-card .h-price { display: inline-block; background: #e63946; color: white; padding: 2px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+.hotel-card .h-desc { font-size: 13px; color: #555; line-height: 1.7; }
+.hotel-card.best { border-color: #4caf50; background: #f0fdf4; }
+.tag-pill { display: inline-block; background: #e3f2fd; color: #1565c0; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin: 2px 4px 2px 0; }
+
+/* Pitfall */
+.pitfall { background: #fff5f5; border: 1px solid #ffd0d0; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+.pitfall .p-title { font-weight: 700; font-size: 14px; color: #c1121f; margin-bottom: 6px; }
+.pitfall .p-text { font-size: 13px; color: #555; line-height: 1.75; }
+.pitfall .p-solution { font-size: 13px; color: #2e7d32; margin-top: 6px; }
+.pitfall .p-solution b { color: #2e7d32; }
+
+/* Tips grid */
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin: 12px 0; }
+.tip-card { background: #f8f9fa; border-radius: 10px; padding: 14px; border: 1px solid #e0e0e0; }
+.tip-card .tip-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: #16213e; }
+.tip-card .tip-text { font-size: 12px; color: #666; line-height: 1.7; }
+
+/* Cost summary */
+.cost-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+.cost-card { border-radius: 12px; padding: 16px; color: white; text-align: center; }
+.cost-card .amount { font-size: 23px; font-weight: 800; }
+.cost-card .desc { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+.cc-1 { background: linear-gradient(135deg, #e63946, #c1121f); }
+.cc-2 { background: linear-gradient(135deg, #457b9d, #1d3557); }
+.cc-3 { background: linear-gradient(135deg, #2a9d8f, #264653); }
+.cc-4 { background: linear-gradient(135deg, #6a4c93, #4a235a); }
+.cc-total { background: linear-gradient(135deg, #1a1a2e, #16213e); grid-column: 1 / -1; }
+.cc-total .amount { font-size: 30px; }
+
+.footer { text-align: center; font-size: 12px; color: #999; padding: 20px; }
+
+@media (max-width: 768px) {
+  .container { padding: 10px; }
+  .hero { padding: 26px 18px; }
+  .hero h1 { font-size: 20px; }
+  .section { padding: 16px; }
+  .nav { position: static; }
+  th, td { padding: 6px 8px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>东京 · 镰仓 · 箱根 · 热海花火 · 伊豆 9日亲子深度攻略</h1>
+  <div class="subtitle">3成人 + 3岁宝宝 + 1.5岁宝宝 · 7月底–8月初 · 首次赴日 · 慢节奏不赶路</div>
+  <div class="tags">
+    <span class="tag">🎆 热海海上花火大会</span>
+    <span class="tag">♨️ 温泉私汤</span>
+    <span class="tag">🏖️ 海边度假</span>
+    <span class="tag">🐾 小动物互动</span>
+    <span class="tag">🍼 0-5岁交通全免</span>
+  </div>
+  <div class="summary-bar">
+    <div class="summary-item"><div class="num">9天</div><div class="label">完整行程</div></div>
+    <div class="summary-item"><div class="num">5地</div><div class="label">东京/镰仓/箱根/热海/伊豆</div></div>
+    <div class="summary-item"><div class="num">4次</div><div class="label">换宿（已压到最少）</div></div>
+    <div class="summary-item"><div class="num">¥0</div><div class="label">两娃交通费</div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <a href="#fire">🎆 花火攻略</a>
+  <a href="#overview">🗺️ 路线总览</a>
+  <a href="#rules">🎫 票务规则</a>
+  <a href="#days">📅 每日行程</a>
+  <a href="#transport">🚆 交通价格</a>
+  <a href="#hotels">🏨 酒店推荐</a>
+  <a href="#food">🍱 餐厅推荐</a>
+  <a href="#pitfalls">⚠️ 避坑指南</a>
+  <a href="#cost">💰 费用预算</a>
+</div>
+
+<!-- 花火大会重点 -->
+<div class="section" id="fire">
+  <h2>🎆 热海海上花火大会 · 行程的灵魂</h2>
+  <div class="alert alert-fire">
+    <b>核心结论：选准花火日是整个9天行程的锚点！</b>先确定要看的那一场花火，再倒推每天住哪里。热海一年四季都办花火，是日本少有的「全年多场次」花火大会，海湾三面环山形成天然音响效果，海面反射如「天空之镜」，夏季场次时间最长（25分钟、约5000发）。
+  </div>
+  <h3>2025年7-8月场次（请按你的实际出行日对齐）</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>日期</th><th>星期</th><th>时间</th><th>规模</th><th>建议</th></tr>
+    <tr><td class="highlight">7月25日</td><td>周五</td><td>20:15–20:40</td><td>夏季·约5000发</td><td>周末前夜，人多但氛围好</td></tr>
+    <tr><td class="highlight">8月5日</td><td>周二</td><td>20:15–20:40</td><td>夏季·约5000发</td><td class="free-tag">工作日，人相对少，推荐带娃</td></tr>
+    <tr><td class="highlight">8月8日</td><td>周五</td><td>20:15–20:40</td><td>夏季·约5000发</td><td>周末前，注意酒店早订</td></tr>
+    <tr><td>8月18日</td><td>周一</td><td>20:15–20:40</td><td>夏季·约5000发</td><td>已超出你的出行窗口</td></tr>
+  </table>
+  </div>
+  <div class="alert alert-info">
+    <b>📍 观赏地点：</b>热海湾（亲水公园 / Sun Beach 阳光海滩），从 JR 热海站步行 12–16 分钟。<b>2025年不设收费观赏席，免费观赏</b>。带娃强烈建议直接订能看花火的酒店（见下方酒店推荐），看完直接回房，不用在人潮中抱娃挤末班车。
+  </div>
+  <div class="alert alert-warn">
+    <b>⚠️ 带娃看花火三大注意：</b><br>
+    ① <b>不要赶末班车</b>：花火 20:40 结束，人潮汹涌，带两个小宝坐拥挤电车回东京/箱根几乎不可能 → <b>当晚必须住热海</b>。<br>
+    ② <b>占位提前到</b>：想坐沙滩/草坪台阶，下午 17:00–18:00 到，自带野餐垫（不能用物品提前霸位）。带娃建议选酒店专用观赏席或高地酒店（如星野RISONARE）从阳台看，最省心。<br>
+    ③ <b>声音大</b>：1.5岁宝宝可能被烟花巨响吓哭，备好降噪耳罩或棉花，远一点的高地酒店阳台观赏体验更友好。
+  </div>
+</div>
+
+<!-- 路线总览 -->
+<div class="section" id="overview">
+  <h2>🗺️ 9天路线总览 · 换宿最少化</h2>
+  <p>带两个小宝最大的敌人是「频繁搬行李」。这条路线把 9 天压缩成 <b>仅 4 次换宿</b>，且把热海花火放在中段，前松后松、中间高潮。</p>
+  <div class="route-map">
+    <div class="route-node">东京<span class="nights">3晚</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node">镰仓<span class="nights">当日往返</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node">箱根<span class="nights">2晚</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node fire">热海🎆<span class="nights">1晚·花火</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node">伊豆<span class="nights">2晚</span></div>
+    <span class="route-arrow">→</span>
+    <div class="route-node">东京<span class="nights">1晚·返程</span></div>
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Day</th><th>区域</th><th>核心安排</th><th>住宿地</th></tr>
+    <tr><td>D1</td><td>东京·浅草</td><td>抵达+适应时差，浅草寺+上野公园</td><td>东京（上野/浅草）</td></tr>
+    <tr><td>D2</td><td>东京·亲子</td><td>上野动物园 + teamLab Planets</td><td>东京（同上）</td></tr>
+    <tr><td>D3</td><td>镰仓·江之岛</td><td>江之电+七里滨沙滩+水族馆（当日往返）</td><td>东京（同上）</td></tr>
+    <tr><td>D4</td><td>东京→箱根</td><td>浪漫特快+雕刻之森美术馆+泡私汤</td><td>箱根温泉旅馆</td></tr>
+    <tr><td>D5</td><td>箱根</td><td>海盗船+芦之湖+大涌谷远观</td><td>箱根（同上）</td></tr>
+    <tr><td class="highlight">D6</td><td class="highlight">箱根→热海🎆</td><td>移动至热海+温泉街+<b>晚上看海上花火大会</b></td><td>热海温泉酒店</td></tr>
+    <tr><td>D7</td><td>热海→伊豆</td><td>移动至伊豆高原，仙人掌动物园+大室山</td><td>伊豆高原（大室山下）</td></tr>
+    <tr><td>D8</td><td>伊豆</td><td>城崎海岸+沙滩玩水，全天松弛度假</td><td>伊豆（同上）</td></tr>
+    <tr><td>D9</td><td>伊豆→东京</td><td>踊子号返东京，购物+返程</td><td>东京（机场附近）</td></tr>
+  </table>
+  </div>
+  <div class="alert alert-tip">
+    <b>💡 花火日灵活调整：</b>若你想看 <b>8月5日（周二）</b>的花火，则 D6 对齐到 8/5；若看 <b>7月25日</b>，整体行程前移即可。本攻略 D6 = 花火日，前后天数可微调。建议优先选<b>工作日场次（8/5周二）</b>，热海酒店更好订、人也相对少。
+  </div>
+</div>
+
+<!-- 票务规则 -->
+<div class="section" id="rules">
+  <h2>🎫 儿童 / 婴儿 票务规则（省钱关键）</h2>
+  <div class="alert alert-free">
+    <b>🍼 最大福利：日本铁路 0–5 岁幼儿全免！</b>未上小学（6岁以下）的幼儿乘 JR/地铁/新干线/巴士<b>免费</b>（不占座前提下，每位成人可免费带 2 名幼儿）。你家 3 岁 + 1.5 岁两娃，<b>全程交通费 = ¥0</b>。3 位成人最多可免费带 6 名幼儿，完全覆盖。
+  </div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>项目</th><th>3岁宝宝</th><th>1.5岁宝宝</th><th>说明</th></tr>
+    <tr><td>JR/新干线/地铁</td><td class="free-tag">免费</td><td class="free-tag">免费</td><td>不占座免费；占座买「儿童票」=半价</td></tr>
+    <tr><td>巴士/缆车/游船</td><td class="free-tag">多数免费</td><td class="free-tag">免费</td><td>箱根海盗船6岁以下免费</td></tr>
+    <tr><td>景点门票</td><td class="free-tag">多数免费</td><td class="free-tag">免费</td><td>动物园/美术馆未就学儿童多免费</td></tr>
+    <tr><td>teamLab</td><td class="free-tag">免费</td><td class="free-tag">免费</td><td>4岁以下免费</td></tr>
+    <tr><td>仙人掌动物园</td><td>幼儿票约¥700</td><td class="free-tag">免费</td><td>4岁以上幼儿收费，住SKY-HILL有折扣</td></tr>
+  </table>
+  </div>
+  <div class="alert alert-warn">
+    <b>⚠️ 占座问题：</b>幼儿免费的前提是「不占座」。新干线/特急长途若想给宝宝单独座位，需买儿童票（半价）。带两娃建议<b>买指定席</b>，提前选「2+3」并排座，让娃有地方坐/睡。
+  </div>
+</div>
+
+<!-- 每日行程 -->
+<div class="section" id="days">
+  <h2>📅 每日详细行程</h2>
+
+  <!-- D1 -->
+  <div class="day-card d1">
+    <div class="day-header"><span class="day-num">1</span><div><div class="day-title">抵达东京 · 浅草适应时差日</div><div class="day-sub">机场 → 上野/浅草 · 平地慢走不赶</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">下午·抵达</div><div class="activity">机场 → 酒店</div><div class="detail"><span class="badge badge-transport">交通</span>成田→上野：京成 Skyliner 约<span class="price">¥2,580/成人</span>（45分钟，两娃免费）；羽田→上野：京急+JR约<span class="price">¥600/成人</span>。<span class="badge badge-tip">Tip</span>带娃首选直达，行李多可用宅急便寄送到酒店。</div></div>
+      <div class="time-block afternoon"><div class="time-label">傍晚</div><div class="activity">浅草寺 + 仲见世通</div><div class="detail"><span class="badge badge-ticket">免费</span>仲见世通全程平地可推车，买棉花糖、和风小玩具，避开主殿高峰。<span class="badge badge-food">餐饮</span>浅草亲子日式定食。</div></div>
+      <div class="time-block evening"><div class="time-label">晚上</div><div class="activity">早回酒店倒时差</div><div class="detail">放弃秋叶原/银座（人多嘈杂不适合低幼）。超市采购宝宝零食、牛奶。</div></div>
+    </div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day-card d2">
+    <div class="day-header"><span class="day-num">2</span><div><div class="day-title">东京 · 动物园 + 沉浸艺术</div><div class="day-sub">上野动物园 + teamLab Planets</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">上野动物园</div><div class="detail"><span class="badge badge-ticket">门票</span>成人<span class="price">¥600</span>，<span class="free">未就学儿童免费</span>。大熊猫、小动物多，步道平缓可推车。10:00前入园避人流。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">teamLab Planets（丰洲）</div><div class="detail"><span class="badge badge-ticket">门票</span>成人约<span class="price">¥3,800</span>，<span class="free">4岁以下免费</span>。<span class="badge badge-tip">必预约</span>官网/Klook/KKday 定时票，需提前几天订。光影+踩水池，3岁宝宝会超兴奋（会湿身，带替换衣）。</div></div>
+      <div class="time-block evening"><div class="time-label">晚上</div><div class="activity">家庭餐厅晚餐</div><div class="detail"><span class="badge badge-food">餐饮</span>寿司郎/滨寿司/萨莉亚，有儿童餐椅、卡通餐盘、图片菜单。</div></div>
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day-card d3">
+    <div class="day-header"><span class="day-num">3</span><div><div class="day-title">镰仓·江之岛 海边一日（当日往返）</div><div class="day-sub">复古江之电 + 七里滨沙滩</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">JR 至镰仓 → 江之电</div><div class="detail"><span class="badge badge-transport">交通</span>东京→镰仓 JR 约<span class="price">¥920/成人</span>（1小时）。江之电一日券<span class="price">¥800/成人</span>，复古绿色小火车沿海行驶，娃超爱。</div></div>
+      <div class="time-block afternoon"><div class="time-label">午后</div><div class="activity">七里滨沙滩 + 新江之岛水族馆</div><div class="detail"><span class="badge badge-ticket">门票</span>水族馆成人<span class="price">¥2,800</span>，幼儿<span class="free">免费</span>。七里滨浅滩平缓安全，自带挖沙工具。<span class="badge badge-tip">Tip</span>跳过镰仓大佛、鹤冈八幡宫（大量台阶抱娃累）。</div></div>
+      <div class="time-block evening"><div class="time-label">傍晚</div><div class="activity">返回东京收拾行李</div><div class="detail">次日出发箱根，今晚整理好行李，把不用的大件寄送到伊豆/最后东京酒店。</div></div>
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day-card d4">
+    <div class="day-header"><span class="day-num">4</span><div><div class="day-title">东京 → 箱根 · 浪漫特快 + 美术馆</div><div class="day-sub">雕刻之森 + 私汤温泉</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">新宿 → 箱根汤本</div><div class="detail"><span class="badge badge-transport">交通</span>小田急浪漫特快(Romancecar)约<span class="price">¥2,470/成人</span>（85分钟）。<span class="badge badge-ticket">推荐</span>买<b>箱根周游券</b>（2日券成人约<span class="price">¥6,100</span>），含登山电车/缆车/海盗船/巴士，6岁以下免费。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">雕刻之森美术馆</div><div class="detail"><span class="badge badge-ticket">门票</span>成人<span class="price">¥1,600</span>，<span class="free">未就学儿童免费</span>。大片户外草坪、互动雕塑、儿童游乐区，全平地推车友好。</div></div>
+      <div class="time-block evening"><div class="time-label">晚上</div><div class="activity">入住箱根温泉旅馆·泡私汤</div><div class="detail"><span class="badge badge-hotel">住宿</span>选带私汤的房型，娃可单独泡（单次≤10分钟）。旅馆多有婴儿浴盆、儿童餐椅、宝宝洗浴用品。</div></div>
+    </div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day-card d5">
+    <div class="day-header"><span class="day-num">5</span><div><div class="day-title">箱根慢游 · 海盗船 + 芦之湖</div><div class="day-sub">不登山暴走，温和观光</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">芦之湖海盗船</div><div class="detail"><span class="badge badge-ticket">周游券含</span>海盗观光船平稳，<span class="free">6岁以下免费</span>。天气好可在湖上远观富士山倒影。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">大涌谷远观 + 元箱根港散步</div><div class="detail"><span class="badge badge-tip">Tip</span>缆车短途远观大涌谷即可，不长时间排队登山。元箱根港平地散步，吃黑玉子。</div></div>
+      <div class="time-block evening"><div class="time-label">晚上</div><div class="activity">旅馆温泉 + 早睡</div><div class="detail">为明天热海花火养精蓄锐。</div></div>
+    </div>
+  </div>
+
+  <!-- D6 花火 -->
+  <div class="day-card d6">
+    <div class="day-header"><span class="day-num">6</span><div><div class="day-title">🎆 箱根 → 热海 · 海上花火大会</div><div class="day-sub">行程高潮 · 当晚必住热海</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">箱根 → 热海</div><div class="detail"><span class="badge badge-transport">交通</span>箱根汤本→小田原(登山电车15分)→热海(JR东海道线25分)，约<span class="price">¥1,340/成人</span>，1小时内到。先 check-in 寄存行李。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">热海温泉街 + 海滨散步</div><div class="detail"><span class="badge badge-tip">Tip</span>逛温泉街、亲水公园，吃热海布丁、温泉馒头。下午回酒店让娃午睡，为晚上花火储备体力。</div></div>
+      <div class="time-block fire"><div class="time-label">🎆 20:15–20:40</div><div class="activity">海上花火大会</div><div class="detail"><span class="badge badge-tip">重点</span>若住星野RISONARE等高地酒店，直接在阳台/天台观赏，免去人潮；若住海边酒店（如大野屋），看完上天台或步行5分钟到会场。<span class="badge badge-tip">Tip</span>备降噪耳罩防止宝宝被巨响吓哭。看完直接回房，<b>不挤末班车</b>。</div></div>
+    </div>
+  </div>
+
+  <!-- D7 -->
+  <div class="day-card d7">
+    <div class="day-header"><span class="day-num">7</span><div><div class="day-title">热海 → 伊豆高原 · 小动物日</div><div class="day-sub">仙人掌动物园 + 大室山</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">热海 → 伊豆高原</div><div class="detail"><span class="badge badge-transport">交通</span>JR伊东线/伊豆急行，热海→伊豆高原约<span class="price">¥1,000/成人</span>（1小时）。或乘特急踊子号更舒适。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">伊豆仙人掌动物园</div><div class="detail"><span class="badge badge-ticket">门票</span>成人约<span class="price">¥2,800</span>，<span class="free">幼儿免费/优惠</span>。超多小动物可投喂，水豚、袋鼠、孔雀放养，低幼宝宝最爱。<span class="badge badge-hotel">住SKY-HILL有折扣票</span></div></div>
+      <div class="time-block evening"><div class="time-label">傍晚</div><div class="activity">大室山 + 入住海景酒店</div><div class="detail">大室山缆车登顶看360°海景火山口（平缓）。入住大室山下海景酒店，泡温泉。</div></div>
+    </div>
+  </div>
+
+  <!-- D8 -->
+  <div class="day-card d8">
+    <div class="day-header"><span class="day-num">8</span><div><div class="day-title">伊豆 · 深度玩水松弛日</div><div class="day-sub">沙滩+海岸+室内乐园，不赶景点</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">城崎海岸 / 门胁吊桥</div><div class="detail"><span class="badge badge-ticket">免费</span>平缓临海步道看海浪礁石，门胁吊桥平缓通行，不爬陡坡。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">沙滩玩水 + 捡贝壳</div><div class="detail">全天松弛，民宿/酒店附近浅滩玩沙。节奏完全放慢，午睡充分。</div></div>
+      <div class="time-block evening"><div class="time-label">晚上</div><div class="activity">海鲜会席 + 海边温泉</div><div class="detail"><span class="badge badge-food">餐饮</span>伊豆近海海鲜盖饭/会席料理，旅馆多备儿童餐。</div></div>
+    </div>
+  </div>
+
+  <!-- D9 -->
+  <div class="day-card d9">
+    <div class="day-header"><span class="day-num">9</span><div><div class="day-title">伊豆 → 东京 · 返程日</div><div class="day-sub">踊子号 + 最后购物</div></div></div>
+    <div class="day-body">
+      <div class="time-block morning"><div class="time-label">上午</div><div class="activity">伊豆 → 东京</div><div class="detail"><span class="badge badge-transport">交通</span>特急踊子号直达东京约<span class="price">¥4,000/成人</span>（约2小时），全车指定席，沿途海景。两娃免费但建议占座买半价票。</div></div>
+      <div class="time-block afternoon"><div class="time-label">下午</div><div class="activity">东京最后购物 / 机场</div><div class="detail">按航班时间，可在东京站/机场免税店买宝宝用品、伴手礼。行李多可提前宅急便寄到机场。</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 交通价格 -->
+<div class="section" id="transport">
+  <h2>🚆 交通方式 & 价格速查</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>路段</th><th>方式</th><th>成人单程</th><th>时长</th><th>两娃</th><th>购票渠道</th></tr>
+    <tr><td>成田机场→上野</td><td>京成Skyliner</td><td class="highlight">¥2,580</td><td>45min</td><td class="free-tag">免费</td><td>Klook/官网/现场</td></tr>
+    <tr><td>羽田机场→上野</td><td>京急+JR</td><td>¥600</td><td>50min</td><td class="free-tag">免费</td><td>现场/IC卡</td></tr>
+    <tr><td>东京→镰仓</td><td>JR横须贺线</td><td>¥920</td><td>60min</td><td class="free-tag">免费</td><td>IC卡直刷</td></tr>
+    <tr><td>镰仓⇄江之岛</td><td>江之电一日券</td><td>¥800</td><td>—</td><td class="free-tag">免费</td><td>站内/Klook</td></tr>
+    <tr><td>新宿→箱根汤本</td><td>小田急浪漫特快</td><td class="highlight">¥2,470</td><td>85min</td><td class="free-tag">免费</td><td>小田急官网/EMot App</td></tr>
+    <tr><td>箱根域内</td><td>箱根周游券2日</td><td class="highlight">¥6,100</td><td>—</td><td class="free-tag">免费</td><td>小田急/Klook/KKday</td></tr>
+    <tr><td>箱根→热海</td><td>登山电车+JR</td><td>¥1,340</td><td>60min</td><td class="free-tag">免费</td><td>IC卡/现场</td></tr>
+    <tr><td>东京→热海(直接)</td><td>新干线Kodama</td><td>¥3,870</td><td>45min</td><td class="free-tag">免费</td><td>JR官网/现场</td></tr>
+    <tr><td>东京→热海(直接)</td><td>特急踊子号</td><td>¥4,000</td><td>80min</td><td class="free-tag">免费</td><td>JR官网/现场</td></tr>
+    <tr><td>热海→伊豆高原</td><td>伊豆急行/踊子号</td><td>¥1,000–2,000</td><td>60min</td><td class="free-tag">免费</td><td>IC卡/JR官网</td></tr>
+    <tr><td>伊豆→东京</td><td>特急踊子号</td><td class="highlight">¥4,000</td><td>120min</td><td class="free-tag">免费</td><td>JR官网/现场</td></tr>
+  </table>
+  </div>
+  <div class="alert alert-info">
+    <b>💳 交通卡建议：</b>办 <b>Suica / PASMO</b>（含手机版 Apple Pay）一卡刷遍 JR/地铁/巴士/便利店，带娃免去买票排队。<b>箱根段</b>务必买周游券，比单买省 ¥4,000+。<b>JR Pass</b> 对此行程不划算（多为短途+特急），按段买票更省。
+  </div>
+</div>
+
+<!-- 酒店推荐 -->
+<div class="section" id="hotels">
+  <h2>🏨 分段酒店推荐（小红书/携程/马蜂窝口碑精选）</h2>
+
+  <h3>🗼 东京（3晚）— 选上野/浅草，亲子公寓优先</h3>
+  <div class="hotel-card best">
+    <div class="h-name">MIMARU 东京 上野 EAST / 新宿 WEST</div>
+    <div class="h-meta">公寓式酒店 · 上野站/新宿步行可达</div>
+    <div class="h-price">约 ¥1,200–1,800/晚</div>
+    <span class="tag-pill">主打亲子旅馆</span><span class="tag-pill">榻榻米房型</span><span class="tag-pill">带小厨房</span><span class="tag-pill">洗衣机</span>
+    <div class="h-desc">网友一致推荐的带娃首选。房间宽敞、有榻榻米可让宝宝爬行、小厨房能切洗水果/煮辅食、自带洗衣机解决带娃换洗。多语言服务友好。<b>缺点</b>：新宿WEST离站约15分钟、宅配代收要收费。</div>
+  </div>
+  <div class="hotel-card">
+    <div class="h-name">三井花园酒店 上野 / 旅馆加茂川（浅草老铺）</div>
+    <div class="h-meta">三井：上野站旁 · 加茂川：浅草雷门3分钟</div>
+    <div class="h-price">三井约¥1,000+/晚</div>
+    <span class="tag-pill">上野公园隔壁</span><span class="tag-pill">熊猫房</span><span class="tag-pill">婴儿用品出借</span>
+    <div class="h-desc">三井花园上野公园就在隔壁、交通便利有熊猫房；加茂川是70年和风老铺，全榻榻米、免费出借幼儿餐具/婴儿澡盆/辅助便座，可眺望晴空塔。<b>注意</b>：日系酒店房间普遍偏小，3大2小建议订家庭房/连通房并提前确认人数政策。</div>
+  </div>
+
+  <h3>♨️ 箱根（2晚）— 带私汤、婴儿友好旅馆</h3>
+  <div class="hotel-card best">
+    <div class="h-name">强罗白檀 (Gora Hakuun) / 强罗温泉 季之汤雪月花</div>
+    <div class="h-meta">强罗站附近 · 半山腰有接驳</div>
+    <div class="h-price">约 ¥2,000–3,000/晚/人起</div>
+    <span class="tag-pill">房间带私汤</span><span class="tag-pill">儿童高脚椅</span><span class="tag-pill">独立用餐房</span><span class="tag-pill">欢迎带娃</span>
+    <div class="h-desc">小红书亲测：强罗白檀仅16间房、欢迎小朋友，房间私汤+阳台大，每间房有独立用餐间、提供优质儿童高脚椅与专属餐盘，大堂有木质小车给娃玩，7座接驳车随叫随到。带娃友好度满分。</div>
+  </div>
+  <div class="hotel-card">
+    <div class="h-name">箱根水明莊 (Suimeiso)</div>
+    <div class="h-meta">箱根汤本站步行5分钟</div>
+    <div class="h-price">约 ¥1,500–2,500/晚/人</div>
+    <span class="tag-pill">离站超近</span><span class="tag-pill">可预约私汤¥2200/50min</span><span class="tag-pill">提供婴儿澡盆/餐椅</span>
+    <div class="h-desc">网友带7个月宝宝实测：拖行李5分钟到，提供宝宝洗澡澡盆、洗浴用品、餐椅，亲子友善。私汤需 check-in 时先预约（易满）。晚餐日式料理精致。<b>缺点</b>：只有一台电梯，高峰要等。</div>
+  </div>
+
+  <h3>🎆 热海（1晚·花火日）— 能看花火是第一要素</h3>
+  <div class="hotel-card best">
+    <div class="h-name">星野度假村 RISONARE 热海</div>
+    <div class="h-meta">高地位置 · JR热海站有接驳</div>
+    <div class="h-price">约 ¥3,000–5,000/晚/人（含餐+设施）</div>
+    <span class="tag-pill">阳台可看花火</span><span class="tag-pill">室内儿童泳池</span><span class="tag-pill">树屋/攀岩</span><span class="tag-pill">免费托儿</span><span class="tag-pill">婴儿套房</span>
+    <div class="h-desc">带娃看花火的天花板选择。地处高地，<b>可在房间阳台/天台奢侈地欣赏海上花火，无需挤人潮</b>。含10项免费亲子服务：球池、攀岩、室内泳池（含儿童浅水池）、树屋KUSUKUSU、营火烤棉花糖、免费托儿、婴儿套房备齐用品。温泉2025年3月翻新可看海景花火。强烈推荐。</div>
+  </div>
+  <div class="hotel-card">
+    <div class="h-name">大野屋酒店 (Hotel Ohnoya)</div>
+    <div class="h-meta">热海市海边 · JR热海站免费接驳（每半小时）</div>
+    <div class="h-price">约 ¥1,800–2,800/晚/人（含自助晚早餐）</div>
+    <span class="tag-pill">步行5分钟到会场</span><span class="tag-pill">顶楼花火观景台</span><span class="tag-pill">罗马浴场</span><span class="tag-pill">前台中文</span>
+    <div class="h-desc">昭和怀旧风高性价比之选。步行5分钟到花火主场地，有顶楼花火观景台直接对海看烟花+发放船。三种特色温泉（罗马浴场超大），自助晚早餐丰富（寿司刺身天妇罗+无限畅饮）。前台有中文服务，适合家庭。</div>
+  </div>
+  <div class="alert alert-warn"><b>⚠️ 花火日酒店要早订！</b>热海花火日（尤其7/25、8/8周末场）酒店爆满且涨价，建议提前1-2个月预订。订房时务必确认是否有「住宿客专用观赏席」或能否从酒店看到花火。</div>
+
+  <h3>🌋 伊豆高原（2晚）— 大室山下、动物园旁</h3>
+  <div class="hotel-card best">
+    <div class="h-name">SKY-HILL HOTEL 伊豆高原</div>
+    <div class="h-meta">紧邻仙人掌动物园 · 大室山脚下</div>
+    <div class="h-price">约 ¥1,500–2,500/晚/人</div>
+    <span class="tag-pill">连通动物园(后门免费进)</span><span class="tag-pill">动物园折扣票</span><span class="tag-pill">海景房</span><span class="tag-pill">屋顶平台看大室山</span><span class="tag-pill">温泉</span>
+    <div class="h-desc">携程4.4高分。酒店有专门小门直通仙人掌动物园（住客买票有大折扣），房间46㎡超大海景和洋室，屋顶平台可拍大室山绝景，温泉舒适。<b>注意</b>：在山里，订餐需提前；网友提到偶有虫子（山区正常）；离车站需打车10分钟。</div>
+  </div>
+  <div class="hotel-card">
+    <div class="h-name">伊豆仙人掌村 孩童城 M俱乐部 (Petit Hotel Izu Shaboten Village)</div>
+    <div class="h-meta">就在仙人掌动物园园区内</div>
+    <div class="h-price">约 ¥2,500–4,000/晚/人</div>
+    <span class="tag-pill">动物主题房</span><span class="tag-pill">豪华露营</span><span class="tag-pill">动物毛绒玩具</span><span class="tag-pill">主厨烧烤</span>
+    <div class="h-desc">动物园官方酒店，主题房间（水豚/火烈鸟/恐龙/斑马），帐篷里放动物毛绒玩具，孩子的梦幻乐园。住客可随时进出动物园。适合想给娃极致动物体验的家庭。</div>
+  </div>
+</div>
+
+<!-- 餐厅推荐 -->
+<div class="section" id="food">
+  <h2>🍱 儿童友好餐厅推荐</h2>
+  <div class="alert alert-free">
+    <b>带娃吃饭核心思路：</b>日本几乎所有非高档餐厅都欢迎儿童，<b>家庭餐厅（ファミレス）</b>是首选——有儿童餐椅、卡通餐盘、图片菜单、益智玩具。挑食宝宝靠白米饭/乌冬/煎饺/唐扬炸鸡/玉子烧/咖喱饭基本不会饿到。便利店辅食、饭团、盒装牛奶随时救急。
+  </div>
+  <h3>🏠 全国连锁·闭眼进（每个城市都有）</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>餐厅</th><th>类型</th><th>人均</th><th>亲子亮点</th></tr>
+    <tr><td>寿司郎 / 滨寿司</td><td>回转寿司</td><td>¥1,000–1,500</td><td>触屏点单娃爱看、有儿童餐、玉子寿司</td></tr>
+    <tr><td>萨莉亚 (Saizeriya)</td><td>意式家庭餐</td><td>¥800–1,200</td><td>超便宜、儿童餐、图片菜单、有餐椅</td></tr>
+    <tr><td>Gusto / Denny's</td><td>家庭餐厅</td><td>¥1,000–1,500</td><td>儿童餐含玩具、饮料吧、宽敞座位</td></tr>
+    <tr><td>面包超人主题餐厅</td><td>卡通主题</td><td>¥1,500+</td><td>横滨有面包超人乐园+餐厅，娃疯狂</td></tr>
+  </table>
+  </div>
+  <h3>📍 各地特色餐厅</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>地点</th><th>餐厅</th><th>推荐</th></tr>
+    <tr><td>东京·浅草</td><td>浅草今半 / 各定食屋</td><td>寿喜烧、亲子定食，平地推车可进</td></tr>
+    <tr><td>镰仓·长谷</td><td>海畑（うみばたけ）长谷店</td><td>盖饭/亲子盖饭，人均¥1,500，明确「欢迎儿童」，江之电长谷站5分钟</td></tr>
+    <tr><td>江之岛</td><td>福本（柳小路站1分钟）</td><td>温馨家庭日料，天妇罗定食/鳗鱼饭，性价比高老板热情</td></tr>
+    <tr><td>七里滨</td><td>Pacific DRIVE-IN / 海景餐厅</td><td>边吃边看海，露台位宽敞适合带娃</td></tr>
+    <tr><td>箱根</td><td>旅馆会席（含在住宿）</td><td>多有独立用餐间+儿童餐椅+宝宝餐</td></tr>
+    <tr><td>热海</td><td>温泉街海鲜食堂 / 酒店自助</td><td>大野屋自助晚餐寿司刺身天妇罗丰富</td></tr>
+    <tr><td>伊豆</td><td>近海海鲜盖饭 / 旅馆会席</td><td>金目鲷料理是伊豆特产，旅馆备儿童餐</td></tr>
+  </table>
+  </div>
+  <div class="alert alert-tip"><b>💡 订位提示：</b>带娃尽量选「有儿童餐椅」「禁烟」的店（Tabelog/GURUNAVI 可筛选「欢迎儿童」）。热门店（尤其镰仓海景餐厅）周末排队长，建议错峰11点开餐就去或提前在线预约。</div>
+</div>
+
+<!-- 避坑指南 -->
+<div class="section" id="pitfalls">
+  <h2>⚠️ 带娃避坑指南（血泪经验合集）</h2>
+
+  <div class="pitfall">
+    <div class="p-title">坑1 · 花火当晚硬挤末班车回东京</div>
+    <div class="p-text">花火 20:40 结束，几万人同时涌向热海站，带两个小宝完全挤不上车，娃困哭、大人崩溃。</div>
+    <div class="p-solution"><b>✅ 解法：</b>花火当晚<b>必须住热海</b>，看完直接回房。提前1-2个月订能看花火的酒店。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑2 · 婴儿车进老车站/寺庙参道处处碰壁</div>
+    <div class="p-text">主要大站有电梯，但部分老站只有楼梯；寺庙参道、镰仓大佛/八幡宫有大量台阶，推车寸步难行。</div>
+    <div class="p-solution"><b>✅ 解法：</b>用<b>轻便可折叠推车 + 婴儿背带</b>双配置切换；高峰时段避开拥挤电车；本攻略已跳过大佛/八幡宫等台阶密集点。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑3 · 没提前预约定时票/家庭房，到了订不到</div>
+    <div class="p-text">teamLab、迪士尼、吉卜力、卡通咖啡馆都是定时票，当天去常常售罄；新干线超大行李座位、家庭/连通房数量少。</div>
+    <div class="p-solution"><b>✅ 解法：</b>teamLab、温泉旅馆家庭房、热海花火酒店<b>提前几天到1个月预约</b>；日常项目（公园/动物园/餐厅）当天去即可。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑4 · 日系酒店房间太小，3大2小挤不下 / 被拒</div>
+    <div class="p-text">很多酒店把6岁以上算成人，且能住3成人的房型有限，订房时人数没说清到现场被反复确认甚至拒住。</div>
+    <div class="p-solution"><b>✅ 解法：</b>订房<b>如实填写3成人+2幼儿</b>，优先选公寓式（MIMARU）或和洋室/家庭房；提前邮件确认人数政策与加床。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑5 · 带1.5岁泡公共温泉手忙脚乱 + 被巨响吓哭</div>
+    <div class="p-text">公共大池拥挤、2岁以下泡温泉有风险；花火/祭典巨响易吓哭低幼宝宝。</div>
+    <div class="p-solution"><b>✅ 解法：</b>选<b>带私汤的房型</b>（箱根/伊豆旅馆都有），单次泡≤10分钟；花火备<b>降噪耳罩</b>，选高地酒店阳台远观。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑6 · 行李太多每天搬到崩溃</div>
+    <div class="p-text">9天5地，带娃行李本就多，每次换宿拖大箱子上下电车是噩梦。</div>
+    <div class="p-solution"><b>✅ 解法：</b>善用<b>宅急便（Takkyubin）</b>，把暂时不用的大件从东京直接寄到伊豆/最后东京酒店（约¥1,500-2,000/件，次日达），轻装坐车。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑7 · 儿童餐含生鱼 / 没带一次性围兜吸管</div>
+    <div class="p-text">部分儿童餐有生鱼片，对鱼过敏要当心；日本餐厅普遍没有一次性围兜。</div>
+    <div class="p-solution"><b>✅ 解法：</b>自备<b>一次性围兜、可弯曲吸管</b>；点餐确认是否含生食；随身带过敏原翻译卡。</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="p-title">坑8 · 暑期7-8月日本酷热中暑</div>
+    <div class="p-text">7-8月东京/伊豆湿热（35℃+），宝宝易中暑脱水。</div>
+    <div class="p-solution"><b>✅ 解法：</b>避开正午户外，备防晒帽、便携小风扇、宝宝补水盐；多安排室内（teamLab/水族馆/美术馆/动物园树荫）；箱根/热海/伊豆海边比东京凉爽。</div>
+  </div>
+</div>
+
+<!-- 费用预算 -->
+<div class="section" id="cost">
+  <h2>💰 全程费用预算（3大2小·不含机票）</h2>
+  <div class="cost-summary">
+    <div class="cost-card cc-1"><div class="amount">¥48,000</div><div class="desc">交通（5人，两娃免费）</div></div>
+    <div class="cost-card cc-2"><div class="amount">¥150,000</div><div class="desc">住宿（8晚·含温泉旅馆）</div></div>
+    <div class="cost-card cc-3"><div class="amount">¥15,000</div><div class="desc">门票（两娃多免费）</div></div>
+    <div class="cost-card cc-4"><div class="amount">¥80,000</div><div class="desc">餐饮（9天·5人）</div></div>
+    <div class="cost-card cc-total"><div class="amount">约 ¥293,000</div><div class="desc">全程总计（约人民币 1.4 万）· 含机票约 2.2–2.6 万</div></div>
+  </div>
+  <div class="alert alert-info">
+    <b>💴 预算说明：</b>住宿是大头，温泉旅馆/星野较贵（含餐）。若选高性价比酒店（MIMARU+水明莊+大野屋+SKY-HILL）可压到 ¥10–12 万住宿。两娃交通+门票几乎全免是最大省钱点。汇率按 1 元≈21 日元估算，实际以购票/订房时为准。
+  </div>
+  <div class="alert alert-warn">
+    <b>📋 出行前 Checklist：</b>① 日本签证（提前1个月办，约5-7工作日出签）② 热海花火酒店提前订 ③ teamLab定时票预约 ④ Suica/PASMO（手机版）⑤ 箱根周游券 ⑥ 宅急便寄行李 ⑦ 降噪耳罩+防晒+一次性围兜+挖沙工具。
+  </div>
+</div>
+
+<div class="footer">
+  数据来源：携程 / 小红书 / 马蜂窝 / Trip.com / Tabelog / 各景点官网 · 价格与场次以官方实时为准 · 生成于 2026-06-30
+</div>
+
+</div>
+</body>
+</html>
