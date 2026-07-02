@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新矩阵产品账号体系关键信息</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 56px 40px 96px; }
+
+  /* Hero */
+  .hero { margin-bottom: 44px; }
+  .eyebrow {
+    color: #0071e3; font-size: 13px; letter-spacing: 1.4px; font-weight: 600;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 40px; font-weight: 700; letter-spacing: -1px; line-height: 1.2; margin-bottom: 14px; }
+  .subtitle { font-size: 17px; color: #6e6e73; max-width: 880px; }
+  .meta { margin-top: 16px; font-size: 12.5px; color: #86868b; }
+
+  /* TL;DR */
+  .tldr {
+    background: linear-gradient(135deg, #1d1d1f 0%, #2c2c2e 100%);
+    color: #f5f5f7; border-radius: 22px; padding: 32px 36px; margin-bottom: 52px;
+  }
+  .tldr h2 { font-size: 12px; color: #0a84ff; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .tldr h3 { font-size: 23px; font-weight: 700; margin-bottom: 18px; letter-spacing: -0.3px; }
+  .tldr ul { list-style: none; padding: 0; }
+  .tldr li {
+    padding: 11px 0 11px 30px; position: relative; font-size: 15px;
+    color: #d2d2d7; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .tldr li:last-child { border-bottom: 0; }
+  .tldr li::before {
+    content: ""; position: absolute; left: 4px; top: 19px;
+    width: 12px; height: 12px; border-radius: 50%; background: #0a84ff;
+  }
+  .tldr li b { color: #fff; }
+
+  /* Section */
+  section { margin-bottom: 52px; }
+  .sec-head { margin-bottom: 22px; }
+  .sec-eyebrow { font-size: 11.5px; color: #0071e3; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
+  .sec-title { font-size: 27px; font-weight: 700; letter-spacing: -0.4px; }
+  .sec-desc { font-size: 15px; color: #6e6e73; margin-top: 6px; max-width: 880px; }
+
+  /* 背景卡 */
+  .bg-card { background: #fff; border-radius: 18px; padding: 28px 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  .bg-card p { font-size: 15px; color: #3a3a3c; margin-bottom: 14px; }
+  .bg-card p:last-child { margin-bottom: 0; }
+  .bg-card b { color: #0071e3; }
+  .oneid-badge { display:inline-block; background:#eef4ff; color:#0071e3; font-size:12px; font-weight:600; padding:3px 10px; border-radius:999px; margin:0 2px; }
+  .shift { display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:center; margin-top:20px; }
+  .shift .box { border-radius:12px; padding:14px 18px; font-size:13px; line-height:1.55; }
+  .shift .old { background:#f5f5f7; color:#6e6e73; border:1px dashed #d2d2d7; }
+  .shift .new { background:#eef4ff; color:#264a7a; border:1px solid #cfe0fb; }
+  .shift .old b { color:#86868b; } .shift .new b { color:#0071e3; }
+  .shift .arrow { font-size:22px; color:#0071e3; font-weight:700; }
+
+  /* 六原则 grid */
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .principle { background: #fff; border-radius: 16px; padding: 22px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  .principle .no { font-size: 30px; font-weight: 800; color: #e5e5ea; line-height: 1; }
+  .principle .tag { display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:0.4px; padding:3px 8px; border-radius:6px; margin: 8px 0; }
+  .principle h4 { font-size: 15.5px; font-weight: 700; margin-bottom: 6px; }
+  .principle p { font-size: 13px; color: #6e6e73; line-height: 1.55; }
+  .t-green { background:#e8f7ee; color:#1f8a3c; }
+  .t-blue  { background:#e8f1fd; color:#0071e3; }
+  .t-purple{ background:#f0e9fb; color:#7d4cd1; }
+  .t-orange{ background:#fdf0e3; color:#d97a00; }
+  .t-pink  { background:#fce8ee; color:#c8397a; }
+  .t-teal  { background:#e3f6f5; color:#0a8f88; }
+
+  /* 三方案 */
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+  .plan { background: #fff; border-radius: 18px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); position: relative; display:flex; flex-direction:column; }
+  .plan.recommend { border: 2px solid #0071e3; box-shadow: 0 4px 12px rgba(0,113,227,0.14), 0 12px 32px rgba(0,113,227,0.10); }
+  .badge { position: absolute; top: -12px; left: 24px; background: #0071e3; color: #fff; font-size: 11.5px; font-weight: 700; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.3px; }
+  .plan h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.2px; }
+  .plan .pid { color: #86868b; font-size: 12px; letter-spacing: 0.3px; margin-bottom: 14px; min-height: 32px; }
+  .plan .row { display: flex; padding: 7px 0; border-bottom: 1px dashed #f0f0f2; font-size: 13px; }
+  .plan .row .k { width: 58px; color: #86868b; flex-shrink: 0; }
+  .plan .row .v { color: #1d1d1f; }
+  .pros li, .cons li { font-size: 12.5px; padding: 4px 0 4px 16px; position: relative; line-height: 1.5; }
+  .pros li::before { content: "✓"; color: #1f8a3c; position: absolute; left: 0; font-weight: 700; }
+  .cons li::before { content: "–"; color: #ff9f0a; position: absolute; left: 0; font-weight: 700; }
+  .plan .label { font-size: 11px; font-weight: 700; color: #86868b; margin-top: 12px; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .plan .verdict { margin-top:auto; padding-top:14px; font-size:12.5px; font-weight:600; }
+  .verdict.rec { color:#0071e3; }
+  .verdict.no  { color:#86868b; }
+  .history-note { background:#fbf7ef; border:1px solid #f0e2c8; border-radius:14px; padding:14px 20px; margin-bottom:20px; font-size:13px; color:#8a6d3b; line-height:1.6; }
+  .history-note b { color:#a06200; }
+
+  /* 表格 */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  th, td { padding: 13px 16px; text-align: left; vertical-align: top; font-size: 13px; }
+  th { background: #f5f5f7; font-weight: 700; color: #1d1d1f; font-size: 12.5px; letter-spacing: 0.3px; }
+  tr + tr td { border-top: 1px solid #f0f0f2; }
+  .tag2 { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .tag2.r { background: rgba(255,159,10,0.14); color: #d97a00; }
+  .tag2.y { background: rgba(255,204,0,0.18); color: #a67c00; }
+  .tag2.g { background: rgba(48,209,88,0.14); color: #1f8a3c; }
+  .tag2.b { background: rgba(0,113,227,0.1); color: #0071e3; }
+
+  /* 合规卡 */
+  .compliance { background: #fff7e6; border-radius: 22px; padding: 32px 36px; border: 1px solid #ffe0a3; }
+  .compliance h2 { font-size: 12px; color: #d97a00; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 14px; }
+  .compliance h3 { font-size: 23px; font-weight: 700; margin-bottom: 20px; color: #7c3a00; letter-spacing: -0.3px; }
+  .compliance .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .compliance .item { background: rgba(255,255,255,0.72); border-radius: 12px; padding: 18px 20px; }
+  .compliance .item .k { font-size: 11.5px; color: #d97a00; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.3px; }
+  .compliance .item .t { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #1d1d1f; }
+  .compliance .item .d { font-size: 13px; color: #5b3a00; line-height: 1.6; }
+  .compliance .item .d b { color: #b35c00; }
+
+  /* 合作框架 - 分工 */
+  .raci { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px; }
+  .raci .side { background:#fff; border-radius:18px; padding:22px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); }
+  .raci .side.oneid { border-top:4px solid #7d4cd1; }
+  .raci .side.yb { border-top:4px solid #d97a00; }
+  .raci .side.mx { border-top:4px solid #0071e3; }
+  .raci .side h4 { font-size:15.5px; font-weight:700; margin-bottom:4px; }
+  .raci .side .role { font-size:12px; color:#86868b; margin-bottom:14px; min-height:32px; }
+  .raci .side ul { list-style:none; padding:0; }
+  .raci .side li { font-size:13px; padding:8px 0 8px 20px; position:relative; border-bottom:1px dashed #f0f0f2; line-height:1.5; }
+  .raci .side li:last-child { border-bottom:0; }
+  .raci .side.oneid li::before { content:"●"; color:#7d4cd1; position:absolute; left:2px; font-size:9px; top:11px; }
+  .raci .side.yb li::before { content:"●"; color:#d97a00; position:absolute; left:2px; font-size:9px; top:11px; }
+  .raci .side.mx li::before { content:"●"; color:#0071e3; position:absolute; left:2px; font-size:9px; top:11px; }
+  .raci .side li b { color:#1d1d1f; }
+
+  /* 关键信息清单 */
+  .keys { background:#fff; border-radius:18px; padding:8px 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); overflow:hidden; }
+
+  .callout { background:#eef4ff; border:1px solid #cfe0fb; border-radius:14px; padding:18px 22px; margin-top:18px; font-size:13.5px; color:#264a7a; line-height:1.6; }
+  .callout b { color:#0071e3; }
+
+  .diagram-card { background:#fff; border-radius:18px; padding:24px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); overflow-x:auto; }
+  .note-line { font-size: 12px; color:#6e6e73; margin-top:6px; }
+
+  /* 联动能力卡 */
+  .synergy { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-top:20px; }
+  .synergy .card { background:#fff; border-radius:16px; padding:20px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04); border-left:4px solid #0071e3; }
+  .synergy .card.c1 { border-left-color:#0a8f88; }
+  .synergy .card.c2 { border-left-color:#d97a00; }
+  .synergy .card.c3 { border-left-color:#7d4cd1; }
+  .synergy .card .flow { font-size:11.5px; font-weight:700; letter-spacing:0.3px; margin-bottom:8px; }
+  .synergy .card.c1 .flow { color:#0a8f88; }
+  .synergy .card.c2 .flow { color:#d97a00; }
+  .synergy .card.c3 .flow { color:#7d4cd1; }
+  .synergy .card h4 { font-size:15px; font-weight:700; margin-bottom:8px; }
+  .synergy .card p { font-size:13px; color:#6e6e73; line-height:1.6; }
+  .synergy .card p b { color:#1d1d1f; }
+
+  footer { margin-top: 52px; text-align: center; color: #86868b; font-size: 12.5px; line-height:1.7; }
+
+  @media (max-width: 900px) {
+    .wrap { padding: 28px 18px 56px; }
+    h1 { font-size: 29px; }
+    .plans, .principles, .compliance .grid, .raci, .synergy, .shift { grid-template-columns: 1fr; }
+    .shift .arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="eyebrow">Account System · Key Facts &amp; OneID Collaboration</div>
+    <h1>新矩阵产品账号体系关键信息</h1>
+    <p class="subtitle">面向 CSIG OneID 团队的对齐材料：元宝、浏览器、输入法拟一起接入 BG 统一 OneID 体系。本材料梳理选型背景与存量方案（历史同步），并把三个产品「接入后能做什么」的跨端诉求打通，形成一份可落地的联动架构与需求，一起向 OneID 团队提出。</p>
+    <div class="meta">v3.1 · 2026-07-02 · 议题：元宝 · 浏览器 · 输入法 共同接入 OneID 的诉求对齐</div>
+  </header>
+
+  <!-- TL;DR -->
+  <section class="tldr">
+    <h2>TL;DR · 一页看懂</h2>
+    <h3>元宝 + 浏览器 + 输入法，一起接入 BG OneID 统一账号</h3>
+    <ul>
+      <li><b>背景转向</b>：由「新产品接入元宝 Passport」升级为「元宝与浏览器、输入法<b>一起接入 CSIG OneID</b>」。三个产品同为 OneID 消费方，统一账号标识由 UIN 变为 <b>OneID</b>。</li>
+      <li><b>本次对齐目的</b>：先把三端「接入后互相能做什么」的跨端诉求与后续预期打通，形成统一需求，<b>一起向 OneID 团队提接入需求</b>——而不是各自单独对接。</li>
+      <li><b>理想接入姿态</b>：沿用此前方案二的视角（统一账号 + 支持产品侧自定义改造），但主键从 UIN 换成 <b>OneID 统一标识</b>；存量三方案作为历史信息保留同步。</li>
+      <li><b>联动价值</b>：登录后经用户授权，三端用户数据与上下文以 OneID 为主键互通；<b>浏览器与输入法采集的上下文，可为元宝的理解与生成所用</b>（如浏览网页、输入内容作为元宝的实时上下文）。</li>
+      <li><b>合规底线</b>：上下文互通须<b>用户明确授权、不默认全通</b>，分级授权 + 可随时撤销，并在隐私政策中披露。</li>
+    </ul>
+  </section>
+
+  <!-- 1. 产品联动架构（本次核心） -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">01 · Synergy Architecture · 本次核心</div>
+      <h2 class="sec-title">接入 OneID 后的产品联动架构</h2>
+      <p class="sec-desc">三端以 OneID 为统一主键；用户授权后数据与上下文互通。重点：浏览器与输入法采集的上下文，如何输送给元宝理解与生成。</p>
+    </div>
+    <div class="diagram-card">
+      <svg viewBox="0 0 1120 760" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;min-width:980px;">
+        <defs>
+          <marker id="aBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0071e3"/></marker>
+          <marker id="aTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0a8f88"/></marker>
+          <marker id="aOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d97a00"/></marker>
+          <marker id="aGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#34c759"/></marker>
+          <marker id="aGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b0b0b5"/></marker>
+        </defs>
+
+        <!-- OneID 底座 -->
+        <rect x="30" y="24" width="1060" height="96" rx="16" fill="#f0e9fb" stroke="#7d4cd1" stroke-width="1.4"/>
+        <text x="54" y="56" font-size="15" font-weight="800" fill="#7d4cd1">CSIG OneID · BG 统一账号标识</text>
+        <text x="54" y="80" font-size="12" fill="#5a3a9a">统一签发 OneID · 身份鉴权 / Token · 三方绑定 · 注销与冷静期 · 账号状态与事件</text>
+        <text x="54" y="101" font-size="12" fill="#5a3a9a">跨产品资产与上下文，均以 <tspan font-weight="700">OneID</tspan> 为唯一主键关联</text>
+        <rect x="832" y="46" width="232" height="26" rx="8" fill="#fff" stroke="#7d4cd1"/>
+        <text x="948" y="64" text-anchor="middle" font-size="11.5" fill="#7d4cd1">三端平级接入 · 同为消费方</text>
+
+        <!-- ① 各端从 OneID 建立登录态（向下箭头） -->
+        <text x="560" y="150" text-anchor="middle" font-size="11.5" fill="#86868b">① 各端以 OneID 建立登录态（认证 API / SDK）</text>
+        <line x1="230" y1="120" x2="230" y2="204" stroke="#b0b0b5" stroke-width="1.4" marker-end="url(#aGray)"/>
+        <line x1="560" y1="120" x2="560" y2="204" stroke="#b0b0b5" stroke-width="1.4" marker-end="url(#aGray)"/>
+        <line x1="900" y1="120" x2="900" y2="204" stroke="#b0b0b5" stroke-width="1.4" marker-end="url(#aGray)"/>
+
+        <!-- 三个产品 -->
+        <!-- 浏览器 -->
+        <rect x="60" y="206" width="330" height="160" rx="14" fill="#e3f6f5" stroke="#0a8f88" stroke-width="1.3"/>
+        <text x="82" y="236" font-size="15" font-weight="700" fill="#0a8f88">浏览器</text>
+        <text x="82" y="258" font-size="11.5" fill="#0a7a74">采集端 · 网页浏览上下文</text>
+        <text x="82" y="284" font-size="11.5" fill="#4a4a4e">· 当前网页正文 / 标题 / URL</text>
+        <text x="82" y="306" font-size="11.5" fill="#4a4a4e">· 用户圈选、停留、检索意图</text>
+        <text x="82" y="328" font-size="11.5" fill="#4a4a4e">· 收藏 / 阅读历史（授权后）</text>
+        <text x="82" y="352" font-size="11" fill="#0a8f88" font-weight="600">产出：网页级实时上下文</text>
+
+        <!-- 输入法 -->
+        <rect x="415" y="206" width="290" height="160" rx="14" fill="#fdf0e3" stroke="#d97a00" stroke-width="1.3"/>
+        <text x="437" y="236" font-size="15" font-weight="700" fill="#d97a00">输入法</text>
+        <text x="437" y="258" font-size="11.5" fill="#b35c00">采集端 · 输入场景上下文</text>
+        <text x="437" y="284" font-size="11.5" fill="#4a4a4e">· 当前输入内容 / 草稿</text>
+        <text x="437" y="306" font-size="11.5" fill="#4a4a4e">· 所在 App / 输入框场景</text>
+        <text x="437" y="328" font-size="11.5" fill="#4a4a4e">· 常用短语 / 表达偏好（授权后）</text>
+        <text x="437" y="352" font-size="11" fill="#d97a00" font-weight="600">产出：输入级实时上下文</text>
+
+        <!-- 元宝 -->
+        <rect x="730" y="206" width="330" height="160" rx="14" fill="#e8f7ee" stroke="#34c759" stroke-width="1.3"/>
+        <text x="752" y="236" font-size="15" font-weight="700" fill="#1f8a3c">元宝 App</text>
+        <text x="752" y="258" font-size="11.5" fill="#2a7d47">消费端 · 理解与生成中枢</text>
+        <text x="752" y="284" font-size="11.5" fill="#4a4a4e">· 汇聚多端上下文，理解当下意图</text>
+        <text x="752" y="306" font-size="11.5" fill="#4a4a4e">· 结合长期记忆做个性化建议</text>
+        <text x="752" y="328" font-size="11.5" fill="#4a4a4e">· 生成结果按授权回流各端</text>
+        <text x="752" y="352" font-size="11" fill="#1f8a3c" font-weight="600">消费：把上下文转成智能能力</text>
+
+        <!-- 浏览器/输入法 上下文 汇入授权网关（各自独立竖线，避免交叉重叠） -->
+        <text x="150" y="404" text-anchor="middle" font-size="11" fill="#0a8f88" font-weight="600">网页上下文</text>
+        <text x="560" y="404" text-anchor="middle" font-size="11" fill="#d97a00" font-weight="600">输入上下文</text>
+        <path d="M150 366 L150 418 L400 418 L400 452" fill="none" stroke="#0a8f88" stroke-width="1.6" marker-end="url(#aTeal)"/>
+        <path d="M560 366 L560 452" fill="none" stroke="#d97a00" stroke-width="1.6" marker-end="url(#aOrange)"/>
+
+        <!-- ② 授权网关 -->
+        <rect x="330" y="454" width="470" height="66" rx="12" fill="#fff" stroke="#0071e3" stroke-width="1.5"/>
+        <text x="565" y="482" text-anchor="middle" font-size="13" font-weight="700" fill="#0071e3">② 用户授权网关（以 OneID 为主键）</text>
+        <text x="565" y="503" text-anchor="middle" font-size="11" fill="#2a5a8a">分级授权 · 默认最小集 · 可查看「已授权」并一键撤销</text>
+
+        <!-- ③ 授权网关 → 元宝（右侧竖直上行，标签在线右侧独立留白） -->
+        <path d="M800 487 L900 487 L900 368" fill="none" stroke="#0071e3" stroke-width="1.8" marker-end="url(#aBlue)"/>
+        <text x="912" y="440" font-size="11" fill="#0071e3" font-weight="600">③ 授权后</text>
+        <text x="912" y="456" font-size="11" fill="#0071e3" font-weight="600">上下文输送</text>
+        <text x="912" y="472" font-size="11" fill="#0071e3" font-weight="600">给元宝</text>
+
+        <!-- ④ 元宝回流（顶部独立行，虚线，避开产品框内文字） -->
+        <path d="M730 186 L400 186 L400 204" fill="none" stroke="#34c759" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#aGreen)"/>
+        <text x="565" y="180" text-anchor="middle" font-size="11" fill="#1f8a3c" font-weight="600">④ 智能结果回流各端（如输入建议 / 网页助手）</text>
+
+        <!-- 底部合规条 -->
+        <rect x="30" y="556" width="1060" height="180" rx="14" fill="#fff7e6" stroke="#ffe0a3"/>
+        <text x="54" y="588" font-size="13" font-weight="700" fill="#d97a00">贯穿全流程的授权与合规</text>
+        <text x="54" y="618" font-size="12" fill="#5b3a00"><tspan font-weight="700">· 登录态（步骤①）：</tspan>三端以 OneID 建立登录即可，属最小必要，无需额外授权。</text>
+        <text x="54" y="650" font-size="12" fill="#5b3a00"><tspan font-weight="700">· 上下文互通（步骤②③）：</tspan>网页 / 输入内容属敏感上下文，须用户明确授权、分级开关、不默认全通；</text>
+        <text x="66" y="672" font-size="12" fill="#5b3a00">提供「已授权来源」列表与一键撤销。</text>
+        <text x="54" y="704" font-size="12" fill="#5b3a00"><tspan font-weight="700">· 结果回流（步骤④）：</tspan>元宝生成结果回流各端时，遵循相同授权范围，不超范围留存。</text>
+      </svg>
+      <p class="note-line">以 OneID 为统一主键 · 浏览器 &amp; 输入法为上下文采集端，元宝为理解与生成中枢 · 授权网关贯穿数据与上下文互通</p>
+    </div>
+
+    <!-- 三条联动价值 -->
+    <div class="synergy">
+      <div class="card c1">
+        <div class="flow">浏览器 → 元宝</div>
+        <h4>网页上下文即时求助</h4>
+        <p>用户在浏览器看某篇网页时，授权后<b>当前网页正文 / 圈选内容</b>可作为元宝的实时上下文，直接「就这篇内容问元宝」，无需复制粘贴。</p>
+      </div>
+      <div class="card c2">
+        <div class="flow">输入法 → 元宝</div>
+        <h4>输入场景智能续写</h4>
+        <p>用户在任意 App 输入时，授权后<b>当前输入内容 / 场景</b>可让元宝理解意图，回流<b>润色、续写、翻译建议</b>到输入法候选区。</p>
+      </div>
+      <div class="card c3">
+        <div class="flow">元宝 ↔ 全端</div>
+        <h4>一份记忆，跨端一致</h4>
+        <p>三端共享以 OneID 为主键的<b>长期记忆与偏好</b>，用户在浏览器 / 输入法的行为可沉淀，元宝的个性化能力在各端保持一致体验。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 存量方案（历史信息保留） -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">02 · Legacy Plans · 历史信息同步</div>
+      <h2 class="sec-title">存量三方案（历史信息保留）</h2>
+      <p class="sec-desc">下列三方案为上一阶段「接入元宝账号」时的讨论产物，此处作为历史信息同步。本轮范式已转向 OneID，理想姿态仍取方案二视角，但主键由 UIN 换为 OneID。</p>
+    </div>
+    <div class="history-note">
+      <b>阅读提示：</b>本节为<b>历史存量</b>信息，方案中的「UIN」在本轮语境下对应「OneID 统一标识」。保留是为了同步此前的权衡结论——内部倾向<b>方案二（统一账号 + 支持产品侧自定义改造）</b>，它兼顾统一与灵活，也最贴合接入 OneID 的路线。
+    </div>
+    <div class="plans">
+
+      <div class="plan">
+        <h3>方案一</h3>
+        <div class="pid">完全复用统一账号服务</div>
+        <div class="row"><div class="k">ID</div><div class="v">直接用统一标识</div></div>
+        <div class="row"><div class="k">凭证</div><div class="v">账号侧统一维护</div></div>
+        <div class="row"><div class="k">迭代</div><div class="v">跟随账号侧节奏</div></div>
+        <div class="row"><div class="k">研发</div><div class="v">高（改动需拉账号侧排期联调）</div></div>
+        <div class="label">PROS</div>
+        <ul class="pros">
+          <li>账号体系天然统一</li>
+          <li>无需自建映射层</li>
+        </ul>
+        <div class="label">CONS</div>
+        <ul class="cons">
+          <li>产品侧定制能力弱</li>
+          <li>迭代节奏依赖账号侧排期</li>
+          <li>对账号服务可用性强依赖</li>
+        </ul>
+        <div class="verdict no">结论：统一度最高，但灵活度不足</div>
+      </div>
+
+      <div class="plan recommend">
+        <div class="badge">★ 内部倾向 · 取此视角</div>
+        <h3>方案二</h3>
+        <div class="pid">统一标识 + 支持自定义改造</div>
+        <div class="row"><div class="k">ID</div><div class="v">统一用 OneID 标识</div></div>
+        <div class="row"><div class="k">凭证</div><div class="v">产品 + 账号侧双存</div></div>
+        <div class="row"><div class="k">迭代</div><div class="v">关键链路可自定义</div></div>
+        <div class="row"><div class="k">研发</div><div class="v">中（约定改造范围与接口）</div></div>
+        <div class="label">PROS</div>
+        <ul class="pros">
+          <li>ID 唯一，资产与上下文天然互通</li>
+          <li>保留产品侧必要的自定义空间</li>
+          <li>兼顾「统一」与「灵活」</li>
+          <li>最贴合接入 OneID 的路线</li>
+        </ul>
+        <div class="label">CONS</div>
+        <ul class="cons">
+          <li>需与账号侧约定改造范围与接口</li>
+          <li>注销 / 事件通知需协商机制</li>
+        </ul>
+        <div class="verdict rec">结论：统一与灵活的最优平衡 ✓</div>
+      </div>
+
+      <div class="plan">
+        <h3>方案三</h3>
+        <div class="pid">独立 ID + openid2openid 映射</div>
+        <div class="row"><div class="k">ID</div><div class="v">自建 ID + 映射统一标识</div></div>
+        <div class="row"><div class="k">凭证</div><div class="v">产品侧自存</div></div>
+        <div class="row"><div class="k">迭代</div><div class="v">完全独立</div></div>
+        <div class="row"><div class="k">研发</div><div class="v">较低（走标准映射链路）</div></div>
+        <div class="label">PROS</div>
+        <ul class="pros">
+          <li>迭代节奏最自主</li>
+          <li>对账号服务依赖最弱</li>
+        </ul>
+        <div class="label">CONS</div>
+        <ul class="cons">
+          <li>双 ID 映射需双向维护</li>
+          <li>资产互通体感弱于统一 ID</li>
+          <li>合规上需披露双 ID 关系</li>
+        </ul>
+        <div class="verdict no">结论：最解耦，但偏离统一账号目标</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. 合作框架 -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-eyebrow">03 · Collaboration Framework</div>
+      <h2 class="sec-title">面向 OneID 的可落地合作框架</h2>
+      <p class="sec-desc">取方案二视角（统一 OneID + 自定义改造），明确 OneID 团队、元宝、浏览器/输入法三方分工，以及需要一起提给 OneID 的关键需求。</p>
+    </div>
+
+    <!-- 5.1 分工（三方） -->
+    <div class="raci">
+      <div class="side oneid">
+        <h4>CSIG OneID 团队（统一账号提供方）</h4>
+        <div class="role">集中提供统一账号标识与账号能力</div>
+        <ul>
+          <li><b>OneID 统一签发</b>：作为矩阵唯一用户标识，跨产品资产 / 上下文以 OneID 为主键。</li>
+          <li><b>身份鉴权 & Token</b>：提供标准认证 API / SDK，颁发与校验登录态。</li>
+          <li><b>三方绑定关系</b>：维护微信 / QQ / Apple 等绑定，提供绑定态查询。</li>
+          <li><b>统一管理页 & 注销</b>：个人信息、安全、设备、注销服务归口提供。</li>
+          <li><b>账号状态与事件</b>：返回 status，并对绑定 / 注销等变更提供通知能力（需求项）。</li>
+        </ul>
+      </div>
+      <div class="side yb">
+        <h4>元宝（上下文消费 · 智能中枢）</h4>
+        <div class="role">汇聚多端上下文，产出智能能力</div>
+        <ul>
+          <li><b>以 OneID 建登录态</b>：作为 OneID 消费方接入，与其他端平级。</li>
+          <li><b>上下文汇聚与理解</b>：消费浏览器 / 输入法授权后的上下文，理解当下意图。</li>
+          <li><b>长期记忆 & 个性化</b>：以 OneID 关联长期记忆，跨端一致。</li>
+          <li><b>结果回流</b>：把生成结果按授权范围回流各端（输入建议、网页助手等）。</li>
+        </ul>
+      </div>
+      <div class="side mx">
+        <h4>浏览器 / 输入法（上下文采集 · 消费方）</h4>
+        <div class="role">低门槛接入，采集端侧上下文</div>
+        <ul>
+          <li><b>以 OneID 建登录态</b>：登录 UI 自实现，调用认证 API。</li>
+          <li><b>端侧上下文采集</b>：浏览器采集网页上下文、输入法采集输入场景上下文。</li>
+          <li><b>授权后上传</b>：经用户分级授权后，将上下文按 OneID 提供给元宝。</li>
+          <li><b>消费回流结果</b>：接收元宝回流的智能建议并呈现（候选区 / 侧边栏）。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5.2 关键需求清单 -->
+    <div style="margin-top:22px;">
+      <div class="keys">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:170px;">关键需求 / 能力</th>
+              <th>说明</th>
+              <th style="width:120px;">提给谁 / 归属</th>
+              <th style="width:90px;">优先级</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>OneID + status 接口</td>
+              <td>认证返回携带 OneID 与账号状态（正常 / 冷静期 / 已注销），供各端登录放行判断。</td>
+              <td>提给 OneID</td>
+              <td><span class="tag2 r">P0</span></td>
+            </tr>
+            <tr>
+              <td>跨端上下文互通协议</td>
+              <td>以 OneID 为主键的上下文读写规范：数据结构、授权范围标识、时效与留存策略。</td>
+              <td>三方共建</td>
+              <td><span class="tag2 r">P0</span></td>
+            </tr>
+            <tr>
+              <td>分级授权与撤销</td>
+              <td>用户对「上下文互通」的分级授权开关、已授权来源列表与一键撤销能力。</td>
+              <td>三方共建</td>
+              <td><span class="tag2 r">P0</span></td>
+            </tr>
+            <tr>
+              <td>注销联动通知</td>
+              <td>账号进入注销 / 到期清理时通知各端，按「三选一」口径处理关联数据与上下文。</td>
+              <td>提给 OneID</td>
+              <td><span class="tag2 r">P0</span></td>
+            </tr>
+            <tr>
+              <td>账号事件订阅</td>
+              <td>绑定 / 解绑 / 换绑 / 注销 4 类事件的通知机制，明确事件粒度与延迟。</td>
+              <td>提给 OneID</td>
+              <td><span class="tag2 y">P1</span></td>
+            </tr>
+            <tr>
+              <td>多账号处理口径</td>
+              <td>同一自然人多份账号 / 多凭证时的处理规则（合并 / 找回 / 兜底），避免资产分裂。</td>
+              <td>三方协商</td>
+              <td><span class="tag2 y">P1</span></td>
+            </tr>
+            <tr>
+              <td>自定义改造范围</td>
+              <td>方案二视角下产品侧可自定义的能力边界（游客态升级、业务鉴权、上下文关联时机）。</td>
+              <td>三方约定</td>
+              <td><span class="tag2 y">P1</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <b>本次对齐希望达成：</b>① 三端就「接入 OneID 后互相能做什么」达成共识（尤其浏览器 / 输入法上下文向元宝输送的场景）；② 形成一份<b>统一需求清单一起提给 OneID 团队</b>——P0 优先锁定 OneID+status 接口、跨端上下文互通协议、分级授权与注销联动；③ 明确方案二视角下的自定义改造范围。
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 合规评估 -->
+  <section class="compliance">
+    <h2>04 · Compliance Assessment</h2>
+    <h3>综合评估 · 隐私 / 国际化 / 法务合规</h3>
+    <div class="grid">
+      <div class="item">
+        <div class="k">隐私 · 单独同意</div>
+        <div class="t">同法律主体，上下文互通仍需授权</div>
+        <div class="d">矩阵产品同属一个法律主体，但不同 App 间共享账号资产 / 上下文仍属信息共享。依《个人信息保护法》，需<b>用户明确授权、不默认全通</b>，并在隐私政策中明确披露。</div>
+      </div>
+      <div class="item">
+        <div class="k">隐私 · 分级授权</div>
+        <div class="t">最小集默认 + 上下文开关确认</div>
+        <div class="d">① 默认仅同步「登录态」最小集；② <b>网页 / 输入内容等上下文</b>需用户开关确认；③ 设置中提供<b>「已授权来源」+ 一键撤销</b>通道。</div>
+      </div>
+      <div class="item">
+        <div class="k">法务 · 注销联动</div>
+        <div class="t">注销单个 App ≠ 全矩阵注销</div>
+        <div class="d">推荐支持注销单个 App 的用户数据，而非默认全矩阵注销。用户注销时<b>询问三选一</b>：一并注销 / 仅断开关联 / 保留独立账号；单 App 注销后跨 App 数据的同步范围需明确约定。</div>
+      </div>
+      <div class="item">
+        <div class="k">法务 · 上下文留存</div>
+        <div class="t">上下文按授权范围留存，可追溯</div>
+        <div class="d">浏览器 / 输入法采集的上下文属敏感信息，需明确<b>留存时效、使用边界与超范围禁用</b>；撤销授权后应停止使用并按约定清理，全链路可追溯。</div>
+      </div>
+      <div class="item">
+        <div class="k">国际化 · 出海周期</div>
+        <div class="t">出海合规由海外法务专员负责</div>
+        <div class="d">出海对外语材料要求较高，从立项到正式出海周期可能约 1 年，需先<b>确定目标国家/地区</b>，可先走中国港澳台再拓展其他地区；出海合规也可能反向影响国内产品规划。</div>
+      </div>
+      <div class="item">
+        <div class="k">国际化 · 账号体系</div>
+        <div class="t">出海版建议独立账号体系</div>
+        <div class="d">GDPR / CCPA 等对账号互通要求更严。出海版本建议<b>拆出独立账号体系</b>、不与国内直接打通，作为国际化框架下的独立分支演进。</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    新矩阵产品账号体系关键信息 · v3.1 · 2026-07-02<br>
+    综合来源：账号登录服务建议架构 · 0625 法务对齐纪要 · 账号体系打通调研 · CSIG OneID 背景
+  </footer>
+
+</div>
+</body>
+</html>
